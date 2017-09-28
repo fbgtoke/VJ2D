@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/fabio/Documents/vj-2d
+CMAKE_SOURCE_DIR = /home/fabio/Documents/VJ2D
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/fabio/Documents/vj-2d
+CMAKE_BINARY_DIR = /home/fabio/Documents/VJ2D
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Documents/vj-2d/CMakeFiles /home/fabio/Documents/vj-2d/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Documents/VJ2D/CMakeFiles /home/fabio/Documents/VJ2D/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Documents/vj-2d/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/fabio/Documents/VJ2D/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,33 @@ Bubble: cmake_check_build_system
 Bubble/fast:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/build
 .PHONY : Bubble/fast
+
+BubbleBoard.o: BubbleBoard.cpp.o
+
+.PHONY : BubbleBoard.o
+
+# target to build an object file
+BubbleBoard.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleBoard.cpp.o
+.PHONY : BubbleBoard.cpp.o
+
+BubbleBoard.i: BubbleBoard.cpp.i
+
+.PHONY : BubbleBoard.i
+
+# target to preprocess a source file
+BubbleBoard.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleBoard.cpp.i
+.PHONY : BubbleBoard.cpp.i
+
+BubbleBoard.s: BubbleBoard.cpp.s
+
+.PHONY : BubbleBoard.s
+
+# target to generate assembly for a file
+BubbleBoard.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleBoard.cpp.s
+.PHONY : BubbleBoard.cpp.s
 
 Game.o: Game.cpp.o
 
@@ -375,6 +402,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... Bubble"
+	@echo "... BubbleBoard.o"
+	@echo "... BubbleBoard.i"
+	@echo "... BubbleBoard.s"
 	@echo "... Game.o"
 	@echo "... Game.i"
 	@echo "... Game.s"

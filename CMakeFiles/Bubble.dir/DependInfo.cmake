@@ -4,15 +4,16 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/fabio/Documents/vj-2d/Game.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Game.cpp.o"
-  "/home/fabio/Documents/vj-2d/Player.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Player.cpp.o"
-  "/home/fabio/Documents/vj-2d/Scene.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Scene.cpp.o"
-  "/home/fabio/Documents/vj-2d/Shader.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Shader.cpp.o"
-  "/home/fabio/Documents/vj-2d/ShaderProgram.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/ShaderProgram.cpp.o"
-  "/home/fabio/Documents/vj-2d/Sprite.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Sprite.cpp.o"
-  "/home/fabio/Documents/vj-2d/Texture.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/Texture.cpp.o"
-  "/home/fabio/Documents/vj-2d/TileMap.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/TileMap.cpp.o"
-  "/home/fabio/Documents/vj-2d/main.cpp" "/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir/main.cpp.o"
+  "/home/fabio/Documents/VJ2D/BubbleBoard.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/BubbleBoard.cpp.o"
+  "/home/fabio/Documents/VJ2D/Game.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Game.cpp.o"
+  "/home/fabio/Documents/VJ2D/Player.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Player.cpp.o"
+  "/home/fabio/Documents/VJ2D/Scene.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Scene.cpp.o"
+  "/home/fabio/Documents/VJ2D/Shader.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Shader.cpp.o"
+  "/home/fabio/Documents/VJ2D/ShaderProgram.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/ShaderProgram.cpp.o"
+  "/home/fabio/Documents/VJ2D/Sprite.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Sprite.cpp.o"
+  "/home/fabio/Documents/VJ2D/Texture.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/Texture.cpp.o"
+  "/home/fabio/Documents/VJ2D/TileMap.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/TileMap.cpp.o"
+  "/home/fabio/Documents/VJ2D/main.cpp" "/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

@@ -32,17 +32,26 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	shaderProgram = program;
 	currentAnimation = -1;
 	position = glm::vec2(0.f);
+
+	mRepeat = true;
 }
 
 void Sprite::update(int deltaTime)
 {
-	if(currentAnimation >= 0)
+	if(currentAnimation >= 0 && animations[currentAnimation].millisecsPerKeyframe != 0)
 	{
 		timeAnimation += deltaTime;
-		while(timeAnimation > animations[currentAnimation].millisecsPerKeyframe)
+		while(timeAnimation > abs(animations[currentAnimation].millisecsPerKeyframe))
 		{
-			timeAnimation -= animations[currentAnimation].millisecsPerKeyframe;
-			currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			timeAnimation -= abs(animations[currentAnimation].millisecsPerKeyframe);
+
+			if (animations[currentAnimation].millisecsPerKeyframe >= 0) {
+				if (currentKeyframe < animations[currentAnimation].keyframeDispl.size() - 1 || mRepeat)
+					currentKeyframe = (currentKeyframe + 1) % animations[currentAnimation].keyframeDispl.size();
+			} else {
+				if (currentKeyframe > 0 || mRepeat)
+					currentKeyframe = (animations[currentAnimation].keyframeDispl.size() + currentKeyframe - 1) % animations[currentAnimation].keyframeDispl.size();
+			}
 		}
 		texCoordDispl = animations[currentAnimation].keyframeDispl[currentKeyframe];
 	}
@@ -75,8 +84,12 @@ void Sprite::setNumberAnimations(int nAnimations)
 
 void Sprite::setAnimationSpeed(int animId, int keyframesPerSec)
 {
-	if(animId < int(animations.size()))
-		animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
+	if(animId < int(animations.size())) {
+		if (keyframesPerSec != 0)
+			animations[animId].millisecsPerKeyframe = 1000.f / keyframesPerSec;
+		else
+			animations[animId].millisecsPerKeyframe = 0;
+	}
 }
 
 void Sprite::addKeyframe(int animId, const glm::vec2 &displacement)
@@ -106,5 +119,12 @@ void Sprite::setPosition(const glm::vec2 &pos)
 	position = pos;
 }
 
+void Sprite::setRepeat(bool set) {
+	mRepeat = set;
+}
 
-
+void Sprite::setKeyFrame(int animId, int keyFrameId) {
+	if (animId < int(animations.size()))
+		if (keyFrameId < int (animations[animId].keyframeDispl.size()))
+			currentKeyframe = keyFrameId;
+}

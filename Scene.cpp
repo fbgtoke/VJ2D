@@ -14,7 +14,9 @@
 const unsigned int Scene::kNumBubblesX = 11;
 const unsigned int Scene::kNumBubblesY = 5;
 
-Scene::Scene() {
+Scene::Scene()
+	: mBoard(texProgram)
+{
 }
 
 Scene::~Scene() {
@@ -26,7 +28,6 @@ void Scene::init() {
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
-	mTexBalls.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexBackground.loadFromFile("images/bg0.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexArrow.loadFromFile("images/arrow.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
@@ -36,53 +37,33 @@ void Scene::init() {
 		mBackground->addKeyframe(0, glm::vec2(0, 0));
 	mBackground->changeAnimation(0);
 
-	mBubbles = std::vector<std::vector<Sprite*>> (kNumBubblesY, std::vector<Sprite*>(kNumBubblesX, nullptr));
-
-	float frame;
-	const glm::vec2 ballsOffset = glm::vec2(32, 36);
-	const float sizeInSpritesheet = 16.0f / (8.0f * 16.0f);
-
-	for (int i = 0; i < kNumBubblesY; ++i) {
-		for (int j = 0; j < kNumBubblesX; ++j) {
-			if (i%2 == 0 || j < kNumBubblesX - 1) {
-				frame = sizeInSpritesheet * (rand() % 7);
-
-				mBubbles[i][j] = Sprite::createSprite(glm::ivec2(16, 16), glm::vec2(sizeInSpritesheet, 1), &mTexBalls, &texProgram);
-				mBubbles[i][j]->setNumberAnimations(1);
-					mBubbles[i][j]->setAnimationSpeed(0, 0);
-					mBubbles[i][j]->addKeyframe(0, glm::vec2(frame, 0));
-				mBubbles[i][j]->changeAnimation(0);
-
-				if (i % 2 == 0) {
-					mBubbles[i][j]->setPosition(glm::vec2(j * 16, i * 16) + ballsOffset);
-				} else {
-					mBubbles[i][j]->setPosition(glm::vec2(j * 16 + 8, i * 16) + ballsOffset);
-				}
-			}
-		}
-	}
+	const glm::vec2 boardOffset = glm::vec2(32, 36);
+	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesX);
+	mBoard.generate();
 
 	mArrow = Sprite::createSprite(glm::ivec2(64, 64), glm::vec2(64.0f/8256.0f, 1), &mTexArrow, &texProgram);
 	mArrow->setNumberAnimations(1);
-		mArrow->setAnimationSpeed(0, 30);
+		mArrow->setAnimationSpeed(0, 0);
 		for (int i = 0; i < 129; ++i)
 			mArrow->addKeyframe(0, glm::vec2(64.0f/8256.0f * i, 0));
 	mArrow->changeAnimation(0);
 	mArrow->setPosition(glm::vec2(88, 243));
+	mArrow->setRepeat(false);
+	mArrow->setKeyFrame(0, 65);
 }
 
 void Scene::update(int deltaTime) {
 	currentTime += deltaTime;
 
-	for (int i = 0; i < kNumBubblesY; ++i) {
-		for (int j = 0; j < kNumBubblesX; ++j) {
-			if (i%2 == 0 || j < kNumBubblesX - 1) {
-				mBubbles[i][j]->update(deltaTime);
-			}
-		}
-	}
-
+	mBoard.update(deltaTime);
 	mArrow->update(deltaTime);
+
+	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+		mArrow->setAnimationSpeed(0, -40);
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+		mArrow->setAnimationSpeed(0, 40);
+	else
+		mArrow->setAnimationSpeed(0, 0);
 }
 
 void Scene::render() {
@@ -97,15 +78,7 @@ void Scene::render() {
 	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 
 	mBackground->render();
-
-	for (int i = 0; i < kNumBubblesY; ++i) {
-		for (int j = 0; j < kNumBubblesX; ++j) {
-			if (i%2 == 0 || j < kNumBubblesX - 1) {
-				mBubbles[i][j]->render();
-			}
-		}
-	}
-
+	mBoard.render();
 	mArrow->render();
 }
 
@@ -137,6 +110,4 @@ void Scene::initShaders() {
 	vShader.free();
 	fShader.free();
 }
-
-
 

@@ -8,6 +8,7 @@
 #include "ShaderProgram.h"
 #include "AnimKeyframes.h"
 
+#include <iostream>
 
 // This class is derived from code seen earlier in TexturedQuad but it is also
 // able to manage animations stored as a spritesheet. 
@@ -34,6 +35,9 @@ public:
 	
 	void setPosition(const glm::vec2 &pos);
 
+	void setRepeat(bool set);
+	void setKeyFrame(int animId, int keyFrameId);
+
 private:
 	Texture *texture;
 	ShaderProgram *shaderProgram;
@@ -46,6 +50,7 @@ private:
 	glm::vec2 texCoordDispl;
 	vector<AnimKeyframes> animations;
 
+	bool mRepeat;
 };
 
 

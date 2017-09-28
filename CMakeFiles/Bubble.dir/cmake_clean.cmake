@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Bubble.dir/BubbleBoard.cpp.o"
   "CMakeFiles/Bubble.dir/Player.cpp.o"
   "CMakeFiles/Bubble.dir/Sprite.cpp.o"
   "CMakeFiles/Bubble.dir/TileMap.cpp.o"

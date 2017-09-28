@@ -3,10 +3,13 @@
 
 
 #include <glm/glm.hpp>
+#include <GL/glew.h>
+#include <GL/glut.h>
 #include "ShaderProgram.h"
 
 #include "Texture.h"
 #include "Sprite.h"
+#include "BubbleBoard.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -32,7 +35,6 @@ private:
 	glm::mat4 projection;
 
 	// Textures
-	Texture mTexBalls;
 	Texture mTexBackground;
 	Texture mTexArrow;
 
@@ -42,7 +44,7 @@ private:
 	// Bubble sheet
 	static const unsigned int kNumBubblesX;
 	static const unsigned int kNumBubblesY;
-	std::vector<std::vector<Sprite*>> mBubbles;
+	BubbleBoard mBoard;
 
 	// Arrow
 	Sprite* mArrow;

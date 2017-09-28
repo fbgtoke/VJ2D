@@ -1,3 +1,3 @@
-/home/fabio/Documents/vj-2d/CMakeFiles/rebuild_cache.dir
-/home/fabio/Documents/vj-2d/CMakeFiles/edit_cache.dir
-/home/fabio/Documents/vj-2d/CMakeFiles/Bubble.dir
+/home/fabio/Documents/VJ2D/CMakeFiles/rebuild_cache.dir
+/home/fabio/Documents/VJ2D/CMakeFiles/edit_cache.dir
+/home/fabio/Documents/VJ2D/CMakeFiles/Bubble.dir
