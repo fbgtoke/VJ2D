@@ -41,11 +41,11 @@ void Scene::init() {
 	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesX);
 	mBoard.generate();
 
-	mArrow = Sprite::createSprite(glm::ivec2(64, 64), glm::vec2(64.0f/8256.0f, 1), &mTexArrow, &texProgram);
+	mArrow = Sprite::createSprite(glm::ivec2(64, 64), glm::vec2(64.0f/8128.0f, 1), &mTexArrow, &texProgram);
 	mArrow->setNumberAnimations(1);
 		mArrow->setAnimationSpeed(0, 0);
-		for (int i = 0; i < 129; ++i)
-			mArrow->addKeyframe(0, glm::vec2(64.0f/8256.0f * i, 0));
+		for (int i = 0; i < 127; ++i)
+			mArrow->addKeyframe(0, glm::vec2(64.0f/8128.0f * i, 0));
 	mArrow->changeAnimation(0);
 	mArrow->setPosition(glm::vec2(88, 243));
 	mArrow->setRepeat(false);
@@ -59,9 +59,9 @@ void Scene::update(int deltaTime) {
 	mArrow->update(deltaTime);
 
 	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-		mArrow->setAnimationSpeed(0, -40);
-	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
 		mArrow->setAnimationSpeed(0, 40);
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+		mArrow->setAnimationSpeed(0, -40);
 	else
 		mArrow->setAnimationSpeed(0, 0);
 }

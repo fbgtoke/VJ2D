@@ -58,6 +58,7 @@ CMakeFiles/Bubble.dir/Sprite.cpp.o
 CMakeFiles/Bubble.dir/Texture.cpp.o
  /home/kilian/Downloads/VJ/VJ2D/Texture.cpp
  /home/kilian/Downloads/VJ/VJ2D/Texture.h
+ /usr/include/SOIL/SOIL.h
 CMakeFiles/Bubble.dir/TileMap.cpp.o
  /home/kilian/Downloads/VJ/VJ2D/Shader.h
  /home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h

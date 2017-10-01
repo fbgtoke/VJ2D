@@ -184,3 +184,5 @@ GL/glut.h
 Game.h
 /home/kilian/Downloads/VJ/VJ2D/Game.h
 
+/usr/include/SOIL/SOIL.h
+

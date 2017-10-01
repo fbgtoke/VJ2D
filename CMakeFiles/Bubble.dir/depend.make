@@ -57,6 +57,7 @@ CMakeFiles/Bubble.dir/Sprite.cpp.o: Texture.h
 
 CMakeFiles/Bubble.dir/Texture.cpp.o: Texture.cpp
 CMakeFiles/Bubble.dir/Texture.cpp.o: Texture.h
+CMakeFiles/Bubble.dir/Texture.cpp.o: /usr/include/SOIL/SOIL.h
 
 CMakeFiles/Bubble.dir/TileMap.cpp.o: Shader.h
 CMakeFiles/Bubble.dir/TileMap.cpp.o: ShaderProgram.h
