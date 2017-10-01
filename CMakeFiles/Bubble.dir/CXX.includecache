@@ -1,4 +1,4 @@
-#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
 
 #IncludeRegexScan: ^.*$
 
@@ -6,23 +6,23 @@
 
 #IncludeRegexTransform: 
 
-/home/fabio/Documents/VJ2D/AnimKeyframes.h
+/home/kilian/Downloads/VJ/VJ2D/AnimKeyframes.h
 vector
 -
 
-/home/fabio/Documents/VJ2D/BubbleBoard.cpp
+/home/kilian/Downloads/VJ/VJ2D/BubbleBoard.cpp
 BubbleBoard.h
-/home/fabio/Documents/VJ2D/BubbleBoard.h
+/home/kilian/Downloads/VJ/VJ2D/BubbleBoard.h
 
-/home/fabio/Documents/VJ2D/BubbleBoard.h
+/home/kilian/Downloads/VJ/VJ2D/BubbleBoard.h
 glm/glm.hpp
 -
 ShaderProgram.h
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 Texture.h
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 Sprite.h
-/home/fabio/Documents/VJ2D/Sprite.h
+/home/kilian/Downloads/VJ/VJ2D/Sprite.h
 queue
 -
 list
@@ -30,19 +30,19 @@ list
 iostream
 -
 
-/home/fabio/Documents/VJ2D/Game.cpp
+/home/kilian/Downloads/VJ/VJ2D/Game.cpp
 GL/glew.h
 -
 GL/glut.h
 -
 Game.h
-/home/fabio/Documents/VJ2D/Game.h
+/home/kilian/Downloads/VJ/VJ2D/Game.h
 
-/home/fabio/Documents/VJ2D/Game.h
+/home/kilian/Downloads/VJ/VJ2D/Game.h
 Scene.h
-/home/fabio/Documents/VJ2D/Scene.h
+/home/kilian/Downloads/VJ/VJ2D/Scene.h
 
-/home/fabio/Documents/VJ2D/Player.cpp
+/home/kilian/Downloads/VJ/VJ2D/Player.cpp
 cmath
 -
 iostream
@@ -52,17 +52,17 @@ GL/glew.h
 GL/glut.h
 -
 Player.h
-/home/fabio/Documents/VJ2D/Player.h
+/home/kilian/Downloads/VJ/VJ2D/Player.h
 Game.h
-/home/fabio/Documents/VJ2D/Game.h
+/home/kilian/Downloads/VJ/VJ2D/Game.h
 
-/home/fabio/Documents/VJ2D/Player.h
+/home/kilian/Downloads/VJ/VJ2D/Player.h
 Sprite.h
-/home/fabio/Documents/VJ2D/Sprite.h
+/home/kilian/Downloads/VJ/VJ2D/Sprite.h
 TileMap.h
-/home/fabio/Documents/VJ2D/TileMap.h
+/home/kilian/Downloads/VJ/VJ2D/TileMap.h
 
-/home/fabio/Documents/VJ2D/Scene.cpp
+/home/kilian/Downloads/VJ/VJ2D/Scene.cpp
 iostream
 -
 cmath
@@ -70,11 +70,11 @@ cmath
 glm/gtc/matrix_transform.hpp
 -
 Scene.h
-/home/fabio/Documents/VJ2D/Scene.h
+/home/kilian/Downloads/VJ/VJ2D/Scene.h
 Game.h
-/home/fabio/Documents/VJ2D/Game.h
+/home/kilian/Downloads/VJ/VJ2D/Game.h
 
-/home/fabio/Documents/VJ2D/Scene.h
+/home/kilian/Downloads/VJ/VJ2D/Scene.h
 glm/glm.hpp
 -
 GL/glew.h
@@ -82,21 +82,21 @@ GL/glew.h
 GL/glut.h
 -
 ShaderProgram.h
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 Texture.h
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 Sprite.h
-/home/fabio/Documents/VJ2D/Sprite.h
+/home/kilian/Downloads/VJ/VJ2D/Sprite.h
 BubbleBoard.h
-/home/fabio/Documents/VJ2D/BubbleBoard.h
+/home/kilian/Downloads/VJ/VJ2D/BubbleBoard.h
 
-/home/fabio/Documents/VJ2D/Shader.cpp
+/home/kilian/Downloads/VJ/VJ2D/Shader.cpp
 fstream
 -
 Shader.h
-/home/fabio/Documents/VJ2D/Shader.h
+/home/kilian/Downloads/VJ/VJ2D/Shader.h
 
-/home/fabio/Documents/VJ2D/Shader.h
+/home/kilian/Downloads/VJ/VJ2D/Shader.h
 string
 -
 GL/glew.h
@@ -104,13 +104,13 @@ GL/glew.h
 GL/gl.h
 -
 
-/home/fabio/Documents/VJ2D/ShaderProgram.cpp
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.cpp
 glm/gtc/type_ptr.hpp
 -
 ShaderProgram.h
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 GL/glew.h
 -
 GL/gl.h
@@ -118,9 +118,9 @@ GL/gl.h
 glm/glm.hpp
 -
 Shader.h
-/home/fabio/Documents/VJ2D/Shader.h
+/home/kilian/Downloads/VJ/VJ2D/Shader.h
 
-/home/fabio/Documents/VJ2D/Sprite.cpp
+/home/kilian/Downloads/VJ/VJ2D/Sprite.cpp
 GL/glew.h
 -
 GL/gl.h
@@ -128,35 +128,35 @@ GL/gl.h
 glm/gtc/matrix_transform.hpp
 -
 Sprite.h
-/home/fabio/Documents/VJ2D/Sprite.h
+/home/kilian/Downloads/VJ/VJ2D/Sprite.h
 
-/home/fabio/Documents/VJ2D/Sprite.h
+/home/kilian/Downloads/VJ/VJ2D/Sprite.h
 vector
 -
 glm/glm.hpp
 -
 Texture.h
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 ShaderProgram.h
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 AnimKeyframes.h
-/home/fabio/Documents/VJ2D/AnimKeyframes.h
+/home/kilian/Downloads/VJ/VJ2D/AnimKeyframes.h
 iostream
 -
 
-/home/fabio/Documents/VJ2D/Texture.cpp
+/home/kilian/Downloads/VJ/VJ2D/Texture.cpp
 SOIL.h
 -
 Texture.h
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 string
 -
 GL/glew.h
 -
 
-/home/fabio/Documents/VJ2D/TileMap.cpp
+/home/kilian/Downloads/VJ/VJ2D/TileMap.cpp
 iostream
 -
 fstream
@@ -166,23 +166,21 @@ sstream
 vector
 -
 TileMap.h
-/home/fabio/Documents/VJ2D/TileMap.h
+/home/kilian/Downloads/VJ/VJ2D/TileMap.h
 
-/home/fabio/Documents/VJ2D/TileMap.h
+/home/kilian/Downloads/VJ/VJ2D/TileMap.h
 glm/glm.hpp
 -
 Texture.h
-/home/fabio/Documents/VJ2D/Texture.h
+/home/kilian/Downloads/VJ/VJ2D/Texture.h
 ShaderProgram.h
-/home/fabio/Documents/VJ2D/ShaderProgram.h
+/home/kilian/Downloads/VJ/VJ2D/ShaderProgram.h
 
-/home/fabio/Documents/VJ2D/main.cpp
+/home/kilian/Downloads/VJ/VJ2D/main.cpp
 GL/glew.h
 -
 GL/glut.h
 -
 Game.h
-/home/fabio/Documents/VJ2D/Game.h
-
-/usr/include/SOIL/SOIL.h
+/home/kilian/Downloads/VJ/VJ2D/Game.h
 
