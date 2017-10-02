@@ -7,25 +7,14 @@
 #include "Texture.h"
 #include "Sprite.h"
 
+#include "BubbleType.h"
+
 #include <queue>
 #include <list>
 #include <iostream>
 
 class BubbleBoard {
 public:
-	enum BubbleType : unsigned int {
-		BUBBLE_RED = 0,
-		BUBBLE_GREEN,
-		BUBBLE_BLUE,
-		BUBBLE_ORANGE,
-		BUBBLE_PURPLE,
-		BUBBLE_GREY,
-		BUBBLE_YELLOW,
-		BUBBLE_BLACK,
-		BUBBLE_NONE,
-		NUM_BUBBLES
-	};
-
 	typedef std::vector<BubbleType> bubble_row_t;
 	typedef std::vector<bubble_row_t> bubble_matrix_t;
 

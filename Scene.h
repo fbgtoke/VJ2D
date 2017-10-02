@@ -9,7 +9,9 @@
 
 #include "Texture.h"
 #include "Sprite.h"
+
 #include "BubbleBoard.h"
+#include "Cannon.h"
 
 // Scene contains all the entities of our game.
 // It is responsible for updating and render them.
@@ -36,7 +38,6 @@ private:
 
 	// Textures
 	Texture mTexBackground;
-	Texture mTexArrow;
 
 	// Background
 	Sprite* mBackground;
@@ -46,8 +47,8 @@ private:
 	static const unsigned int kNumBubblesY;
 	BubbleBoard mBoard;
 
-	// Arrow
-	Sprite* mArrow;
+	// Cannon
+	Cannon mCannon;
 };
 
 

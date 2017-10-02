@@ -15,11 +15,11 @@ const unsigned int Scene::kNumBubblesX = 11;
 const unsigned int Scene::kNumBubblesY = 5;
 
 Scene::Scene()
-	: mBoard(texProgram)
-{
-}
+	: mBoard(texProgram), mCannon(texProgram) {}
 
 Scene::~Scene() {
+	if (mBackground != nullptr)
+		delete mBackground;
 }
 
 
@@ -29,7 +29,6 @@ void Scene::init() {
 	currentTime = 0.0f;
 
 	mTexBackground.loadFromFile("images/bg0.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	mTexArrow.loadFromFile("images/arrow.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &texProgram);
 	mBackground->setNumberAnimations(1);
@@ -41,29 +40,14 @@ void Scene::init() {
 	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesX);
 	mBoard.generate();
 
-	mArrow = Sprite::createSprite(glm::ivec2(64, 64), glm::vec2(64.0f/8128.0f, 1), &mTexArrow, &texProgram);
-	mArrow->setNumberAnimations(1);
-		mArrow->setAnimationSpeed(0, 0);
-		for (int i = 0; i < 127; ++i)
-			mArrow->addKeyframe(0, glm::vec2(64.0f/8128.0f * i, 0));
-	mArrow->changeAnimation(0);
-	mArrow->setPosition(glm::vec2(88, 243));
-	mArrow->setRepeat(false);
-	mArrow->setKeyFrame(0, 65);
+	mCannon.init();
 }
 
 void Scene::update(int deltaTime) {
 	currentTime += deltaTime;
 
 	mBoard.update(deltaTime);
-	mArrow->update(deltaTime);
-
-	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
-		mArrow->setAnimationSpeed(0, 40);
-	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
-		mArrow->setAnimationSpeed(0, -40);
-	else
-		mArrow->setAnimationSpeed(0, 0);
+	mCannon.update(deltaTime);
 }
 
 void Scene::render() {
@@ -79,7 +63,7 @@ void Scene::render() {
 
 	mBackground->render();
 	mBoard.render();
-	mArrow->render();
+	mCannon.render();
 }
 
 void Scene::initShaders() {
