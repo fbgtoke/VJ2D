@@ -55,13 +55,37 @@ void BubbleBoard::render() {
 }
 
 void BubbleBoard::generate() {
-	for (int i = 0; i < mBoardHeight; ++i) {
+	for (int i = 0; i < mBoardHeight - 4; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
 			mBubbles[i][j] = static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1));
 		}
 	}
 
 	checkIntegrity(3, 4);
+}
+
+glm::vec2 BubbleBoard::getOffset() const {
+	return mOffset;
+}
+
+unsigned int BubbleBoard::getWidth() const {
+	return mBoardWidth;
+}
+
+unsigned int BubbleBoard::getHeight() const {
+	return mBoardHeight;
+}
+
+void BubbleBoard::setBubbleType(unsigned int x, unsigned int y, BubbleType type) {
+	if (x >= mBoardWidth || y >= mBoardHeight) return;
+
+	mBubbles[y][x] = type;
+}
+
+BubbleType BubbleBoard::getBubbleType(unsigned int x, unsigned int y) const {
+	if (x >= mBoardWidth || y >= mBoardHeight) return BUBBLE_NONE;
+
+	return mBubbles[y][x];
 }
 
 void BubbleBoard::getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors) const {
@@ -96,6 +120,20 @@ void BubbleBoard::getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& nei
 	}
 }
 
+void BubbleBoard::getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors, BubbleType type) const {
+	getNeighbors(pos, neighbors);
+
+	std::list<glm::ivec2>::iterator it = neighbors.begin();
+	while (it != neighbors.end()) {
+		BubbleType bubbleType = mBubbles[it->y][it->x];
+
+		if (bubbleType != type) {
+			neighbors.erase(it++);
+		} else {
+			it++;
+		}
+	}
+}
 
 void BubbleBoard::checkIntegrity(unsigned int x, unsigned int y) {
 	if (y >= mBoardHeight || x >= mBoardWidth) return;

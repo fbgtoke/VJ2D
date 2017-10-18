@@ -15,6 +15,8 @@ public:
 	void update(int deltaTime);
 	void render();
 
+	unsigned int getCurrentFrame() const;
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;

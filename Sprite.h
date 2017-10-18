@@ -38,6 +38,8 @@ public:
 	void setRepeat(bool set);
 	void setKeyFrame(int animId, int keyFrameId);
 
+	unsigned int getKeyFrame() const;
+
 private:
 	Texture *texture;
 	ShaderProgram *shaderProgram;

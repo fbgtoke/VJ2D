@@ -27,6 +27,16 @@ public:
 
 	void generate();
 
+	glm::vec2 getOffset() const;
+	unsigned int getWidth() const;
+	unsigned int getHeight() const;
+
+	void setBubbleType(unsigned int x, unsigned int y, BubbleType type);
+	BubbleType getBubbleType(unsigned int x, unsigned int y) const;
+
+	void getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors) const;
+	void getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors, BubbleType type) const;
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;
@@ -44,7 +54,6 @@ private:
 	// Use a single sprite for all the bubble types
 	Sprite* mSprite;
 
-	void getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors) const;
 	void checkIntegrity(unsigned int x, unsigned int y);
 };
 

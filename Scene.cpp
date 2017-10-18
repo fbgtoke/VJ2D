@@ -15,7 +15,7 @@ const unsigned int Scene::kNumBubblesX = 11;
 const unsigned int Scene::kNumBubblesY = 5;
 
 Scene::Scene()
-	: mBoard(texProgram), mCannon(texProgram) {}
+	: mBoard(texProgram), mCannon(texProgram), mMovingBubble(texProgram, BUBBLE_RED, mBoard) {}
 
 Scene::~Scene() {
 	if (mBackground != nullptr)
@@ -41,13 +41,51 @@ void Scene::init() {
 	mBoard.generate();
 
 	mCannon.init();
+
+	mMovingBubble.init();
+	mMovingBubble.setPosition(glm::vec2(112, 264));
+	mMovingBubble.setVelocity(glm::vec2(0, 0));
 }
 
 void Scene::update(int deltaTime) {
 	currentTime += deltaTime;
 
+	if (Game::instance().getKey('x')) {
+		mMovingBubble.setPosition(glm::vec2(112, 264));
+		mMovingBubble.setVelocity(glm::vec2(0, 0));
+		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_STOPPED);
+	}
+
+
+	if (Game::instance().getKey('z')) {
+		const float minAngle = 2.5f;
+		const float alpha = M_PI / 128;
+		float angle = alpha * (mCannon.getCurrentFrame() + 1);
+		std::cout << "frame " << mCannon.getCurrentFrame() << std::endl;
+		std::cout << "angle " << angle << std::endl;
+
+		glm::vec2 ballVel;
+		ballVel.x = cos(angle);
+		ballVel.y = (-1) * sin(angle);
+		glm::normalize(ballVel);
+		ballVel *= 0.3;
+		std::cout << "vel " << ballVel.x << " " << ballVel.y << std::endl;
+
+		mMovingBubble.setVelocity(ballVel);
+		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_MOVING);
+	}
+
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
+	mMovingBubble.update(deltaTime);
+
+	if (MovingBubble::BUBBLE_DEAD == mMovingBubble.getBubbleState()) {
+		mMovingBubble.setPosition(glm::vec2(112, 264));
+		mMovingBubble.setVelocity(glm::vec2(0, 0));
+		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_STOPPED);
+
+		std::cout << "It happened" << std::endl;
+	}
 }
 
 void Scene::render() {
@@ -64,6 +102,7 @@ void Scene::render() {
 	mBackground->render();
 	mBoard.render();
 	mCannon.render();
+	mMovingBubble.render();
 }
 
 void Scene::initShaders() {

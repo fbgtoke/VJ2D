@@ -128,3 +128,7 @@ void Sprite::setKeyFrame(int animId, int keyFrameId) {
 		if (keyFrameId < int (animations[animId].keyframeDispl.size()))
 			currentKeyframe = keyFrameId;
 }
+
+unsigned int Sprite::getKeyFrame() const {
+	return currentKeyframe;
+}

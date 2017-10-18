@@ -25,7 +25,11 @@ void Cannon::init() {
 	mArrow->changeAnimation(0);
 	mArrow->setPosition(glm::vec2(88, 243));
 	mArrow->setRepeat(false);
-	mArrow->setKeyFrame(0, 65);
+
+	mArrow->setKeyFrame(0, 128/2 - 1);
+	mArrow->setAnimationSpeed(0, 40);
+	mArrow->update(0);
+	mArrow->setAnimationSpeed(0, 0);
 }
 
 void Cannon::update(int deltaTime) {
@@ -41,4 +45,8 @@ void Cannon::update(int deltaTime) {
 
 void Cannon::render() {
 	mArrow->render();
+}
+
+unsigned int Cannon::getCurrentFrame() const {
+	return mArrow->getKeyFrame();
 }

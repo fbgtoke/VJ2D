@@ -204,6 +204,33 @@ Game.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Game.cpp.s
 .PHONY : Game.cpp.s
 
+MovingBubble.o: MovingBubble.cpp.o
+
+.PHONY : MovingBubble.o
+
+# target to build an object file
+MovingBubble.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/MovingBubble.cpp.o
+.PHONY : MovingBubble.cpp.o
+
+MovingBubble.i: MovingBubble.cpp.i
+
+.PHONY : MovingBubble.i
+
+# target to preprocess a source file
+MovingBubble.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/MovingBubble.cpp.i
+.PHONY : MovingBubble.cpp.i
+
+MovingBubble.s: MovingBubble.cpp.s
+
+.PHONY : MovingBubble.s
+
+# target to generate assembly for a file
+MovingBubble.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/MovingBubble.cpp.s
+.PHONY : MovingBubble.cpp.s
+
 Player.o: Player.cpp.o
 
 .PHONY : Player.o
@@ -438,6 +465,9 @@ help:
 	@echo "... Game.o"
 	@echo "... Game.i"
 	@echo "... Game.s"
+	@echo "... MovingBubble.o"
+	@echo "... MovingBubble.i"
+	@echo "... MovingBubble.s"
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"
