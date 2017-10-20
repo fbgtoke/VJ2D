@@ -15,18 +15,7 @@ void MovingBubble::init() {
 	mVelocity = glm::vec2(0, 0);
 
 	// Init sprite
-	const float sizeInSpritesheet = 1.f / float(NUM_BUBBLES);
-	mSprite = Sprite::createSprite(
-		glm::ivec2(16, 16), 
-		glm::vec2(sizeInSpritesheet, 1), 
-		&mTexBubbles, 
-		&mTexProgram
-	);
-
-	mSprite->setNumberAnimations(1);
-		mSprite->setAnimationSpeed(0, 0);
-		mSprite->addKeyframe(0, glm::vec2(sizeInSpritesheet * 0, 0));
-	mSprite->changeAnimation(BUBBLE_RED);
+	setBubbleType(static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1)));
 
 	mBubbleState = BUBBLE_STOPPED;
 }
@@ -43,11 +32,29 @@ void MovingBubble::update(int deltaTime) {
 	mSprite->setPosition(mPosition);
 	mSprite->update(deltaTime);
 
-	checkCollision();
+	if (mBubbleState == BUBBLE_MOVING)
+		checkCollision();
 }
 
 void MovingBubble::render() const {
 	mSprite->render();
+}
+
+void MovingBubble::setBubbleType(BubbleType type) {
+	const float sizeInSpritesheet = 1.f / float(NUM_BUBBLES);
+	mSprite = Sprite::createSprite(
+		glm::ivec2(16, 16), 
+		glm::vec2(sizeInSpritesheet, 1), 
+		&mTexBubbles, 
+		&mTexProgram
+	);
+
+	mSprite->setNumberAnimations(1);
+		mSprite->setAnimationSpeed(0, 0);
+		mSprite->addKeyframe(0, glm::vec2(sizeInSpritesheet * type, 0));
+	mSprite->changeAnimation(0);
+
+	mBubbleType = type;
 }
 
 void MovingBubble::setPosition(const glm::vec2& pos) {
@@ -68,79 +75,74 @@ MovingBubble::BubbleState MovingBubble::getBubbleState() const {
 
 void MovingBubble::checkCollision() {
 	glm::vec2 pos;
+	glm::ivec2 collidedBubble;
 
-	for (int i = 0; i < mBoard.getHeight(); ++i) {
-		for (int j = 0; j < mBoard.getWidth(); ++j) {
-			if (i % 2 == 0)
-				pos.x = mBoard.getOffset().x + 16.0f * j;
-			else if (j < mBoard.getWidth() - 1)
-				pos.x = mBoard.getOffset().x + 16.0f * j + 8.0f;
-			else
-				continue;
+	bool hasCollided = false;
+	unsigned int i = 0;
+	unsigned int j = 0;
 
-			if (mBoard.getBubbleType(j, i) == BUBBLE_NONE)
-				continue;
-					
-			pos.y = mBoard.getOffset().y + 16.0f * i;
+	while (!hasCollided && i < mBoard.getHeight()) {
+		while (!hasCollided && j < mBoard.getWidth()) {
+			if (mBoard.getBubbleType(j, i) != BUBBLE_NONE) {
+				pos = mBoard.getBubbleOrigin(j, i);
+				hasCollided = collide(pos, mPosition, 16.0f);
 
-			if (collide(pos, mPosition, 16.0f)) {
-
-				std::list<glm::ivec2> neighbors;
-
-				mBoard.getNeighbors(glm::ivec2(j, i), neighbors, BUBBLE_NONE);
-
-				glm::ivec2 closest = getClosestNeighbor(neighbors);
-				
-				closest.x = (closest.x - 8) / 16 - mBoard.getOffset().x;
-				closest.y = (closest.y - 8) / 16 - mBoard.getOffset().y;
-
-				std::cout << "closest " << closest.x << "," << closest.y << std::endl;
-
-				mBoard.setBubbleType(closest.x, closest.y, mBubbleType);
-				mBubbleState = BUBBLE_DEAD;
+				if (hasCollided) {
+					std::list<glm::ivec2> neighbors;
+					mBoard.getNeighbors(glm::ivec2(j, i), neighbors, BUBBLE_NONE);
+					collidedBubble = getClosestNeighbor(neighbors);
+				}
 			}
+			++j;
 		}
+		j = 0;
+		++i;
+	}
+
+	if (hasCollided) {
+		mBoard.setBubbleType(collidedBubble.x, collidedBubble.y, mBubbleType);
+		mBoard.checkIntegrity(collidedBubble.x, collidedBubble.y);
+		mBoard.checkFloatingBubbles();
+
+		mBubbleState = BUBBLE_DEAD;
 	}
 }
 
-// neighbors es una lista de los indices en la array de los neighbors
-// hay que calcular el closest pasando los indices a pixeles
-// la funcion debe devolver el indice de la burbuja con posicion mas proxima
-glm::ivec2 MovingBubble::getClosestNeighbor(std::list<glm::ivec2>& neighbors) {
-	std:list<glm::vec2> neighborsPosition;
+glm::ivec2 MovingBubble::getClosestNeighbor(const std::list<glm::ivec2>& neighbors) const {
+	glm::vec2 myCentroid = mPosition + glm::vec2(8.0f, 8.0f);
 
-	for (glm::ivec2& neighbor : neighbors) {
-		glm::vec2 pos;
+	glm::ivec2 index, closestIndex;
+	glm::vec2 centroid, closestCentroid;
+	float distance, closestDistance;
 
-		if (neighbor.y % 2 == 0)
-			pos.x = mBoard.getOffset().x + neighbor.x * 16.0f + 8.0f;
-		else
-			pos.x = mBoard.getOffset().x + neighbor.x * 16.0f + 8.0f + 8.0f;
+	std::list<glm::ivec2>::const_iterator it = neighbors.begin();
+	closestIndex = (*it++);
+	closestCentroid = mBoard.getBubbleCentroid(closestIndex.x, closestIndex.y);
+	closestDistance = dist(myCentroid, closestCentroid);
 
-		pos.y = mBoard.getOffset().y + neighbor.y * 16.0f + 8.0f;
-		
-		neighborsPosition.push_back(pos)
-	}
+	while (it != neighbors.end()) {
+		index = (*it);
+		centroid = mBoard.getBubbleCentroid(index.x, index.y);
+		distance = dist(myCentroid, centroid);
 
-	std::list<glm::vec2>::iterator it = neighborsPosition.begin();
-
-	glm::ivec2 closestPosition = (*it++);
-	float minDistance = dist(mPosition, closestPosition);
-
-	while (it != neighborsPosition.end()) {
-		float distance = dist(mPosition, (*it));
-		if (distance < minDistance) {
-			minDistance = distance;
-			closestPosition = (*it);
+		if (distance < closestDistance) {
+			closestIndex = index;
+			closestCentroid = centroid;
+			closestDistance = distance;
 		}
 
 		++it;
 	}
 
-	return 
+	return closestIndex;
 }
 
 bool MovingBubble::collide(const glm::vec2& pos1, const glm::vec2& pos2, float size) {
+	size -= 4.0f;
+
+	glm::vec2 pos1_ = pos1 + glm::vec2(size/2.0f, size/2.0f);
+	glm::vec2 pos2_ = pos2 + glm::vec2(size/2.0f, size/2.0f);
+
 	return
 		pos1.x < pos2.x + size && pos1.x + size > pos2.x &&
     	pos1.y < pos2.y + size && pos1.y + size > pos2.y;

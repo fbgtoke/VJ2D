@@ -56,20 +56,16 @@ void Scene::update(int deltaTime) {
 		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_STOPPED);
 	}
 
-
 	if (Game::instance().getKey('z')) {
 		const float minAngle = 2.5f;
 		const float alpha = M_PI / 128;
 		float angle = alpha * (mCannon.getCurrentFrame() + 1);
-		std::cout << "frame " << mCannon.getCurrentFrame() << std::endl;
-		std::cout << "angle " << angle << std::endl;
 
 		glm::vec2 ballVel;
 		ballVel.x = cos(angle);
 		ballVel.y = (-1) * sin(angle);
 		glm::normalize(ballVel);
 		ballVel *= 0.3;
-		std::cout << "vel " << ballVel.x << " " << ballVel.y << std::endl;
 
 		mMovingBubble.setVelocity(ballVel);
 		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_MOVING);
@@ -84,7 +80,7 @@ void Scene::update(int deltaTime) {
 		mMovingBubble.setVelocity(glm::vec2(0, 0));
 		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_STOPPED);
 
-		std::cout << "It happened" << std::endl;
+		mMovingBubble.setBubbleType(static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1)));
 	}
 }
 

@@ -37,6 +37,12 @@ public:
 	void getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors) const;
 	void getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& neighbors, BubbleType type) const;
 
+	glm::vec2 getBubbleOrigin(unsigned int x, unsigned int y) const;
+	glm::vec2 getBubbleCentroid(unsigned int x, unsigned int y) const;
+
+	void checkIntegrity(unsigned int x, unsigned int y);
+	void checkFloatingBubbles();
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;
@@ -53,8 +59,6 @@ private:
 	// Sprite
 	// Use a single sprite for all the bubble types
 	Sprite* mSprite;
-
-	void checkIntegrity(unsigned int x, unsigned int y);
 };
 
 #endif

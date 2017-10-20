@@ -60,8 +60,6 @@ void BubbleBoard::generate() {
 			mBubbles[i][j] = static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1));
 		}
 	}
-
-	checkIntegrity(3, 4);
 }
 
 glm::vec2 BubbleBoard::getOffset() const {
@@ -135,6 +133,22 @@ void BubbleBoard::getNeighbors(const glm::ivec2& pos, std::list<glm::ivec2>& nei
 	}
 }
 
+glm::vec2 BubbleBoard::getBubbleOrigin(unsigned int x, unsigned int y) const {
+	if (x >= mBoardWidth || y >= mBoardHeight)
+		return glm::vec2(-1.0f, -1.0f);
+
+	if (y % 2 == 0)
+		return glm::vec2(x * 16.0f, y * 16.0f) + mOffset;
+	
+	return glm::vec2(x * 16.0f + 8.0f, y * 16.0f) + mOffset;
+}
+
+glm::vec2 BubbleBoard::getBubbleCentroid(unsigned int x, unsigned int y) const {
+	if (x >= mBoardWidth || y >= mBoardHeight) return glm::vec2(-1.0f, -1.0f);
+
+	return getBubbleOrigin(x, y) + glm::vec2(8.0f, 8.0f);
+}
+
 void BubbleBoard::checkIntegrity(unsigned int x, unsigned int y) {
 	if (y >= mBoardHeight || x >= mBoardWidth) return;
 	if (mBubbles[y][x] == BUBBLE_NONE) return;
@@ -173,6 +187,46 @@ void BubbleBoard::checkIntegrity(unsigned int x, unsigned int y) {
 	if (toErase.size() >= 3) {
 		for (glm::ivec2& pos : toErase) {
 			mBubbles[pos.y][pos.x] = BUBBLE_NONE;
+		}
+	}
+}
+
+void BubbleBoard::checkFloatingBubbles() {
+	std::vector<std::vector<bool>> visited(
+		mBoardHeight,
+		std::vector<bool>(mBoardWidth, false)
+	);
+	std::queue<glm::ivec2> queue;
+	std::list<glm::ivec2> neighbors;
+
+	glm::ivec2 current;
+
+	// Visit connected bubbles
+	for (int i = 0; i < mBoardWidth; ++i) {
+		if (visited[0][i]) continue;
+
+		queue.push(glm::ivec2(i, 0));
+		while (!queue.empty()) {
+			current = queue.front();
+			queue.pop();
+
+			visited[current.y][current.x] = true;
+
+			getNeighbors(current, neighbors);
+			for (glm::ivec2& neighbor : neighbors) {
+				if (visited[neighbor.y][neighbor.x] == false)
+					if (mBubbles[neighbor.y][neighbor.x] != BUBBLE_NONE)
+						queue.push(neighbor);
+			}
+		}
+	}
+
+	// Remove floating bubbles
+	for (int i = 0; i < mBoardHeight; ++i) {
+		for (int j = 0; j < mBoardWidth; ++j) {
+			if (!visited[i][j]) {
+				mBubbles[i][j] = BUBBLE_NONE;
+			}
 		}
 	}
 }

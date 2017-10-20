@@ -19,6 +19,8 @@ public:
 	void update(int deltaTime);
 	void render() const;
 
+	void setBubbleType(BubbleType type);
+
 	void setPosition(const glm::vec2& pos);
 	void setVelocity(const glm::vec2& vel);
 
@@ -51,7 +53,7 @@ private:
 	// Other bubbles
 	BubbleBoard& mBoard;
 	void checkCollision();
-	glm::ivec2 getClosestNeighbor(std::list<glm::ivec2>& neighbors);
+	glm::ivec2 getClosestNeighbor(const std::list<glm::ivec2>& neighbors) const;
 
 	static bool collide(const glm::vec2& pos1, const glm::vec2& pos2, float size);
 	static float dist(const glm::vec2& pos1, const glm::vec2& pos2);
