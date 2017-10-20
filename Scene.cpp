@@ -4,13 +4,6 @@
 #include "Scene.h"
 #include "Game.h"
 
-
-#define SCREEN_X 32
-#define SCREEN_Y 16
-
-#define INIT_PLAYER_X_TILES 5
-#define INIT_PLAYER_Y_TILES 25
-
 const unsigned int Scene::kNumBubblesX = 11;
 const unsigned int Scene::kNumBubblesY = 5;
 
@@ -57,18 +50,20 @@ void Scene::update(int deltaTime) {
 	}
 
 	if (Game::instance().getKey('z')) {
-		const float minAngle = 2.5f;
-		const float alpha = M_PI / 128;
-		float angle = alpha * (mCannon.getCurrentFrame() + 1);
+		if (mMovingBubble.getBubbleState() == MovingBubble::BUBBLE_STOPPED) {
+			const float minAngle = 2.5f;
+			const float alpha = M_PI / 128;
+			float angle = alpha * (mCannon.getCurrentFrame() + 1);
 
-		glm::vec2 ballVel;
-		ballVel.x = cos(angle);
-		ballVel.y = (-1) * sin(angle);
-		glm::normalize(ballVel);
-		ballVel *= 0.3;
+			glm::vec2 ballVel;
+			ballVel.x = cos(angle);
+			ballVel.y = (-1) * sin(angle);
+			glm::normalize(ballVel);
+			ballVel *= 0.3;
 
-		mMovingBubble.setVelocity(ballVel);
-		mMovingBubble.setBubbleState(MovingBubble::BUBBLE_MOVING);
+			mMovingBubble.setVelocity(ballVel);
+			mMovingBubble.setBubbleState(MovingBubble::BUBBLE_MOVING);
+		}
 	}
 
 	mBoard.update(deltaTime);
@@ -85,11 +80,16 @@ void Scene::update(int deltaTime) {
 }
 
 void Scene::render() {
+	glm::mat4 viewmatrix;
 	glm::mat4 modelview;
 
 	texProgram.use();
 	texProgram.setUniformMatrix4f("projection", projection);
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+
+	viewmatrix = glm::mat4(1.0f);
+	viewmatrix = glm::scale(viewmatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+	texProgram.setUniformMatrix4f("VM", viewmatrix);
 	
 	modelview = glm::mat4(1.0f);
 	texProgram.setUniformMatrix4f("modelview", modelview);
