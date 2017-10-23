@@ -257,3 +257,27 @@ void BubbleBoard::checkFloatingBubbles() {
 		}
 	}
 }
+
+void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
+	types.clear();
+
+	bool alreadyExists;
+	int i, j, k;
+
+	for (i = 0; i < mBoardHeight; ++i) {
+		for (j = 0; j < mBoardWidth; ++j) {
+			if (mBubbles[i][j] != BUBBLE_NONE) {
+				alreadyExists = false;
+				k = 0;
+
+				while (k < types.size() && !alreadyExists) {
+					alreadyExists = (types[k] == mBubbles[i][j]);
+					++k;
+				}
+
+				if (!alreadyExists)
+					types.push_back(mBubbles[i][j]);
+			}
+		}
+	}
+}

@@ -285,6 +285,60 @@ Scene.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Scene.cpp.s
 .PHONY : Scene.cpp.s
 
+SceneMenu.o: SceneMenu.cpp.o
+
+.PHONY : SceneMenu.o
+
+# target to build an object file
+SceneMenu.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneMenu.cpp.o
+.PHONY : SceneMenu.cpp.o
+
+SceneMenu.i: SceneMenu.cpp.i
+
+.PHONY : SceneMenu.i
+
+# target to preprocess a source file
+SceneMenu.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneMenu.cpp.i
+.PHONY : SceneMenu.cpp.i
+
+SceneMenu.s: SceneMenu.cpp.s
+
+.PHONY : SceneMenu.s
+
+# target to generate assembly for a file
+SceneMenu.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneMenu.cpp.s
+.PHONY : SceneMenu.cpp.s
+
+ScenePlay.o: ScenePlay.cpp.o
+
+.PHONY : ScenePlay.o
+
+# target to build an object file
+ScenePlay.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/ScenePlay.cpp.o
+.PHONY : ScenePlay.cpp.o
+
+ScenePlay.i: ScenePlay.cpp.i
+
+.PHONY : ScenePlay.i
+
+# target to preprocess a source file
+ScenePlay.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/ScenePlay.cpp.i
+.PHONY : ScenePlay.cpp.i
+
+ScenePlay.s: ScenePlay.cpp.s
+
+.PHONY : ScenePlay.s
+
+# target to generate assembly for a file
+ScenePlay.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/ScenePlay.cpp.s
+.PHONY : ScenePlay.cpp.s
+
 Shader.o: Shader.cpp.o
 
 .PHONY : Shader.o
@@ -474,6 +528,12 @@ help:
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"
+	@echo "... SceneMenu.o"
+	@echo "... SceneMenu.i"
+	@echo "... SceneMenu.s"
+	@echo "... ScenePlay.o"
+	@echo "... ScenePlay.i"
+	@echo "... ScenePlay.s"
 	@echo "... Shader.o"
 	@echo "... Shader.i"
 	@echo "... Shader.s"

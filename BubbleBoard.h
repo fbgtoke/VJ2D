@@ -45,6 +45,8 @@ public:
 	void checkIntegrity(unsigned int x, unsigned int y);
 	void checkFloatingBubbles();
 
+	void getPossibleBubbleTypes(std::vector<BubbleType>& types) const;
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;

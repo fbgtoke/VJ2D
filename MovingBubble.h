@@ -27,7 +27,8 @@ public:
 	enum BubbleState {
 		BUBBLE_STOPPED,
 		BUBBLE_MOVING,
-		BUBBLE_DEAD
+		BUBBLE_DEAD,
+		BUBBLE_BUFFERED
 	};
 	void setBubbleState(BubbleState state);
 	BubbleState getBubbleState() const;

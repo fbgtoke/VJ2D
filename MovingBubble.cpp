@@ -15,7 +15,7 @@ void MovingBubble::init() {
 	mVelocity = glm::vec2(0, 0);
 
 	// Init sprite
-	setBubbleType(static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1)));
+	setBubbleType(mBubbleType);
 
 	mBubbleState = BUBBLE_STOPPED;
 }
@@ -59,6 +59,7 @@ void MovingBubble::setBubbleType(BubbleType type) {
 
 void MovingBubble::setPosition(const glm::vec2& pos) {
 	mPosition = pos;
+	mSprite->setPosition(mPosition);
 }
 
 void MovingBubble::setVelocity(const glm::vec2& vel) {

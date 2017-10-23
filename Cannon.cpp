@@ -50,3 +50,6 @@ void Cannon::render() {
 unsigned int Cannon::getCurrentFrame() const {
 	return mArrow->getKeyFrame();
 }
+
+glm::vec2 Cannon::getCurrentBubblePosition() { return glm::vec2(112.0f, 264.0f); }
+glm::vec2 Cannon::getBufferedBubblePosition() { return glm::vec2(56.0f, 287.f); }

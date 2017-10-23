@@ -17,6 +17,9 @@ public:
 
 	unsigned int getCurrentFrame() const;
 
+	glm::vec2 getCurrentBubblePosition();
+	glm::vec2 getBufferedBubblePosition();
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;

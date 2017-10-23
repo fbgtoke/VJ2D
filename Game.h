@@ -1,11 +1,9 @@
 #ifndef _GAME_INCLUDE
 #define _GAME_INCLUDE
 
-
 #include "Scene.h"
 
-
-#define SCREEN_WIDTH 640
+#define SCREEN_WIDTH 480
 #define SCREEN_HEIGHT 640
 
 
@@ -42,9 +40,12 @@ public:
 	bool getKey(int key) const;
 	bool getSpecialKey(int key) const;
 
+	void changeScene(Scene::SceneType type);
+
 private:
 	bool bPlay;                       // Continue to play game?
-	Scene scene;                      // Scene to render
+	Scene* scene;                     // Scene to render
+	Scene* bufferedScene;
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 
