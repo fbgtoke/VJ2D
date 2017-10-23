@@ -40,6 +40,9 @@ void BubbleBoard::render() {
 	glm::vec2 position;
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
+			if (mBubbles[i][j] == BUBBLE_NONE)
+				continue;
+
 			if (i % 2 == 0)
 				position = glm::vec2(j * 16.0f, i * 16.0f) + mOffset;
 			else
@@ -75,7 +78,7 @@ void BubbleBoard::loadFromFile(const std::string& filename) {
 			mBubbles[i][j] = static_cast<BubbleType>(t);
 			++j;
 
-			if (j >= mBoardWidth) {
+			if ((i%2 == 0 && j >= mBoardWidth) || (i%2 != 0 && j >= mBoardWidth-1)) {
 				j = 0;
 				++i;
 			}

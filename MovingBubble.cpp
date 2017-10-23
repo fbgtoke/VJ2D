@@ -76,10 +76,18 @@ MovingBubble::BubbleState MovingBubble::getBubbleState() const {
 void MovingBubble::checkCollision() {
 	glm::vec2 pos;
 	glm::ivec2 collidedBubble;
+	std::list<glm::ivec2> neighbors;
 
 	bool hasCollided = false;
 	unsigned int i = 0;
 	unsigned int j = 0;
+
+	if (mPosition.y < mBoard.getOffset().y) {
+		hasCollided = true;
+		for (j = 0; j < mBoard.getWidth(); ++j)
+			neighbors.push_back(glm::ivec2(j, 0));
+		collidedBubble = getClosestNeighbor(neighbors);
+	}
 
 	while (!hasCollided && i < mBoard.getHeight()) {
 		while (!hasCollided && j < mBoard.getWidth()) {
@@ -88,7 +96,6 @@ void MovingBubble::checkCollision() {
 				hasCollided = collide(pos, mPosition, 16.0f);
 
 				if (hasCollided) {
-					std::list<glm::ivec2> neighbors;
 					mBoard.getNeighbors(glm::ivec2(j, i), neighbors, BUBBLE_NONE);
 					collidedBubble = getClosestNeighbor(neighbors);
 				}

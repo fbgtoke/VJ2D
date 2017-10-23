@@ -99,6 +99,7 @@ void Scene::render() {
 	mBackground->render();
 	mBoard.render();
 	mCannon.render();
+
 	mMovingBubble.render();
 }
 
