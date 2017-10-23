@@ -5,7 +5,7 @@
 #include "Game.h"
 
 const unsigned int Scene::kNumBubblesX = 11;
-const unsigned int Scene::kNumBubblesY = 5;
+const unsigned int Scene::kNumBubblesY = 14;
 
 Scene::Scene()
 	: mBoard(texProgram), mCannon(texProgram), mMovingBubble(texProgram, BUBBLE_RED, mBoard) {}
@@ -30,8 +30,9 @@ void Scene::init() {
 	mBackground->changeAnimation(0);
 
 	const glm::vec2 boardOffset = glm::vec2(32, 36);
-	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesX);
-	mBoard.generate();
+	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesY);
+	//mBoard.generate();
+	mBoard.loadFromFile("levels/level00.txt");
 
 	mCannon.init();
 

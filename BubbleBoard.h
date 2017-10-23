@@ -12,6 +12,7 @@
 #include <queue>
 #include <list>
 #include <iostream>
+#include <fstream>
 
 class BubbleBoard {
 public:
@@ -26,6 +27,7 @@ public:
 	void render();
 
 	void generate();
+	void loadFromFile(const std::string& filename);
 
 	glm::vec2 getOffset() const;
 	unsigned int getWidth() const;

@@ -55,10 +55,34 @@ void BubbleBoard::render() {
 }
 
 void BubbleBoard::generate() {
-	for (int i = 0; i < mBoardHeight - 4; ++i) {
+	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
 			mBubbles[i][j] = static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1));
 		}
+	}
+}
+
+void BubbleBoard::loadFromFile(const std::string& filename) {
+	std::ifstream stream;
+	stream.open(filename);
+
+	if (stream.is_open()) {
+		unsigned int i = 0;
+		unsigned int j = 0;
+		unsigned int t;
+		while (!stream.eof() && i < mBoardHeight) {
+			stream >> t;
+			mBubbles[i][j] = static_cast<BubbleType>(t);
+			++j;
+
+			if (j >= mBoardWidth) {
+				j = 0;
+				++i;
+			}
+		}
+		stream.close();
+	} else {
+		cout << "Unable to open file " << filename << std::endl;
 	}
 }
 
@@ -203,7 +227,7 @@ void BubbleBoard::checkFloatingBubbles() {
 
 	// Visit connected bubbles
 	for (int i = 0; i < mBoardWidth; ++i) {
-		if (visited[0][i]) continue;
+		if (visited[0][i] || mBubbles[0][i] == BUBBLE_NONE) continue;
 
 		queue.push(glm::ivec2(i, 0));
 		while (!queue.empty()) {
