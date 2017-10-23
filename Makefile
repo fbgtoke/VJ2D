@@ -285,6 +285,33 @@ Scene.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Scene.cpp.s
 .PHONY : Scene.cpp.s
 
+SceneGameOver.o: SceneGameOver.cpp.o
+
+.PHONY : SceneGameOver.o
+
+# target to build an object file
+SceneGameOver.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneGameOver.cpp.o
+.PHONY : SceneGameOver.cpp.o
+
+SceneGameOver.i: SceneGameOver.cpp.i
+
+.PHONY : SceneGameOver.i
+
+# target to preprocess a source file
+SceneGameOver.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneGameOver.cpp.i
+.PHONY : SceneGameOver.cpp.i
+
+SceneGameOver.s: SceneGameOver.cpp.s
+
+.PHONY : SceneGameOver.s
+
+# target to generate assembly for a file
+SceneGameOver.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneGameOver.cpp.s
+.PHONY : SceneGameOver.cpp.s
+
 SceneMenu.o: SceneMenu.cpp.o
 
 .PHONY : SceneMenu.o
@@ -528,6 +555,9 @@ help:
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"
+	@echo "... SceneGameOver.o"
+	@echo "... SceneGameOver.i"
+	@echo "... SceneGameOver.s"
 	@echo "... SceneMenu.o"
 	@echo "... SceneMenu.i"
 	@echo "... SceneMenu.s"

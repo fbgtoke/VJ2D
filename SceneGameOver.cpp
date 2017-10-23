@@ -1,23 +1,24 @@
-#include "SceneMenu.h"
+#include "SceneGameOver.h"
 #include "Game.h"
 
-const glm::ivec2 SceneMenu::kBobbleOffset = glm::ivec2(64, 176);
+const glm::ivec2 SceneGameOver::kBobbleOffset = glm::ivec2(80, 192);
 
-const int SceneMenu::kFreezeInputAmount = 300;
+const int SceneGameOver::kFreezeInputAmount = 300;
 
-SceneMenu::SceneMenu() {}
+SceneGameOver::SceneGameOver() {}
 
-SceneMenu::~SceneMenu() {
+SceneGameOver::~SceneGameOver() {
 	if (mBackground != nullptr)
 		delete mBackground;
 }
 
-void SceneMenu::init() {
+void SceneGameOver::init() {
+	std::cout << "Init game over" << std::endl;
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
-	mTexBackground.loadFromFile("images/menuprincipal.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTexBackground.loadFromFile("images/youlost.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexBobble.loadFromFile("images/bobblemenu.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &texProgram);
@@ -39,11 +40,11 @@ void SceneMenu::init() {
 	mBobble->changeAnimation(0);
 	mBobble->setPosition(kBobbleOffset);
 
-	mMenuOption = MENU_PLAY;
+	mMenuOption = MENU_YES;
 	mFreezeInput = 0;
 }
 
-void SceneMenu::update(int deltaTime) {
+void SceneGameOver::update(int deltaTime) {
 	currentTime += deltaTime;
 
 	mBobble->update(deltaTime);
@@ -52,22 +53,17 @@ void SceneMenu::update(int deltaTime) {
 	booblePosition.y += static_cast<unsigned int>(mMenuOption) * 16.0f;
 	mBobble->setPosition(booblePosition);
 
-	if (Game::instance().getKey('z') && currentTime > 300) {
+	if (Game::instance().getKey('z') && currentTime > 500) {
 		switch(mMenuOption) {
-		case MENU_PLAY:
+		case MENU_YES:
 			Game::instance().changeScene(SCENE_PLAY);
 			break;
-		case MENU_CLOSE:
-			Game::instance().stop();
+		case MENU_NO:
+			Game::instance().changeScene(SCENE_MENU);
 			break;
 		default:
 			break;
 		}
-	}
-
-	if (Game::instance().getKey('g')) {
-		std::cout << "Pressed g" << std::endl;
-		Game::instance().changeScene(Scene::SCENE_GAME_OVER);
 	}
 
 	mFreezeInput -= deltaTime;
@@ -86,7 +82,7 @@ void SceneMenu::update(int deltaTime) {
 	}
 }
 
-void SceneMenu::render() {
+void SceneGameOver::render() {
 	glm::mat4 viewmatrix;
 	glm::mat4 modelview;
 

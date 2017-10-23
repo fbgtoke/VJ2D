@@ -16,16 +16,17 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
-	scene->update(deltaTime);
-
 	if (bufferedScene != nullptr) {
-		delete scene;
+		if (scene != nullptr)
+			delete scene;
 
 		scene = bufferedScene;
 		scene->init();
 
 		bufferedScene = nullptr;
 	}
+
+	scene->update(deltaTime);
 	
 	return bPlay;
 }
@@ -85,4 +86,8 @@ void Game::changeScene(Scene::SceneType type) {
 		delete bufferedScene;
 
 	bufferedScene = Scene::create(type);
+}
+
+void Game::stop() {
+	bPlay = false;
 }

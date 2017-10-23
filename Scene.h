@@ -25,7 +25,11 @@ public:
 
 	enum SceneType {
 		SCENE_MENU,
-		SCENE_PLAY
+		SCENE_PLAY,
+		SCENE_HELP,
+		SCENE_CREDITS,
+		SCENE_WON,
+		SCENE_GAME_OVER
 	};
 	static Scene* create(SceneType type);
 

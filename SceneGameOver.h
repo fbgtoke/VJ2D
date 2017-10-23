@@ -1,12 +1,12 @@
-#ifndef _SCENE_MENU_INCLUDE
-#define _SCENE_MENU_INCLUDE
+#ifndef _SCENE_GAME_OVER_INCLUDE
+#define _SCENE_GAME_OVER_INCLUDE
 
 #include "Scene.h"
 
-class SceneMenu : public Scene {
+class SceneGameOver : public Scene {
 public:
-	SceneMenu();
-	~SceneMenu() final;
+	SceneGameOver();
+	~SceneGameOver() final;
 
 	void init() final;
 	void update(int deltaTime) final;
@@ -27,10 +27,8 @@ private:
 	int mFreezeInput;
 
 	enum MenuOption {
-		MENU_PLAY,
-		MENU_HELP,
-		MENU_CREDITS,
-		MENU_CLOSE,
+		MENU_YES,
+		MENU_NO,
 		NUM_OPTIONS
 	};
 	MenuOption mMenuOption;

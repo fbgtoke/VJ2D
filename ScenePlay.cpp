@@ -6,6 +6,7 @@ const unsigned int ScenePlay::kNumBubblesY = 14;
 
 ScenePlay::ScenePlay()
 	: mBoard(texProgram), mCannon(texProgram),
+	mBackground(nullptr),
 	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr) {}
 
 ScenePlay::~ScenePlay() {
@@ -43,7 +44,7 @@ void ScenePlay::init() {
 void ScenePlay::update(int deltaTime) {
 	currentTime += deltaTime;
 
-	if (Game::instance().getKey('z')) {
+	if (Game::instance().getKey('z') && currentTime > 500) {
 		if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_STOPPED) {
 			const float minAngle = 2.5f;
 			const float alpha = M_PI / 128;
@@ -58,6 +59,11 @@ void ScenePlay::update(int deltaTime) {
 			mCurrentMovingBubble->setVelocity(ballVel);
 			mCurrentMovingBubble->setBubbleState(MovingBubble::BUBBLE_MOVING);
 		}
+	}
+
+	if (Game::instance().getKey('g')) {
+		std::cout << "Pressed g" << std::endl;
+		Game::instance().changeScene(Scene::SCENE_GAME_OVER);
 	}
 
 	mBoard.update(deltaTime);

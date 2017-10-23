@@ -41,6 +41,7 @@ public:
 	bool getSpecialKey(int key) const;
 
 	void changeScene(Scene::SceneType type);
+	void stop();
 
 private:
 	bool bPlay;                       // Continue to play game?
