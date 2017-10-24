@@ -20,6 +20,7 @@ public:
 	void render() const;
 
 	void setBubbleType(BubbleType type);
+	BubbleType getBubbleType() const;
 
 	void setPosition(const glm::vec2& pos);
 	void setVelocity(const glm::vec2& vel);

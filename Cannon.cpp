@@ -7,10 +7,6 @@ Cannon::Cannon(ShaderProgram &shaderProgram)
 Cannon::~Cannon() {
 	if (mArrow != nullptr)
 		delete mArrow;
-	if (mCurrentBubble != nullptr)
-		delete mCurrentBubble;
-	if (mNextBubble != nullptr)
-		delete mNextBubble;
 }
 
 void Cannon::init() {

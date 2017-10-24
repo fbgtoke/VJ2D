@@ -10,10 +10,11 @@ SceneGameOver::SceneGameOver() {}
 SceneGameOver::~SceneGameOver() {
 	if (mBackground != nullptr)
 		delete mBackground;
+	if (mBobble != nullptr)
+		delete mBobble;
 }
 
 void SceneGameOver::init() {
-	std::cout << "Init game over" << std::endl;
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;

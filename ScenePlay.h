@@ -6,6 +6,7 @@
 #include "BubbleBoard.h"
 #include "Cannon.h"
 #include "MovingBubble.h"
+#include "BubbleLevel.h"
 
 class ScenePlay : public Scene {
 public:
@@ -37,6 +38,9 @@ private:
 	void swapMovingBubbles();
 	MovingBubble* mCurrentMovingBubble;
 	MovingBubble* mNextMovingBubble;
+
+	// Level def
+	BubbleLevel mBubbleLevel;
 };
 
 

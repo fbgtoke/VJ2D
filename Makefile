@@ -150,6 +150,33 @@ BubbleBoard.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleBoard.cpp.s
 .PHONY : BubbleBoard.cpp.s
 
+BubbleLevel.o: BubbleLevel.cpp.o
+
+.PHONY : BubbleLevel.o
+
+# target to build an object file
+BubbleLevel.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleLevel.cpp.o
+.PHONY : BubbleLevel.cpp.o
+
+BubbleLevel.i: BubbleLevel.cpp.i
+
+.PHONY : BubbleLevel.i
+
+# target to preprocess a source file
+BubbleLevel.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleLevel.cpp.i
+.PHONY : BubbleLevel.cpp.i
+
+BubbleLevel.s: BubbleLevel.cpp.s
+
+.PHONY : BubbleLevel.s
+
+# target to generate assembly for a file
+BubbleLevel.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/BubbleLevel.cpp.s
+.PHONY : BubbleLevel.cpp.s
+
 Cannon.o: Cannon.cpp.o
 
 .PHONY : Cannon.o
@@ -366,6 +393,33 @@ ScenePlay.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/ScenePlay.cpp.s
 .PHONY : ScenePlay.cpp.s
 
+SceneWin.o: SceneWin.cpp.o
+
+.PHONY : SceneWin.o
+
+# target to build an object file
+SceneWin.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneWin.cpp.o
+.PHONY : SceneWin.cpp.o
+
+SceneWin.i: SceneWin.cpp.i
+
+.PHONY : SceneWin.i
+
+# target to preprocess a source file
+SceneWin.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneWin.cpp.i
+.PHONY : SceneWin.cpp.i
+
+SceneWin.s: SceneWin.cpp.s
+
+.PHONY : SceneWin.s
+
+# target to generate assembly for a file
+SceneWin.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneWin.cpp.s
+.PHONY : SceneWin.cpp.s
+
 Shader.o: Shader.cpp.o
 
 .PHONY : Shader.o
@@ -540,6 +594,9 @@ help:
 	@echo "... BubbleBoard.o"
 	@echo "... BubbleBoard.i"
 	@echo "... BubbleBoard.s"
+	@echo "... BubbleLevel.o"
+	@echo "... BubbleLevel.i"
+	@echo "... BubbleLevel.s"
 	@echo "... Cannon.o"
 	@echo "... Cannon.i"
 	@echo "... Cannon.s"
@@ -564,6 +621,9 @@ help:
 	@echo "... ScenePlay.o"
 	@echo "... ScenePlay.i"
 	@echo "... ScenePlay.s"
+	@echo "... SceneWin.o"
+	@echo "... SceneWin.i"
+	@echo "... SceneWin.s"
 	@echo "... Shader.o"
 	@echo "... Shader.i"
 	@echo "... Shader.s"

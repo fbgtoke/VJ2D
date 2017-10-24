@@ -7,12 +7,12 @@ BubbleBoard::~BubbleBoard() {
 	mBubbles.clear();
 }
 
-void BubbleBoard::init(const glm::vec2& offset, unsigned int w, unsigned int h) {
+void BubbleBoard::init(const BubbleLevel& level) {
 	// Init board
-	mOffset = offset;
-	mBoardWidth  = w;
-	mBoardHeight = h;
-	mBubbles = bubble_matrix_t(mBoardHeight, bubble_row_t(mBoardWidth, BUBBLE_NONE));
+	mOffset = level.getOffset();
+	mBoardWidth  = level.getBubblesWidth();
+	mBoardHeight = level.getBubblesHeight();
+	level.getBubbles(mBubbles);
 
 	// Init textures
 	mTexBubbles.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -54,38 +54,6 @@ void BubbleBoard::render() {
 				mSprite->render();
 			}
 		}
-	}
-}
-
-void BubbleBoard::generate() {
-	for (int i = 0; i < mBoardHeight; ++i) {
-		for (int j = 0; j < mBoardWidth; ++j) {
-			mBubbles[i][j] = static_cast<BubbleType>(rand()%(NUM_BUBBLES - 1));
-		}
-	}
-}
-
-void BubbleBoard::loadFromFile(const std::string& filename) {
-	std::ifstream stream;
-	stream.open(filename);
-
-	if (stream.is_open()) {
-		unsigned int i = 0;
-		unsigned int j = 0;
-		unsigned int t;
-		while (!stream.eof() && i < mBoardHeight) {
-			stream >> t;
-			mBubbles[i][j] = static_cast<BubbleType>(t);
-			++j;
-
-			if ((i%2 == 0 && j >= mBoardWidth) || (i%2 != 0 && j >= mBoardWidth-1)) {
-				j = 0;
-				++i;
-			}
-		}
-		stream.close();
-	} else {
-		cout << "Unable to open file " << filename << std::endl;
 	}
 }
 

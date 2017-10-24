@@ -1,4 +1,6 @@
 #include "MovingBubble.h"
+#include "Game.h"
+#include "Scene.h"
 
 MovingBubble::MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board)
 	: mTexProgram(shaderProgram), mBubbleType(type), mBoard(board) {}
@@ -57,6 +59,10 @@ void MovingBubble::setBubbleType(BubbleType type) {
 	mBubbleType = type;
 }
 
+BubbleType MovingBubble::getBubbleType() const {
+	return mBubbleType;
+}
+
 void MovingBubble::setPosition(const glm::vec2& pos) {
 	mPosition = pos;
 	mSprite->setPosition(mPosition);
@@ -111,6 +117,9 @@ void MovingBubble::checkCollision() {
 		mBoard.setBubbleType(collidedBubble.x, collidedBubble.y, mBubbleType);
 		mBoard.checkIntegrity(collidedBubble.x, collidedBubble.y);
 		mBoard.checkFloatingBubbles();
+
+		if (collidedBubble.y >= 14)
+			Game::instance().changeScene(Scene::SCENE_GAME_OVER);
 
 		mBubbleState = BUBBLE_DEAD;
 	}

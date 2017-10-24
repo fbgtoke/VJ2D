@@ -2,7 +2,7 @@
 #include "Game.h"
 
 const unsigned int ScenePlay::kNumBubblesX = 11;
-const unsigned int ScenePlay::kNumBubblesY = 14;
+const unsigned int ScenePlay::kNumBubblesY = 20;
 
 ScenePlay::ScenePlay()
 	: mBoard(texProgram), mCannon(texProgram),
@@ -24,7 +24,9 @@ void ScenePlay::init() {
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
 
-	mTexBackground.loadFromFile("images/bg0.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mBubbleLevel.loadFromFile("level00.txt");
+
+	mTexBackground.loadFromFile(mBubbleLevel.getBackgroundName(), TEXTURE_PIXEL_FORMAT_RGBA);
 
 	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &texProgram);
 	mBackground->setNumberAnimations(1);
@@ -32,9 +34,7 @@ void ScenePlay::init() {
 		mBackground->addKeyframe(0, glm::vec2(0, 0));
 	mBackground->changeAnimation(0);
 
-	const glm::vec2 boardOffset = glm::vec2(32, 36);
-	mBoard.init(boardOffset, kNumBubblesX, kNumBubblesY);
-	mBoard.loadFromFile("levels/level00.txt");
+	mBoard.init(mBubbleLevel);
 
 	mCannon.init();
 
@@ -61,11 +61,6 @@ void ScenePlay::update(int deltaTime) {
 		}
 	}
 
-	if (Game::instance().getKey('g')) {
-		std::cout << "Pressed g" << std::endl;
-		Game::instance().changeScene(Scene::SCENE_GAME_OVER);
-	}
-
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
 
@@ -76,6 +71,9 @@ void ScenePlay::update(int deltaTime) {
 
 	if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_DEAD) {
 		swapMovingBubbles();
+
+		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
+			Game::instance().changeScene(Scene::SCENE_WON);
 	}
 }
 

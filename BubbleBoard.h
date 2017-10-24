@@ -8,6 +8,7 @@
 #include "Sprite.h"
 
 #include "BubbleType.h"
+#include "BubbleLevel.h"
 
 #include <queue>
 #include <list>
@@ -22,12 +23,9 @@ public:
 	BubbleBoard(ShaderProgram &shaderProgram);
 	~BubbleBoard();
 
-	void init(const glm::vec2& offset, unsigned int w, unsigned int h);
+	void init(const BubbleLevel& level);
 	void update(int deltaTime);
 	void render();
-
-	void generate();
-	void loadFromFile(const std::string& filename);
 
 	glm::vec2 getOffset() const;
 	unsigned int getWidth() const;

@@ -2,6 +2,7 @@
 #include "SceneMenu.h"
 #include "ScenePlay.h"
 #include "SceneGameOver.h"
+#include "SceneWin.h"
 
 Scene* Scene::create(SceneType type) {
 	switch(type) {
@@ -11,6 +12,8 @@ Scene* Scene::create(SceneType type) {
 		return new ScenePlay();
 	case SCENE_GAME_OVER:
 		return new SceneGameOver();
+	case SCENE_WON:
+		return new SceneWin();
 	default:
 		return nullptr;
 	}

@@ -16,9 +16,12 @@ void Game::init()
 
 bool Game::update(int deltaTime)
 {
+	scene->update(deltaTime);
+
 	if (bufferedScene != nullptr) {
-		if (scene != nullptr)
+		if (scene != nullptr) {
 			delete scene;
+		}
 
 		scene = bufferedScene;
 		scene->init();
@@ -26,8 +29,6 @@ bool Game::update(int deltaTime)
 		bufferedScene = nullptr;
 	}
 
-	scene->update(deltaTime);
-	
 	return bPlay;
 }
 
