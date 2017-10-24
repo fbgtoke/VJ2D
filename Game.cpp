@@ -89,6 +89,10 @@ void Game::changeScene(Scene::SceneType type) {
 	bufferedScene = Scene::create(type);
 }
 
+Scene* Game::getScene() {
+	return scene;
+}
+
 void Game::stop() {
 	bPlay = false;
 }

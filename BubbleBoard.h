@@ -6,6 +6,7 @@
 
 #include "Texture.h"
 #include "Sprite.h"
+#include "FallingBubble.h"
 
 #include "BubbleType.h"
 #include "BubbleLevel.h"
@@ -69,6 +70,9 @@ private:
 	// Collapsing wall
 	unsigned int mNumberOfCollapse;
 	Sprite* mWall;
+
+	void makeBubbleFall(unsigned int x, unsigned int y);
+	void makeBubbleExplode(unsigned int x, unsigned int y);
 };
 
 #endif

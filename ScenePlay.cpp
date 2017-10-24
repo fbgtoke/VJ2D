@@ -17,30 +17,32 @@ ScenePlay::~ScenePlay() {
 
 
 void ScenePlay::init() {
-	initShaders();
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
-	currentTime = 0.0f;
+	Scene::init();
 
 	mBubbleLevel.loadFromFile("level00.txt");
 	mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 
 	mTexBackground.loadFromFile(mBubbleLevel.getBackgroundName(), TEXTURE_PIXEL_FORMAT_RGBA);
 
-	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &texProgram);
+	mBackground = Sprite::createSprite(
+		glm::ivec2(240, 320), 
+		glm::vec2(1, 1), 
+		&mTexBackground, 
+		&texProgram
+	);
 	mBackground->setNumberAnimations(1);
 		mBackground->setAnimationSpeed(0, 0);
 		mBackground->addKeyframe(0, glm::vec2(0, 0));
 	mBackground->changeAnimation(0);
 
 	mBoard.init(mBubbleLevel);
-
 	mCannon.init();
 
 	initMovingBubbles();
 }
 
 void ScenePlay::update(int deltaTime) {
-	currentTime += deltaTime;
+	Scene::update(deltaTime);
 
 	if (Game::instance().getKey('z') && currentTime > 500) {
 		if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_STOPPED) {
@@ -82,20 +84,7 @@ void ScenePlay::update(int deltaTime) {
 }
 
 void ScenePlay::render() {
-	glm::mat4 viewmatrix;
-	glm::mat4 modelview;
-
-	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-
-	viewmatrix = glm::mat4(1.0f);
-	viewmatrix = glm::scale(viewmatrix, glm::vec3(2.0f, 2.0f, 2.0f));
-	texProgram.setUniformMatrix4f("VM", viewmatrix);
-	
-	modelview = glm::mat4(1.0f);
-	texProgram.setUniformMatrix4f("modelview", modelview);
-	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+	Scene::render();
 
 	mBackground->render();
 	mBoard.render();
@@ -105,6 +94,11 @@ void ScenePlay::render() {
 		mCurrentMovingBubble->render();
 	if (mNextMovingBubble != nullptr)
 		mNextMovingBubble->render();
+
+	for (Particle* particle : mParticles) {
+		if (particle != nullptr)
+			particle->render();
+	}
 }
 
 void ScenePlay::initMovingBubbles() {

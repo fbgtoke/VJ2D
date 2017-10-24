@@ -41,6 +41,8 @@ public:
 	bool getSpecialKey(int key) const;
 
 	void changeScene(Scene::SceneType type);
+	Scene* getScene();
+	
 	void stop();
 
 private:

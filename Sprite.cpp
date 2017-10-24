@@ -119,6 +119,10 @@ void Sprite::setPosition(const glm::vec2 &pos)
 	position = pos;
 }
 
+glm::vec2 Sprite::getPosition() const {
+	return position;
+}
+
 void Sprite::setRepeat(bool set) {
 	mRepeat = set;
 }

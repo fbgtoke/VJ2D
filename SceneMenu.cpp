@@ -15,9 +15,7 @@ SceneMenu::~SceneMenu() {
 }
 
 void SceneMenu::init() {
-	initShaders();
-	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
-	currentTime = 0.0f;
+	Scene::init();
 
 	mTexBackground.loadFromFile("images/menuprincipal.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexBobble.loadFromFile("images/bobblemenu.png", TEXTURE_PIXEL_FORMAT_RGBA);
@@ -46,7 +44,7 @@ void SceneMenu::init() {
 }
 
 void SceneMenu::update(int deltaTime) {
-	currentTime += deltaTime;
+	Scene::update(deltaTime);
 
 	mBobble->update(deltaTime);
 
@@ -84,23 +82,8 @@ void SceneMenu::update(int deltaTime) {
 }
 
 void SceneMenu::render() {
-	glm::mat4 viewmatrix;
-	glm::mat4 modelview;
-
-	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
-
-	viewmatrix = glm::mat4(1.0f);
-	viewmatrix = glm::scale(viewmatrix, glm::vec3(2.0f, 2.0f, 2.0f));
-	texProgram.setUniformMatrix4f("VM", viewmatrix);
+	Scene::render();
 	
-	modelview = glm::mat4(1.0f);
-	texProgram.setUniformMatrix4f("modelview", modelview);
-	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
-
 	mBackground->render();
-	
 	mBobble->render();
-
 }

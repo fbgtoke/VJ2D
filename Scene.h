@@ -8,20 +8,22 @@
 #include <GL/glut.h>
 
 #include <iostream>
+#include <list>
 #include <cmath>
 
 #include "ShaderProgram.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Particle.h"
 
 class Scene {
 public:
 	Scene() {};
-	virtual ~Scene() {};
+	virtual ~Scene();
 
-	virtual void init() {};
-	virtual void update(int deltaTime) {};
-	virtual void render() {};
+	virtual void init();
+	virtual void update(int deltaTime);
+	virtual void render();
 
 	enum SceneType {
 		SCENE_MENU,
@@ -35,10 +37,16 @@ public:
 
 	void initShaders();
 
+	void addParticle(Particle* particle);
+
+	static bool outOfBounds(const glm::vec2& position);
+
 protected:
 	ShaderProgram texProgram;
 	float currentTime;
 	glm::mat4 projection;
+
+	std::list<Particle*> mParticles;
 };
 
 #endif // _SCENE_INCLUDE

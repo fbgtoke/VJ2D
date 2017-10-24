@@ -1,4 +1,5 @@
 #include "BubbleBoard.h"
+#include "Game.h"
 
 BubbleBoard::BubbleBoard(ShaderProgram &program)
 	: mTexProgram(program) {}
@@ -155,7 +156,7 @@ glm::vec2 BubbleBoard::getBubbleOrigin(unsigned int x, unsigned int y) const {
 	else
 		position.x = x * 16.0f + 8.0f;
 
-	position.y = y * 16.0f + mNumberOfCollapse * 16.0f;
+	position.y = y * 16.0f + (mNumberOfCollapse) * 16.0f;
 	
 	return position + mOffset;
 }
@@ -203,7 +204,7 @@ void BubbleBoard::checkIntegrity(unsigned int x, unsigned int y) {
 
 	if (toErase.size() >= 3) {
 		for (glm::ivec2& pos : toErase) {
-			mBubbles[pos.y][pos.x] = BUBBLE_NONE;
+			makeBubbleExplode(pos.x, pos.y);
 		}
 	}
 }
@@ -242,7 +243,7 @@ void BubbleBoard::checkFloatingBubbles() {
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
 			if (!visited[i][j]) {
-				mBubbles[i][j] = BUBBLE_NONE;
+				makeBubbleFall(j, i);
 			}
 		}
 	}
@@ -275,9 +276,30 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 void BubbleBoard::collapseWall() {
 	mNumberOfCollapse++;
 
-	mWall->setPosition(glm::vec2(mOffset.x, mOffset.y + mNumberOfCollapse * 16.0f));
+	mWall->setPosition(glm::vec2(mOffset.x, mOffset.y + (mNumberOfCollapse-1) * 16.0f));
 }
 
 unsigned int BubbleBoard::getNumberOfCollapse() const {
 	return mNumberOfCollapse;
+}
+
+void BubbleBoard::makeBubbleFall(unsigned int x, unsigned int y) {
+	if (mBubbles[y][x] == BUBBLE_NONE) return;
+
+	std::cout << "Making fall " << x << " " << y << std::endl;
+	
+	FallingBubble* falling = new FallingBubble(mTexProgram);
+	falling->init();
+	falling->setPosition(getBubbleOrigin(x, y));
+
+	Game::instance().getScene()->addParticle(falling);
+
+	mBubbles[y][x] = BUBBLE_NONE;
+}
+
+void BubbleBoard::makeBubbleExplode(unsigned int x, unsigned int y) {
+	if (mBubbles[y][x] == BUBBLE_NONE) return;
+
+	makeBubbleFall(x, y);
+	//mBubbles[y][x] = BUBBLE_NONE;
 }

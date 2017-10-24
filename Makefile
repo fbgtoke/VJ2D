@@ -204,6 +204,33 @@ Cannon.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Cannon.cpp.s
 .PHONY : Cannon.cpp.s
 
+FallingBubble.o: FallingBubble.cpp.o
+
+.PHONY : FallingBubble.o
+
+# target to build an object file
+FallingBubble.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/FallingBubble.cpp.o
+.PHONY : FallingBubble.cpp.o
+
+FallingBubble.i: FallingBubble.cpp.i
+
+.PHONY : FallingBubble.i
+
+# target to preprocess a source file
+FallingBubble.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/FallingBubble.cpp.i
+.PHONY : FallingBubble.cpp.i
+
+FallingBubble.s: FallingBubble.cpp.s
+
+.PHONY : FallingBubble.s
+
+# target to generate assembly for a file
+FallingBubble.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/FallingBubble.cpp.s
+.PHONY : FallingBubble.cpp.s
+
 Game.o: Game.cpp.o
 
 .PHONY : Game.o
@@ -257,6 +284,33 @@ MovingBubble.s: MovingBubble.cpp.s
 MovingBubble.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/MovingBubble.cpp.s
 .PHONY : MovingBubble.cpp.s
+
+Particle.o: Particle.cpp.o
+
+.PHONY : Particle.o
+
+# target to build an object file
+Particle.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Particle.cpp.o
+.PHONY : Particle.cpp.o
+
+Particle.i: Particle.cpp.i
+
+.PHONY : Particle.i
+
+# target to preprocess a source file
+Particle.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Particle.cpp.i
+.PHONY : Particle.cpp.i
+
+Particle.s: Particle.cpp.s
+
+.PHONY : Particle.s
+
+# target to generate assembly for a file
+Particle.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Particle.cpp.s
+.PHONY : Particle.cpp.s
 
 Player.o: Player.cpp.o
 
@@ -600,12 +654,18 @@ help:
 	@echo "... Cannon.o"
 	@echo "... Cannon.i"
 	@echo "... Cannon.s"
+	@echo "... FallingBubble.o"
+	@echo "... FallingBubble.i"
+	@echo "... FallingBubble.s"
 	@echo "... Game.o"
 	@echo "... Game.i"
 	@echo "... Game.s"
 	@echo "... MovingBubble.o"
 	@echo "... MovingBubble.i"
 	@echo "... MovingBubble.s"
+	@echo "... Particle.o"
+	@echo "... Particle.i"
+	@echo "... Particle.s"
 	@echo "... Player.o"
 	@echo "... Player.i"
 	@echo "... Player.s"
