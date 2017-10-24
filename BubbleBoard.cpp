@@ -16,8 +16,9 @@ void BubbleBoard::init(const BubbleLevel& level) {
 
 	// Init textures
 	mTexBubbles.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTexWall.loadFromFile("images/collapsing.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
-	// Init sprite
+	// Init bubble sprite
 	const float sizeInSpritesheet = 1.f / float(NUM_BUBBLES);
 	mSprite = Sprite::createSprite(
 		glm::ivec2(16, 16), 
@@ -32,6 +33,21 @@ void BubbleBoard::init(const BubbleLevel& level) {
 		mSprite->addKeyframe(i, glm::vec2(sizeInSpritesheet * i, 0));
 	}
 	mSprite->changeAnimation(BUBBLE_NONE);
+
+	// Init collapsing wall sprite
+	mNumberOfCollapse = 0;
+
+	mWall = Sprite::createSprite(
+		glm::ivec2(176, 16),
+		glm::vec2(1, 1),
+		&mTexWall,
+		&mTexProgram
+	);
+
+	mWall->setNumberAnimations(1);
+		mWall->setAnimationSpeed(0, 0);
+		mWall->addKeyframe(0, glm::vec2(0, 0));
+	mWall->changeAnimation(0);
 }
 
 void BubbleBoard::update(int deltaTime) {}
@@ -43,11 +59,8 @@ void BubbleBoard::render() {
 			if (mBubbles[i][j] == BUBBLE_NONE)
 				continue;
 
-			if (i % 2 == 0)
-				position = glm::vec2(j * 16.0f, i * 16.0f) + mOffset;
-			else
-				position = glm::vec2(j * 16.0f + 8.0f, i * 16.0f) + mOffset;
-
+			position = getBubbleOrigin(j, i);
+			
 			if (i % 2 == 0 || j < mBoardWidth - 1) {
 				mSprite->setPosition(position);
 				mSprite->changeAnimation(mBubbles[i][j]);
@@ -55,6 +68,9 @@ void BubbleBoard::render() {
 			}
 		}
 	}
+
+	if (mNumberOfCollapse != 0)
+		mWall->render();
 }
 
 glm::vec2 BubbleBoard::getOffset() const {
@@ -132,10 +148,16 @@ glm::vec2 BubbleBoard::getBubbleOrigin(unsigned int x, unsigned int y) const {
 	if (x >= mBoardWidth || y >= mBoardHeight)
 		return glm::vec2(-1.0f, -1.0f);
 
+	glm::vec2 position;
+
 	if (y % 2 == 0)
-		return glm::vec2(x * 16.0f, y * 16.0f) + mOffset;
+		position.x = x * 16.0f;
+	else
+		position.x = x * 16.0f + 8.0f;
+
+	position.y = y * 16.0f + mNumberOfCollapse * 16.0f;
 	
-	return glm::vec2(x * 16.0f + 8.0f, y * 16.0f) + mOffset;
+	return position + mOffset;
 }
 
 glm::vec2 BubbleBoard::getBubbleCentroid(unsigned int x, unsigned int y) const {
@@ -248,4 +270,14 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 			}
 		}
 	}
+}
+
+void BubbleBoard::collapseWall() {
+	mNumberOfCollapse++;
+
+	mWall->setPosition(glm::vec2(mOffset.x, mOffset.y + mNumberOfCollapse * 16.0f));
+}
+
+unsigned int BubbleBoard::getNumberOfCollapse() const {
+	return mNumberOfCollapse;
 }

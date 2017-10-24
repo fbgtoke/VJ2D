@@ -45,6 +45,9 @@ public:
 
 	void getPossibleBubbleTypes(std::vector<BubbleType>& types) const;
 
+	void collapseWall();
+	unsigned int getNumberOfCollapse() const;
+
 private:
 	// Shader program
 	ShaderProgram& mTexProgram;
@@ -57,10 +60,15 @@ private:
 
 	// Textures
 	Texture mTexBubbles;
+	Texture mTexWall;
 
 	// Sprite
 	// Use a single sprite for all the bubble types
 	Sprite* mSprite;
+
+	// Collapsing wall
+	unsigned int mNumberOfCollapse;
+	Sprite* mWall;
 };
 
 #endif

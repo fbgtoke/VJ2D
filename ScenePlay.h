@@ -25,8 +25,6 @@ private:
 	Sprite* mBackground;
 
 	// Bubble sheet
-	static const unsigned int kNumBubblesX;
-	static const unsigned int kNumBubblesY;
 	BubbleBoard mBoard;
 
 	// Cannon
@@ -41,6 +39,9 @@ private:
 
 	// Level def
 	BubbleLevel mBubbleLevel;
+
+	// Clossapsing wall
+	unsigned int mTurnsUnitlCollapse;
 };
 
 

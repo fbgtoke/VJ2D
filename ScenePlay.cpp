@@ -1,9 +1,6 @@
 #include "ScenePlay.h"
 #include "Game.h"
 
-const unsigned int ScenePlay::kNumBubblesX = 11;
-const unsigned int ScenePlay::kNumBubblesY = 20;
-
 ScenePlay::ScenePlay()
 	: mBoard(texProgram), mCannon(texProgram),
 	mBackground(nullptr),
@@ -25,6 +22,7 @@ void ScenePlay::init() {
 	currentTime = 0.0f;
 
 	mBubbleLevel.loadFromFile("level00.txt");
+	mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 
 	mTexBackground.loadFromFile(mBubbleLevel.getBackgroundName(), TEXTURE_PIXEL_FORMAT_RGBA);
 
@@ -74,6 +72,12 @@ void ScenePlay::update(int deltaTime) {
 
 		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
 			Game::instance().changeScene(Scene::SCENE_WON);
+
+		--mTurnsUnitlCollapse;
+		if (mTurnsUnitlCollapse == 0) {
+			mBoard.collapseWall();
+			mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
+		}
 	}
 }
 

@@ -118,7 +118,7 @@ void MovingBubble::checkCollision() {
 		mBoard.checkIntegrity(collidedBubble.x, collidedBubble.y);
 		mBoard.checkFloatingBubbles();
 
-		if (collidedBubble.y >= 14)
+		if (collidedBubble.y >= 14 - mBoard.getNumberOfCollapse())
 			Game::instance().changeScene(Scene::SCENE_GAME_OVER);
 
 		mBubbleState = BUBBLE_DEAD;
