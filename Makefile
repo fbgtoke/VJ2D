@@ -366,6 +366,33 @@ Scene.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Scene.cpp.s
 .PHONY : Scene.cpp.s
 
+SceneCredits.o: SceneCredits.cpp.o
+
+.PHONY : SceneCredits.o
+
+# target to build an object file
+SceneCredits.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneCredits.cpp.o
+.PHONY : SceneCredits.cpp.o
+
+SceneCredits.i: SceneCredits.cpp.i
+
+.PHONY : SceneCredits.i
+
+# target to preprocess a source file
+SceneCredits.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneCredits.cpp.i
+.PHONY : SceneCredits.cpp.i
+
+SceneCredits.s: SceneCredits.cpp.s
+
+.PHONY : SceneCredits.s
+
+# target to generate assembly for a file
+SceneCredits.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneCredits.cpp.s
+.PHONY : SceneCredits.cpp.s
+
 SceneGameOver.o: SceneGameOver.cpp.o
 
 .PHONY : SceneGameOver.o
@@ -392,6 +419,33 @@ SceneGameOver.s: SceneGameOver.cpp.s
 SceneGameOver.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneGameOver.cpp.s
 .PHONY : SceneGameOver.cpp.s
+
+SceneHelp.o: SceneHelp.cpp.o
+
+.PHONY : SceneHelp.o
+
+# target to build an object file
+SceneHelp.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneHelp.cpp.o
+.PHONY : SceneHelp.cpp.o
+
+SceneHelp.i: SceneHelp.cpp.i
+
+.PHONY : SceneHelp.i
+
+# target to preprocess a source file
+SceneHelp.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneHelp.cpp.i
+.PHONY : SceneHelp.cpp.i
+
+SceneHelp.s: SceneHelp.cpp.s
+
+.PHONY : SceneHelp.s
+
+# target to generate assembly for a file
+SceneHelp.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneHelp.cpp.s
+.PHONY : SceneHelp.cpp.s
 
 SceneMenu.o: SceneMenu.cpp.o
 
@@ -672,9 +726,15 @@ help:
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"
+	@echo "... SceneCredits.o"
+	@echo "... SceneCredits.i"
+	@echo "... SceneCredits.s"
 	@echo "... SceneGameOver.o"
 	@echo "... SceneGameOver.i"
 	@echo "... SceneGameOver.s"
+	@echo "... SceneHelp.o"
+	@echo "... SceneHelp.i"
+	@echo "... SceneHelp.s"
 	@echo "... SceneMenu.o"
 	@echo "... SceneMenu.i"
 	@echo "... SceneMenu.s"

@@ -285,8 +285,6 @@ unsigned int BubbleBoard::getNumberOfCollapse() const {
 
 void BubbleBoard::makeBubbleFall(unsigned int x, unsigned int y) {
 	if (mBubbles[y][x] == BUBBLE_NONE) return;
-
-	std::cout << "Making fall " << x << " " << y << std::endl;
 	
 	FallingBubble* falling = new FallingBubble(mTexProgram);
 	falling->init();

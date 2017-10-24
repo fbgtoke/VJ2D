@@ -3,6 +3,8 @@
 #include "ScenePlay.h"
 #include "SceneGameOver.h"
 #include "SceneWin.h"
+#include "SceneCredits.h"
+#include "SceneHelp.h"
 
 #include "Game.h"
 
@@ -26,6 +28,10 @@ Scene* Scene::create(SceneType type) {
 		return new SceneGameOver();
 	case SCENE_WON:
 		return new SceneWin();
+	case SCENE_CREDITS:
+		return new SceneCredits();
+	case SCENE_HELP:
+		return new SceneHelp();
 	default:
 		return nullptr;
 	}
@@ -69,7 +75,7 @@ void Scene::render() {
 	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 
 	viewmatrix = glm::mat4(1.0f);
-	viewmatrix = glm::scale(viewmatrix, glm::vec3(2.0f, 2.0f, 2.0f));
+	viewmatrix = glm::scale(viewmatrix, glm::vec3(3.0f, 3.0f, 3.0f));
 	texProgram.setUniformMatrix4f("VM", viewmatrix);
 	
 	modelview = glm::mat4(1.0f);

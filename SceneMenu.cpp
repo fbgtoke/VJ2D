@@ -57,6 +57,12 @@ void SceneMenu::update(int deltaTime) {
 		case MENU_PLAY:
 			Game::instance().changeScene(SCENE_PLAY);
 			break;
+		case MENU_HELP:
+			Game::instance().changeScene(SCENE_HELP);
+			break;
+		case MENU_CREDITS:
+			Game::instance().changeScene(SCENE_CREDITS);
+			break;
 		case MENU_CLOSE:
 			Game::instance().stop();
 			break;
