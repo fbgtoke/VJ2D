@@ -34,6 +34,9 @@ Sprite::Sprite(const glm::vec2 &quadSize, const glm::vec2 &sizeInSpritesheet, Te
 	position = glm::vec2(0.f);
 
 	mRepeat = true;
+
+	mQuadSize = quadSize;
+	mSizeInSpritesheet = sizeInSpritesheet;
 }
 
 void Sprite::update(int deltaTime)
@@ -135,4 +138,17 @@ void Sprite::setKeyFrame(int animId, int keyFrameId) {
 
 unsigned int Sprite::getKeyFrame() const {
 	return currentKeyframe;
+}
+
+Sprite* Sprite::clone() const {
+	Sprite* sprite = createSprite(mQuadSize, mSizeInSpritesheet, texture, shaderProgram);
+	sprite->position = position;
+	sprite->currentAnimation = currentAnimation;
+	sprite->currentKeyframe = currentKeyframe;
+	sprite->timeAnimation = timeAnimation;
+	sprite->texCoordDispl = texCoordDispl;
+	sprite->animations = animations;
+	sprite->mRepeat = mRepeat;
+
+	return sprite;
 }

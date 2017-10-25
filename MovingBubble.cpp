@@ -11,7 +11,7 @@ MovingBubble::~MovingBubble() {
 }
 
 void MovingBubble::init() {
-	mTexBubbles.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTexBubbles.loadFromFile("images/bubbles2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	mPosition = glm::vec2(0, 0);
 	mVelocity = glm::vec2(0, 0);
@@ -43,18 +43,8 @@ void MovingBubble::render() const {
 }
 
 void MovingBubble::setBubbleType(BubbleType type) {
-	const float sizeInSpritesheet = 1.f / float(NUM_BUBBLES);
-	mSprite = Sprite::createSprite(
-		glm::ivec2(16, 16), 
-		glm::vec2(sizeInSpritesheet, 1), 
-		&mTexBubbles, 
-		&mTexProgram
-	);
-
-	mSprite->setNumberAnimations(1);
-		mSprite->setAnimationSpeed(0, 0);
-		mSprite->addKeyframe(0, glm::vec2(sizeInSpritesheet * type, 0));
-	mSprite->changeAnimation(0);
+	mSprite = new SpriteBubble(&mTexBubbles, &mTexProgram);
+	mSprite->changeAnimation(type);
 
 	mBubbleType = type;
 }

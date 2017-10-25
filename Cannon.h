@@ -34,8 +34,6 @@ private:
 
 	// Sprites
 	Sprite* mArrow;
-	Sprite* mCurrentBubble;
-	Sprite* mNextBubble;
 };
 
 #endif

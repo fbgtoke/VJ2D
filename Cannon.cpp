@@ -11,7 +11,7 @@ Cannon::~Cannon() {
 
 void Cannon::init() {
 	mTexArrow.loadFromFile("images/arrow.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	mTexBubbles.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTexBubbles.loadFromFile("images/bubbles2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	mArrow = Sprite::createSprite(glm::ivec2(64, 64), glm::vec2(64.0f/8128.0f, 1), &mTexArrow, &mTexProgram);
 	mArrow->setNumberAnimations(1);

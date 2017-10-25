@@ -5,7 +5,7 @@
 #include "ShaderProgram.h"
 
 #include "Texture.h"
-#include "Sprite.h"
+#include "SpriteBubble.h"
 
 #include "BubbleType.h"
 #include "BubbleBoard.h"
@@ -40,7 +40,7 @@ private:
 
 	// Texture & Sprite
 	Texture mTexBubbles;
-	Sprite* mSprite;
+	SpriteBubble* mSprite;
 
 	// Type
 	BubbleType mBubbleType;

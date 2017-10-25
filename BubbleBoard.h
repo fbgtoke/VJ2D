@@ -6,6 +6,7 @@
 
 #include "Texture.h"
 #include "Sprite.h"
+#include "SpriteBubble.h"
 #include "FallingBubble.h"
 
 #include "BubbleType.h"
@@ -57,7 +58,11 @@ private:
 	glm::vec2 mOffset;
 	unsigned int mBoardWidth;
 	unsigned int mBoardHeight;
+
+	void initBubbles();
+	Sprite* createBubbleAtPosition(unsigned int x, unsigned int y);
 	bubble_matrix_t mBubbles;
+	std::vector<std::vector<Sprite*>> mSprites;
 
 	// Textures
 	Texture mTexBubbles;

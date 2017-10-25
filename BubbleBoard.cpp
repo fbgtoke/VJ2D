@@ -16,27 +16,13 @@ void BubbleBoard::init(const BubbleLevel& level) {
 	level.getBubbles(mBubbles);
 
 	// Init textures
-	mTexBubbles.loadFromFile("images/bubbles.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTexBubbles.loadFromFile("images/bubbles2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexWall.loadFromFile("images/collapsing.png", TEXTURE_PIXEL_FORMAT_RGBA);
-
-	// Init bubble sprite
-	const float sizeInSpritesheet = 1.f / float(NUM_BUBBLES);
-	mSprite = Sprite::createSprite(
-		glm::ivec2(16, 16), 
-		glm::vec2(sizeInSpritesheet, 1), 
-		&mTexBubbles, 
-		&mTexProgram
-	);
-
-	mSprite->setNumberAnimations(NUM_BUBBLES);
-	for (unsigned int i = 0; i < static_cast<unsigned int>(NUM_BUBBLES); ++i) {
-		mSprite->setAnimationSpeed(i, 0);
-		mSprite->addKeyframe(i, glm::vec2(sizeInSpritesheet * i, 0));
-	}
-	mSprite->changeAnimation(BUBBLE_NONE);
 
 	// Init collapsing wall sprite
 	mNumberOfCollapse = 0;
+
+	initBubbles();
 
 	mWall = Sprite::createSprite(
 		glm::ivec2(176, 16),
@@ -51,21 +37,26 @@ void BubbleBoard::init(const BubbleLevel& level) {
 	mWall->changeAnimation(0);
 }
 
-void BubbleBoard::update(int deltaTime) {}
-
-void BubbleBoard::render() {
-	glm::vec2 position;
+void BubbleBoard::update(int deltaTime) {
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
-			if (mBubbles[i][j] == BUBBLE_NONE)
-				continue;
+			if (mBubbles[i][j] != BUBBLE_NONE) {
+				if (i % 2 == 0 || j < mBoardWidth - 1) {
+					mSprites[i][j]->update(deltaTime);
+					mSprites[i][j]->setPosition(getBubbleOrigin(j, i));
+				}
+			}
+		}
+	}
+}
 
-			position = getBubbleOrigin(j, i);
-			
-			if (i % 2 == 0 || j < mBoardWidth - 1) {
-				mSprite->setPosition(position);
-				mSprite->changeAnimation(mBubbles[i][j]);
-				mSprite->render();
+void BubbleBoard::render() {
+	for (int i = 0; i < mBoardHeight; ++i) {
+		for (int j = 0; j < mBoardWidth; ++j) {
+			if (mBubbles[i][j] != BUBBLE_NONE) {
+				if (i % 2 == 0 || j < mBoardWidth - 1) {
+					mSprites[i][j]->render();
+				}
 			}
 		}
 	}
@@ -90,6 +81,7 @@ void BubbleBoard::setBubbleType(unsigned int x, unsigned int y, BubbleType type)
 	if (x >= mBoardWidth || y >= mBoardHeight) return;
 
 	mBubbles[y][x] = type;
+	mSprites[y][x]->changeAnimation(mBubbles[y][x]);
 }
 
 BubbleType BubbleBoard::getBubbleType(unsigned int x, unsigned int y) const {
@@ -281,6 +273,25 @@ void BubbleBoard::collapseWall() {
 
 unsigned int BubbleBoard::getNumberOfCollapse() const {
 	return mNumberOfCollapse;
+}
+
+void BubbleBoard::initBubbles() {
+	mSprites = std::vector<std::vector<Sprite*>> (
+		mBoardHeight,
+		std::vector<Sprite*>(mBoardWidth, nullptr)
+	);
+
+	glm::vec2 position;
+	for (unsigned int i = 0; i < mBoardHeight; ++i) {
+		for (unsigned int j = 0; j < mBoardWidth; ++j) {
+			position = getBubbleOrigin(j, i);
+
+			mSprites[i][j] = new SpriteBubble(&mTexBubbles, &mTexProgram);
+			mSprites[i][j]->changeAnimation(mBubbles[i][j]);
+			mSprites[i][j]->setPosition(position);
+		}
+	}
+
 }
 
 void BubbleBoard::makeBubbleFall(unsigned int x, unsigned int y) {

@@ -41,6 +41,8 @@ public:
 
 	unsigned int getKeyFrame() const;
 
+	Sprite* clone() const;
+
 private:
 	Texture *texture;
 	ShaderProgram *shaderProgram;
@@ -54,6 +56,11 @@ private:
 	vector<AnimKeyframes> animations;
 
 	bool mRepeat;
+
+	// Values passed to the constructor
+	// Keep these so it easier to copy the Sprite instance
+	glm::vec2 mQuadSize;
+	glm::vec2 mSizeInSpritesheet;
 };
 
 

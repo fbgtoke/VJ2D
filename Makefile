@@ -609,6 +609,33 @@ Sprite.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Sprite.cpp.s
 .PHONY : Sprite.cpp.s
 
+SpriteBubble.o: SpriteBubble.cpp.o
+
+.PHONY : SpriteBubble.o
+
+# target to build an object file
+SpriteBubble.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBubble.cpp.o
+.PHONY : SpriteBubble.cpp.o
+
+SpriteBubble.i: SpriteBubble.cpp.i
+
+.PHONY : SpriteBubble.i
+
+# target to preprocess a source file
+SpriteBubble.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBubble.cpp.i
+.PHONY : SpriteBubble.cpp.i
+
+SpriteBubble.s: SpriteBubble.cpp.s
+
+.PHONY : SpriteBubble.s
+
+# target to generate assembly for a file
+SpriteBubble.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBubble.cpp.s
+.PHONY : SpriteBubble.cpp.s
+
 Text.o: Text.cpp.o
 
 .PHONY : Text.o
@@ -780,6 +807,9 @@ help:
 	@echo "... Sprite.o"
 	@echo "... Sprite.i"
 	@echo "... Sprite.s"
+	@echo "... SpriteBubble.o"
+	@echo "... SpriteBubble.i"
+	@echo "... SpriteBubble.s"
 	@echo "... Text.o"
 	@echo "... Text.i"
 	@echo "... Text.s"
