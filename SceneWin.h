@@ -23,9 +23,6 @@ private:
 	Sprite* mBackground;
 	Sprite* mBobble;
 
-	static const int kFreezeInputAmount;
-	int mFreezeInput;
-
 	enum MenuOption {
 		MENU_NEXT,
 		MENU_REPEAT,

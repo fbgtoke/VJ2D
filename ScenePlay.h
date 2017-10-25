@@ -7,6 +7,7 @@
 #include "Cannon.h"
 #include "MovingBubble.h"
 #include "BubbleLevel.h"
+#include "Text.h"
 
 class ScenePlay : public Scene {
 public:
@@ -42,6 +43,11 @@ private:
 
 	// Clossapsing wall
 	unsigned int mTurnsUnitlCollapse;
+
+	// Score
+	Texture mTexFont;
+	Text mTextScore;
+	unsigned int score;
 };
 
 

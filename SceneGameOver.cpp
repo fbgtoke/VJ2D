@@ -3,8 +3,6 @@
 
 const glm::ivec2 SceneGameOver::kBobbleOffset = glm::ivec2(80, 192);
 
-const int SceneGameOver::kFreezeInputAmount = 300;
-
 SceneGameOver::SceneGameOver() {}
 
 SceneGameOver::~SceneGameOver() {
@@ -20,13 +18,13 @@ void SceneGameOver::init() {
 	mTexBackground.loadFromFile("images/youlost.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTexBobble.loadFromFile("images/bobblemenu.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
-	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &texProgram);
+	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &mTexProgram);
 	mBackground->setNumberAnimations(1);
 		mBackground->setAnimationSpeed(0, 0);
 		mBackground->addKeyframe(0, glm::vec2(0, 0));
 	mBackground->changeAnimation(0);
 
-	mBobble = Sprite::createSprite(glm::ivec2(16, 32), glm::vec2(0.25f, 1.0f), &mTexBobble, &texProgram);
+	mBobble = Sprite::createSprite(glm::ivec2(16, 32), glm::vec2(0.25f, 1.0f), &mTexBobble, &mTexProgram);
 	mBobble->setNumberAnimations(1);
 		mBobble->setAnimationSpeed(0, 3);
 		mBobble->addKeyframe(0, glm::vec2(0.00f, 0));
@@ -40,7 +38,6 @@ void SceneGameOver::init() {
 	mBobble->setPosition(kBobbleOffset);
 
 	mMenuOption = MENU_YES;
-	mFreezeInput = 0;
 }
 
 void SceneGameOver::update(int deltaTime) {
@@ -52,7 +49,7 @@ void SceneGameOver::update(int deltaTime) {
 	booblePosition.y += static_cast<unsigned int>(mMenuOption) * 16.0f;
 	mBobble->setPosition(booblePosition);
 
-	if (Game::instance().getKey('z') && currentTime > 500) {
+	if (Game::instance().getKeyPressed('z')) {
 		switch(mMenuOption) {
 		case MENU_YES:
 			Game::instance().changeScene(SCENE_PLAY);
@@ -65,19 +62,15 @@ void SceneGameOver::update(int deltaTime) {
 		}
 	}
 
-	mFreezeInput -= deltaTime;
-
 	const int curOption = static_cast<unsigned int>(mMenuOption);
 	const int numOptions = static_cast<unsigned int>(NUM_OPTIONS);
 
-	if (mFreezeInput <= 0) {
-		if (Game::instance().getSpecialKey(GLUT_KEY_UP)) {
-			mMenuOption = static_cast<MenuOption>((curOption + numOptions - 1)%numOptions);
-			mFreezeInput = kFreezeInputAmount;
-		} else if (Game::instance().getSpecialKey(GLUT_KEY_DOWN)) {
-			mMenuOption = static_cast<MenuOption>((curOption + numOptions + 1)%numOptions);
-			mFreezeInput = kFreezeInputAmount;
-		}
+	if (Game::instance().getSpecialKeyPressed(GLUT_KEY_UP)) {
+		mMenuOption = static_cast<MenuOption>((curOption + numOptions - 1)%numOptions);
+
+	} else if (Game::instance().getSpecialKeyPressed(GLUT_KEY_DOWN)) {
+		mMenuOption = static_cast<MenuOption>((curOption + numOptions + 1)%numOptions);
+
 	}
 }
 

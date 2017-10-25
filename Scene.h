@@ -42,7 +42,7 @@ public:
 	static bool outOfBounds(const glm::vec2& position);
 
 protected:
-	ShaderProgram texProgram;
+	ShaderProgram mTexProgram;
 	float currentTime;
 	glm::mat4 projection;
 

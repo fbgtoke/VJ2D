@@ -2,9 +2,10 @@
 #include "Game.h"
 
 ScenePlay::ScenePlay()
-	: mBoard(texProgram), mCannon(texProgram),
+	: mBoard(mTexProgram), mCannon(mTexProgram),
 	mBackground(nullptr),
-	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr) {}
+	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr),
+	mTextScore(mTexProgram, mTexFont) {}
 
 ScenePlay::~ScenePlay() {
 	if (mBackground != nullptr)
@@ -28,7 +29,7 @@ void ScenePlay::init() {
 		glm::ivec2(240, 320), 
 		glm::vec2(1, 1), 
 		&mTexBackground, 
-		&texProgram
+		&mTexProgram
 	);
 	mBackground->setNumberAnimations(1);
 		mBackground->setAnimationSpeed(0, 0);
@@ -39,12 +40,16 @@ void ScenePlay::init() {
 	mCannon.init();
 
 	initMovingBubbles();
+
+	mTexFont.loadFromFile("images/font.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mTextScore.setString("SCORE");
+	mTextScore.setPosition(glm::vec2(16.f, 40.f));
 }
 
 void ScenePlay::update(int deltaTime) {
 	Scene::update(deltaTime);
 
-	if (Game::instance().getKey('z') && currentTime > 500) {
+	if (Game::instance().getKeyPressed('z')) {
 		if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_STOPPED) {
 			const float minAngle = 2.5f;
 			const float alpha = M_PI / 128;
@@ -63,6 +68,7 @@ void ScenePlay::update(int deltaTime) {
 
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
+	mTextScore.update(deltaTime);
 
 	if (mCurrentMovingBubble != nullptr)
 		mCurrentMovingBubble->update(deltaTime);
@@ -89,6 +95,7 @@ void ScenePlay::render() {
 	mBackground->render();
 	mBoard.render();
 	mCannon.render();
+	mTextScore.render();
 
 	if (mCurrentMovingBubble != nullptr)
 		mCurrentMovingBubble->render();
@@ -105,11 +112,11 @@ void ScenePlay::initMovingBubbles() {
 	BubbleType type;
 
 	type = getRandomBubbleType();
-	mCurrentMovingBubble = new MovingBubble(texProgram, type, mBoard);
+	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
 	mCurrentMovingBubble->init();
 	
 	type = getRandomBubbleType();
-	mNextMovingBubble = new MovingBubble(texProgram, type, mBoard);
+	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
 	mNextMovingBubble->init();
 
 	swapMovingBubbles();

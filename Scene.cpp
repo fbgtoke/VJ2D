@@ -44,6 +44,7 @@ void Scene::init() {
 }
 
 void Scene::update(int deltaTime) {
+	Game::instance().scanKeys();
 	currentTime += deltaTime;
 	
 	std::list<Particle*>::iterator it = mParticles.begin();
@@ -70,17 +71,17 @@ void Scene::render() {
 	glm::mat4 viewmatrix;
 	glm::mat4 modelview;
 
-	texProgram.use();
-	texProgram.setUniformMatrix4f("projection", projection);
-	texProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
+	mTexProgram.use();
+	mTexProgram.setUniformMatrix4f("projection", projection);
+	mTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 
 	viewmatrix = glm::mat4(1.0f);
 	viewmatrix = glm::scale(viewmatrix, glm::vec3(3.0f, 3.0f, 3.0f));
-	texProgram.setUniformMatrix4f("VM", viewmatrix);
+	mTexProgram.setUniformMatrix4f("VM", viewmatrix);
 	
 	modelview = glm::mat4(1.0f);
-	texProgram.setUniformMatrix4f("modelview", modelview);
-	texProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+	mTexProgram.setUniformMatrix4f("modelview", modelview);
+	mTexProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
 }
 
 void Scene::initShaders() {
@@ -98,16 +99,16 @@ void Scene::initShaders() {
 		cout << "Fragment Shader Error" << endl;
 		cout << "" << fShader.log() << endl << endl;
 	}
-	texProgram.init();
-	texProgram.addShader(vShader);
-	texProgram.addShader(fShader);
-	texProgram.link();
-	if(!texProgram.isLinked())
+	mTexProgram.init();
+	mTexProgram.addShader(vShader);
+	mTexProgram.addShader(fShader);
+	mTexProgram.link();
+	if(!mTexProgram.isLinked())
 	{
 		cout << "Shader Linking Error" << endl;
-		cout << "" << texProgram.log() << endl << endl;
+		cout << "" << mTexProgram.log() << endl << endl;
 	}
-	texProgram.bindFragmentOutput("outColor");
+	mTexProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
 }

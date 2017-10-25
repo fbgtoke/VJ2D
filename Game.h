@@ -40,6 +40,12 @@ public:
 	bool getKey(int key) const;
 	bool getSpecialKey(int key) const;
 
+	void scanKeys();
+	bool getKeyPressed(int key) const;
+	bool getKeyReleased(int key) const;
+	bool getSpecialKeyPressed(int key) const;
+	bool getSpecialKeyReleased(int key) const;
+
 	void changeScene(Scene::SceneType type);
 	Scene* getScene();
 	
@@ -52,6 +58,11 @@ private:
 	bool keys[256], specialKeys[256]; // Store key states so that 
 	                                  // we can have access at any time
 
+	bool mKeysCurrent[256];
+	bool mKeysPrevious[256];
+
+	bool mSpecialKeysCurrent[256];
+	bool mSpecialKeysPrevious[256];
 };
 
 
