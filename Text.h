@@ -27,7 +27,6 @@ private:
 	ShaderProgram& mTexProgram;
 	Texture& mTexFont;
 
-	Sprite* mSprite;
 	Sprite* mCharacters[128];
 	void initSprite();
 

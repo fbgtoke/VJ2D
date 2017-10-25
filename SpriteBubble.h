@@ -11,6 +11,7 @@ public:
 private:
 	static const glm::ivec2 kQuadSize;
 	static const glm::vec2 kSizeInSpriteSheet;
+	static const unsigned int kStallingFrames;
 	static const unsigned int kNumFrames;
 	static const unsigned int kAnimationSpeed;
 };
