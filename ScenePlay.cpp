@@ -1,10 +1,13 @@
 #include "ScenePlay.h"
 #include "Game.h"
 
+const int ScenePlay::kMaxLevelNumber = 1;
+
 ScenePlay::ScenePlay()
 	: mBoard(mTexProgram), mCannon(mTexProgram),
 	mBackground(nullptr),
 	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr),
+	mLevelNumber(0),
 	mTextScore(mTexProgram, mTexFont) {}
 
 ScenePlay::~ScenePlay() {
@@ -20,7 +23,7 @@ ScenePlay::~ScenePlay() {
 void ScenePlay::init() {
 	Scene::init();
 
-	mBubbleLevel.loadFromFile("level00.txt");
+	mBubbleLevel.loadFromFile("level" + std::to_string(mLevelNumber) + ".txt");
 	mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 
 	mTexBackground.loadFromFile(mBubbleLevel.getBackgroundName(), TEXTURE_PIXEL_FORMAT_RGBA);
@@ -78,8 +81,14 @@ void ScenePlay::update(int deltaTime) {
 	if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_DEAD) {
 		swapMovingBubbles();
 
-		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
-			Game::instance().changeScene(Scene::SCENE_WON);
+		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE) {
+			if (mLevelNumber < kMaxLevelNumber) {
+				Game::instance().changeScene(Scene::SCENE_WON);
+				Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
+			} else {
+				Game::instance().changeScene(Scene::SCENE_MENU);
+			}
+		}
 
 		--mTurnsUnitlCollapse;
 		if (mTurnsUnitlCollapse == 0) {
@@ -112,11 +121,11 @@ void ScenePlay::initMovingBubbles() {
 	BubbleType type;
 
 	type = getRandomBubbleType();
-	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
+	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
 	mCurrentMovingBubble->init();
 	
 	type = getRandomBubbleType();
-	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
+	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
 	mNextMovingBubble->init();
 
 	swapMovingBubbles();
@@ -147,4 +156,8 @@ void ScenePlay::swapMovingBubbles() {
 	MovingBubble* aux = mNextMovingBubble;
 	mNextMovingBubble = mCurrentMovingBubble;
 	mCurrentMovingBubble = aux;
+}
+
+void ScenePlay::receiveInteger(int integer) {
+	mLevelNumber = integer;
 }

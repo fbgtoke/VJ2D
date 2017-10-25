@@ -12,6 +12,8 @@ public:
 	void update(int deltaTime) final;
 	void render() final;
 
+	void receiveInteger(int integer) final;
+
 private:
 	static const glm::ivec2 kBobbleOffset;
 
@@ -29,6 +31,8 @@ private:
 		NUM_OPTIONS
 	};
 	MenuOption mMenuOption;
+
+	int mLevelNumber;
 };
 
 

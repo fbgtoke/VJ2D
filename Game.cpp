@@ -104,6 +104,10 @@ Scene* Game::getScene() {
 	return scene;
 }
 
+Scene* Game::getBufferedScene() {
+	return bufferedScene;
+}
+
 void Game::stop() {
 	bPlay = false;
 }

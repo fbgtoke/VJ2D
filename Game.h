@@ -48,6 +48,7 @@ public:
 
 	void changeScene(Scene::SceneType type);
 	Scene* getScene();
+	Scene* getBufferedScene();
 	
 	void stop();
 

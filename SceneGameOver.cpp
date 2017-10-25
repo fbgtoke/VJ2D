@@ -3,7 +3,8 @@
 
 const glm::ivec2 SceneGameOver::kBobbleOffset = glm::ivec2(80, 192);
 
-SceneGameOver::SceneGameOver() {}
+SceneGameOver::SceneGameOver()
+	: mLevelNumber(0) {}
 
 SceneGameOver::~SceneGameOver() {
 	if (mBackground != nullptr)
@@ -53,6 +54,7 @@ void SceneGameOver::update(int deltaTime) {
 		switch(mMenuOption) {
 		case MENU_YES:
 			Game::instance().changeScene(SCENE_PLAY);
+			Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
 			break;
 		case MENU_NO:
 			Game::instance().changeScene(SCENE_MENU);
@@ -79,4 +81,8 @@ void SceneGameOver::render() {
 
 	mBackground->render();
 	mBobble->render();
+}
+
+void SceneGameOver::receiveInteger(int integer) {
+	mLevelNumber = integer;
 }

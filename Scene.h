@@ -25,6 +25,9 @@ public:
 	virtual void update(int deltaTime);
 	virtual void render();
 
+	virtual void receiveInteger(int integer) {};
+	virtual void receiveString(const std::string& string) {};
+
 	enum SceneType {
 		SCENE_MENU,
 		SCENE_PLAY,

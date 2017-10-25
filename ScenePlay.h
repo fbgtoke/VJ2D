@@ -9,6 +9,8 @@
 #include "BubbleLevel.h"
 #include "Text.h"
 
+#include <string>
+
 class ScenePlay : public Scene {
 public:
 	ScenePlay();
@@ -17,6 +19,8 @@ public:
 	void init() final;
 	void update(int deltaTime) final;
 	void render() final;
+
+	void receiveInteger(int integer) final;
 
 private:
 	// Textures
@@ -39,6 +43,8 @@ private:
 	MovingBubble* mNextMovingBubble;
 
 	// Level def
+	static const int kMaxLevelNumber;
+	int mLevelNumber;
 	BubbleLevel mBubbleLevel;
 
 	// Clossapsing wall
