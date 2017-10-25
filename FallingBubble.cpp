@@ -11,18 +11,10 @@ void FallingBubble::init() {
 	mVelocity.x = randomFloat(0.02f, 0.1f) * ((rand()%2 == 0)? -1.0f : 1.0f);
 	mVelocity.y = randomFloat(0.5f, 0.8f) * -1.0f;
 
-	mTexure.loadFromFile("images/falling-bubble.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	mSprite = Sprite::createSprite(
-		glm::ivec2(16, 16), 
-		glm::vec2(1.0f, 1.0f), 
-		&mTexure, 
-		&mTexProgram
-	);
-
-	mSprite->setNumberAnimations(1);
-		mSprite->setAnimationSpeed(0, 0);
-		mSprite->addKeyframe(0, glm::vec2(0, 0));
-	mSprite->changeAnimation(0);
+	mTexture.loadFromFile("images/bubbles2.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	mSprite = new SpriteBubble(&mTexture, &mTexProgram);
+	mSprite->changeAnimation(BUBBLE_BLACK);
+	mSprite->setAnimationSpeed(BUBBLE_BLACK, 0);
 }
 
 void FallingBubble::update(int deltaTime) {

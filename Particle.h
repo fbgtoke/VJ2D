@@ -21,7 +21,7 @@ public:
 	glm::vec2 getVelocity() const;
 
 protected:
-	Texture mTexure;
+	Texture mTexture;
 	Sprite* mSprite;
 
 	glm::vec2 mPosition;
