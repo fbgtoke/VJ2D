@@ -4,22 +4,30 @@ const float Text::kFontSize =   8.0f;
 const float Text::kCharNum  = 128.0f;
 
 Text::Text(ShaderProgram& program, Texture& font)
-	: mTexProgram(program), mTexFont(font), mString("") {
-
-	initSprite();
-}
-
-Text::Text(ShaderProgram& program, Texture& font, const std::string& string)
-	: mTexProgram(program), mTexFont(font), mString(string) {
-
-	initSprite();
-}
+	: mTexProgram(program), mTexFont(font), mString("") {}
 
 Text::~Text() {
+	if (mSprite != nullptr)
+		delete mSprite;
+}
+
+void Text::init() {
+	const float sizeInSpritesheet = 1.0f / kCharNum;
+
+	mSprite = Sprite::createSprite(
+		glm::ivec2(kFontSize, kFontSize),
+		glm::vec2(sizeInSpritesheet, 1),
+		&mTexFont,
+		&mTexProgram
+	);
+
+	mSprite->setNumberAnimations(kCharNum);
 	for (int i = 0; i < kCharNum; ++i) {
-		if (mCharacters[i] != nullptr)
-			delete mCharacters[i];
+		mSprite->setAnimationSpeed(i, 0);
+		mSprite->addKeyframe(i, glm::vec2(sizeInSpritesheet * i, 0));
 	}
+
+	mSprite->setPosition(glm::vec2(3000.0f, 3000.0f));
 }
 
 void Text::setPosition(const glm::vec2& position) {
@@ -31,10 +39,8 @@ void Text::setString(const std::string& string) {
 }
 
 void Text::update(int deltaTime) {
-	for (int i = 0; i < kCharNum; ++i) {
-		if (mCharacters[i] != nullptr)
-			mCharacters[i]->update(deltaTime);
-	}
+	if (mSprite != nullptr)
+		mSprite->update(deltaTime);
 }
 
 void Text::render() {
@@ -46,28 +52,10 @@ void Text::render() {
 
 		int animationIndex = static_cast<int>(mString[i]);
 
-		if (mCharacters[animationIndex] != nullptr) { 
-			//std::cout << "Rendering " << animationIndex << " at " << spritePosition.x << " " << spritePosition.y << std::endl;
-			mCharacters[animationIndex]->setPosition(spritePosition);
-			mCharacters[animationIndex]->render();
+		if (mSprite != nullptr) {
+			mSprite->changeAnimation(animationIndex);
+			mSprite->setPosition(spritePosition);
+			mSprite->render();
 		}
-	}
-}
-
-void Text::initSprite() {
-	const float sizeInSpritesheet = 1.0f / kCharNum;
-
-	for (int i = 0; i < kCharNum; ++i) {
-		mCharacters[i] = Sprite::createSprite(
-			glm::ivec2(kFontSize, kFontSize),
-			glm::vec2(sizeInSpritesheet, 1),
-			&mTexFont,
-			&mTexProgram
-		);
-
-		mCharacters[i]->setNumberAnimations(1);
-		mCharacters[i]->setAnimationSpeed(0, 0);
-		mCharacters[i]->addKeyframe(0, glm::vec2(sizeInSpritesheet * i, 0));
-		mCharacters[i]->setPosition(glm::vec2(3000.0f, 3000.0f));
 	}
 }

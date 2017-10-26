@@ -53,7 +53,11 @@ private:
 	// Score
 	Texture mTexFont;
 	Text mTextScore;
-	unsigned int score;
+	
+	static const int kStartingScore;
+	static const int kTurnPenalty;
+	int mScore;
+	void updateScore();
 };
 
 

@@ -11,8 +11,9 @@
 class Text {
 public:
 	Text(ShaderProgram& program, Texture& font);
-	Text(ShaderProgram& program, Texture& font, const std::string& string);
 	~Text();
+
+	void init();
 
 	void setPosition(const glm::vec2& position);
 	void setString(const std::string& string);
@@ -27,7 +28,7 @@ private:
 	ShaderProgram& mTexProgram;
 	Texture& mTexFont;
 
-	Sprite* mCharacters[128];
+	Sprite* mSprite;
 	void initSprite();
 
 	glm::vec2 mPosition;

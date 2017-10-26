@@ -3,12 +3,15 @@
 
 const int ScenePlay::kMaxLevelNumber = 1;
 
+const int ScenePlay::kStartingScore = 100;
+const int ScenePlay::kTurnPenalty = 10;
+
 ScenePlay::ScenePlay()
 	: mBoard(mTexProgram), mCannon(mTexProgram),
 	mBackground(nullptr),
 	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr),
 	mLevelNumber(0),
-	mTextScore(mTexProgram, mTexFont) {}
+	mTextScore(mTexProgram, mTexFont), mScore(kStartingScore) {}
 
 ScenePlay::~ScenePlay() {
 	if (mBackground != nullptr)
@@ -45,8 +48,8 @@ void ScenePlay::init() {
 	initMovingBubbles();
 
 	mTexFont.loadFromFile("images/font.png", TEXTURE_PIXEL_FORMAT_RGBA);
-	mTextScore.setString("SCORE");
-	mTextScore.setPosition(glm::vec2(16.f, 40.f));
+	mTextScore.init();
+	mTextScore.setPosition(glm::vec2(0.0f, 0.0f));
 }
 
 void ScenePlay::update(int deltaTime) {
@@ -66,6 +69,8 @@ void ScenePlay::update(int deltaTime) {
 
 			mCurrentMovingBubble->setVelocity(ballVel);
 			mCurrentMovingBubble->setBubbleState(MovingBubble::BUBBLE_MOVING);
+
+			mScore = std::max(mScore - kTurnPenalty, 0);
 		}
 	}
 
@@ -96,6 +101,8 @@ void ScenePlay::update(int deltaTime) {
 			mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 		}
 	}
+
+	updateScore();
 }
 
 void ScenePlay::render() {
@@ -160,4 +167,8 @@ void ScenePlay::swapMovingBubbles() {
 
 void ScenePlay::receiveInteger(int integer) {
 	mLevelNumber = integer;
+}
+
+void ScenePlay::updateScore() {
+	mTextScore.setString("Score " + std::to_string(mScore));
 }
