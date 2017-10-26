@@ -312,33 +312,6 @@ Particle.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Particle.cpp.s
 .PHONY : Particle.cpp.s
 
-Player.o: Player.cpp.o
-
-.PHONY : Player.o
-
-# target to build an object file
-Player.cpp.o:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Player.cpp.o
-.PHONY : Player.cpp.o
-
-Player.i: Player.cpp.i
-
-.PHONY : Player.i
-
-# target to preprocess a source file
-Player.cpp.i:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Player.cpp.i
-.PHONY : Player.cpp.i
-
-Player.s: Player.cpp.s
-
-.PHONY : Player.s
-
-# target to generate assembly for a file
-Player.cpp.s:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Player.cpp.s
-.PHONY : Player.cpp.s
-
 Scene.o: Scene.cpp.o
 
 .PHONY : Scene.o
@@ -609,6 +582,33 @@ Sprite.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Sprite.cpp.s
 .PHONY : Sprite.cpp.s
 
+SpriteBobble.o: SpriteBobble.cpp.o
+
+.PHONY : SpriteBobble.o
+
+# target to build an object file
+SpriteBobble.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBobble.cpp.o
+.PHONY : SpriteBobble.cpp.o
+
+SpriteBobble.i: SpriteBobble.cpp.i
+
+.PHONY : SpriteBobble.i
+
+# target to preprocess a source file
+SpriteBobble.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBobble.cpp.i
+.PHONY : SpriteBobble.cpp.i
+
+SpriteBobble.s: SpriteBobble.cpp.s
+
+.PHONY : SpriteBobble.s
+
+# target to generate assembly for a file
+SpriteBobble.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SpriteBobble.cpp.s
+.PHONY : SpriteBobble.cpp.s
+
 SpriteBubble.o: SpriteBubble.cpp.o
 
 .PHONY : SpriteBubble.o
@@ -690,33 +690,6 @@ Texture.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Texture.cpp.s
 .PHONY : Texture.cpp.s
 
-TileMap.o: TileMap.cpp.o
-
-.PHONY : TileMap.o
-
-# target to build an object file
-TileMap.cpp.o:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/TileMap.cpp.o
-.PHONY : TileMap.cpp.o
-
-TileMap.i: TileMap.cpp.i
-
-.PHONY : TileMap.i
-
-# target to preprocess a source file
-TileMap.cpp.i:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/TileMap.cpp.i
-.PHONY : TileMap.cpp.i
-
-TileMap.s: TileMap.cpp.s
-
-.PHONY : TileMap.s
-
-# target to generate assembly for a file
-TileMap.cpp.s:
-	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/TileMap.cpp.s
-.PHONY : TileMap.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -774,9 +747,6 @@ help:
 	@echo "... Particle.o"
 	@echo "... Particle.i"
 	@echo "... Particle.s"
-	@echo "... Player.o"
-	@echo "... Player.i"
-	@echo "... Player.s"
 	@echo "... Scene.o"
 	@echo "... Scene.i"
 	@echo "... Scene.s"
@@ -807,6 +777,9 @@ help:
 	@echo "... Sprite.o"
 	@echo "... Sprite.i"
 	@echo "... Sprite.s"
+	@echo "... SpriteBobble.o"
+	@echo "... SpriteBobble.i"
+	@echo "... SpriteBobble.s"
 	@echo "... SpriteBubble.o"
 	@echo "... SpriteBubble.i"
 	@echo "... SpriteBubble.s"
@@ -816,9 +789,6 @@ help:
 	@echo "... Texture.o"
 	@echo "... Texture.i"
 	@echo "... Texture.s"
-	@echo "... TileMap.o"
-	@echo "... TileMap.i"
-	@echo "... TileMap.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -39,7 +39,7 @@ public:
 	static Scene* create(SceneType type);
 
 	void initShaders();
-
+	void setBackground(const std::string& filename);
 	void addParticle(Particle* particle);
 
 	static bool outOfBounds(const glm::vec2& position);
@@ -48,6 +48,10 @@ protected:
 	ShaderProgram mTexProgram;
 	float currentTime;
 	glm::mat4 projection;
+
+	// Background
+	Texture mTexBackground;
+	Sprite* mBackground;
 
 	std::list<Particle*> mParticles;
 };

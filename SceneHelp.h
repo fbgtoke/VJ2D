@@ -10,14 +10,8 @@ public:
 
 	void init() final;
 	void update(int deltaTime) final;
-	void render() final;
 
 private:
-	// Textures
-	Texture mTexBackground;
-
-	// Background
-	Sprite* mBackground;
 };
 
 

@@ -8,14 +8,11 @@ const int ScenePlay::kTurnPenalty = 10;
 
 ScenePlay::ScenePlay()
 	: mBoard(mTexProgram), mCannon(mTexProgram),
-	mBackground(nullptr),
 	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr),
 	mLevelNumber(0),
 	mTextScore(mTexProgram, mTexFont), mScore(kStartingScore) {}
 
 ScenePlay::~ScenePlay() {
-	if (mBackground != nullptr)
-		delete mBackground;
 	if (mCurrentMovingBubble != nullptr)
 		delete mCurrentMovingBubble;
 	if (mNextMovingBubble != nullptr)
@@ -28,19 +25,7 @@ void ScenePlay::init() {
 
 	mBubbleLevel.loadFromFile("level" + std::to_string(mLevelNumber) + ".txt");
 	mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
-
-	mTexBackground.loadFromFile(mBubbleLevel.getBackgroundName(), TEXTURE_PIXEL_FORMAT_RGBA);
-
-	mBackground = Sprite::createSprite(
-		glm::ivec2(240, 320), 
-		glm::vec2(1, 1), 
-		&mTexBackground, 
-		&mTexProgram
-	);
-	mBackground->setNumberAnimations(1);
-		mBackground->setAnimationSpeed(0, 0);
-		mBackground->addKeyframe(0, glm::vec2(0, 0));
-	mBackground->changeAnimation(0);
+	setBackground(mBubbleLevel.getBackgroundName());
 
 	mBoard.init(mBubbleLevel);
 	mCannon.init();
@@ -55,29 +40,68 @@ void ScenePlay::init() {
 void ScenePlay::update(int deltaTime) {
 	Scene::update(deltaTime);
 
-	if (Game::instance().getKeyPressed('z')) {
-		if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_STOPPED) {
-			const float minAngle = 2.5f;
-			const float alpha = M_PI / 128;
-			float angle = alpha * (mCannon.getCurrentFrame() + 1);
-
-			glm::vec2 ballVel;
-			ballVel.x = cos(angle);
-			ballVel.y = (-1) * sin(angle);
-			glm::normalize(ballVel);
-			ballVel *= 0.3;
-
-			mCurrentMovingBubble->setVelocity(ballVel);
-			mCurrentMovingBubble->setBubbleState(MovingBubble::BUBBLE_MOVING);
-
-			mScore = std::max(mScore - kTurnPenalty, 0);
-		}
-	}
+	MovingBubble::BubbleState state = mCurrentMovingBubble->getBubbleState();
+	if (Game::instance().getKeyPressed('z') && state == MovingBubble::BUBBLE_STOPPED)
+		fireCannon();
 
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
 	mTextScore.update(deltaTime);
 
+	updateMovingBubbles(deltaTime);
+	updateScore();
+}
+
+void ScenePlay::render() {
+	Scene::render();
+
+	mBoard.render();
+	mCannon.render();
+	mTextScore.render();
+
+	if (mCurrentMovingBubble != nullptr)
+		mCurrentMovingBubble->render();
+	if (mNextMovingBubble != nullptr)
+		mNextMovingBubble->render();
+
+	for (Particle* particle : mParticles) {
+		if (particle != nullptr)
+			particle->render();
+	}
+}
+
+void ScenePlay::fireCannon() {
+	const float minAngle = 2.5f;
+	const float alpha = M_PI / 128;
+	float angle = alpha * (mCannon.getCurrentFrame() + 1);
+
+	glm::vec2 ballVel;
+	ballVel.x = cos(angle);
+	ballVel.y = (-1) * sin(angle);
+	glm::normalize(ballVel);
+	ballVel *= 0.3;
+
+	mCurrentMovingBubble->setVelocity(ballVel);
+	mCurrentMovingBubble->setBubbleState(MovingBubble::BUBBLE_MOVING);
+
+	mScore = std::max(mScore - kTurnPenalty, 0);
+}
+
+void ScenePlay::initMovingBubbles() {
+	BubbleType type;
+
+	type = getRandomBubbleType();
+	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
+	mCurrentMovingBubble->init();
+	
+	type = getRandomBubbleType();
+	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
+	mNextMovingBubble->init();
+
+	swapMovingBubbles();
+}
+
+void ScenePlay::updateMovingBubbles(int deltaTime) {
 	if (mCurrentMovingBubble != nullptr)
 		mCurrentMovingBubble->update(deltaTime);
 	if (mNextMovingBubble != nullptr)
@@ -101,41 +125,6 @@ void ScenePlay::update(int deltaTime) {
 			mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 		}
 	}
-
-	updateScore();
-}
-
-void ScenePlay::render() {
-	Scene::render();
-
-	mBackground->render();
-	mBoard.render();
-	mCannon.render();
-	mTextScore.render();
-
-	if (mCurrentMovingBubble != nullptr)
-		mCurrentMovingBubble->render();
-	if (mNextMovingBubble != nullptr)
-		mNextMovingBubble->render();
-
-	for (Particle* particle : mParticles) {
-		if (particle != nullptr)
-			particle->render();
-	}
-}
-
-void ScenePlay::initMovingBubbles() {
-	BubbleType type;
-
-	type = getRandomBubbleType();
-	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
-	mCurrentMovingBubble->init();
-	
-	type = getRandomBubbleType();
-	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
-	mNextMovingBubble->init();
-
-	swapMovingBubbles();
 }
 
 BubbleType ScenePlay::getRandomBubbleType() const {

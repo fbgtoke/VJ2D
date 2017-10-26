@@ -23,20 +23,16 @@ public:
 	void receiveInteger(int integer) final;
 
 private:
-	// Textures
-	Texture mTexBackground;
-
-	// Background
-	Sprite* mBackground;
-
 	// Bubble sheet
 	BubbleBoard mBoard;
 
 	// Cannon
+	void fireCannon();
 	Cannon mCannon;
 
 	// Moving bubble
 	void initMovingBubbles();
+	void updateMovingBubbles(int deltaTime);
 	BubbleType getRandomBubbleType() const;
 	void swapMovingBubbles();
 	MovingBubble* mCurrentMovingBubble;

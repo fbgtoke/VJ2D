@@ -7,8 +7,6 @@ SceneWin::SceneWin()
 	: mLevelNumber(0) {}
 
 SceneWin::~SceneWin() {
-	if (mBackground != nullptr)
-		delete mBackground;
 	if (mBobble != nullptr)
 		delete mBobble;
 }
@@ -16,26 +14,10 @@ SceneWin::~SceneWin() {
 void SceneWin::init() {
 	Scene::init();
 
-	mTexBackground.loadFromFile("images/youwon.png", TEXTURE_PIXEL_FORMAT_RGBA);
+	setBackground("images/youwon.png");
 	mTexBobble.loadFromFile("images/bobblemenu.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
-	mBackground = Sprite::createSprite(glm::ivec2(240, 320), glm::vec2(1, 1), &mTexBackground, &mTexProgram);
-	mBackground->setNumberAnimations(1);
-		mBackground->setAnimationSpeed(0, 0);
-		mBackground->addKeyframe(0, glm::vec2(0, 0));
-	mBackground->changeAnimation(0);
-
-	mBobble = Sprite::createSprite(glm::ivec2(16, 32), glm::vec2(0.25f, 1.0f), &mTexBobble, &mTexProgram);
-	mBobble->setNumberAnimations(1);
-		mBobble->setAnimationSpeed(0, 3);
-		mBobble->addKeyframe(0, glm::vec2(0.00f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.25f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.00f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.25f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.00f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.25f, 0));
-		mBobble->addKeyframe(0, glm::vec2(0.50f, 0));
-	mBobble->changeAnimation(0);
+	mBobble = new SpriteBobble(&mTexBobble, &mTexProgram);
 	mBobble->setPosition(kBobbleOffset);
 
 	mMenuOption = MENU_NEXT;
@@ -82,8 +64,6 @@ void SceneWin::update(int deltaTime) {
 
 void SceneWin::render() {
 	Scene::render();
-
-	mBackground->render();
 	mBobble->render();
 }
 

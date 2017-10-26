@@ -9,11 +9,15 @@
 #include "Game.h"
 
 Scene::~Scene() {
-	for (Particle* particle : mParticles)
+	if (mBackground != nullptr)
+		delete mBackground;
+	
+	for (Particle* particle : mParticles) {
 		if (particle != nullptr) {
 			delete particle;
 			particle = nullptr;
 		}
+	}
 
 	mParticles.clear();
 }
@@ -82,6 +86,8 @@ void Scene::render() {
 	modelview = glm::mat4(1.0f);
 	mTexProgram.setUniformMatrix4f("modelview", modelview);
 	mTexProgram.setUniform2f("texCoordDispl", 0.f, 0.f);
+
+	mBackground->render();
 }
 
 void Scene::initShaders() {
@@ -111,6 +117,22 @@ void Scene::initShaders() {
 	mTexProgram.bindFragmentOutput("outColor");
 	vShader.free();
 	fShader.free();
+}
+
+void Scene::setBackground(const std::string& filename) {
+	mTexBackground.loadFromFile(filename, TEXTURE_PIXEL_FORMAT_RGBA);
+
+	mBackground = Sprite::createSprite(
+		glm::ivec2(240, 320), 
+		glm::vec2(1, 1), 
+		&mTexBackground, 
+		&mTexProgram
+	);
+
+	mBackground->setNumberAnimations(1);
+		mBackground->setAnimationSpeed(0, 0);
+		mBackground->addKeyframe(0, glm::vec2(0, 0));
+	mBackground->changeAnimation(0);
 }
 
 void Scene::addParticle(Particle* particle) {

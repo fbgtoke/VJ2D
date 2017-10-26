@@ -2,6 +2,7 @@
 #define _SCENE_GAME_OVER_INCLUDE
 
 #include "Scene.h"
+#include "SpriteBobble.h"
 
 class SceneGameOver : public Scene {
 public:
@@ -18,12 +19,8 @@ private:
 	static const glm::ivec2 kBobbleOffset;
 
 	// Textures
-	Texture mTexBackground;
 	Texture mTexBobble;
-
-	// Background
-	Sprite* mBackground;
-	Sprite* mBobble;
+	SpriteBobble* mBobble;
 
 	enum MenuOption {
 		MENU_YES,

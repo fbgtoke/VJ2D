@@ -2,6 +2,7 @@
 #define _SCENE_MENU_INCLUDE
 
 #include "Scene.h"
+#include "SpriteBobble.h"
 
 class SceneMenu : public Scene {
 public:
@@ -15,13 +16,8 @@ public:
 private:
 	static const glm::ivec2 kBobbleOffset;
 
-	// Textures
-	Texture mTexBackground;
 	Texture mTexBobble;
-
-	// Background
-	Sprite* mBackground;
-	Sprite* mBobble;
+	SpriteBobble* mBobble;
 
 	enum MenuOption {
 		MENU_PLAY,
