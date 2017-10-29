@@ -54,6 +54,8 @@ private:
 	static const int kTurnPenalty;
 	int mScore;
 	void updateScore();
+
+	void winLevel();
 };
 
 

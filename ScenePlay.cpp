@@ -44,6 +44,9 @@ void ScenePlay::update(int deltaTime) {
 	if (Game::instance().getKeyPressed('z') && state == MovingBubble::BUBBLE_STOPPED)
 		fireCannon();
 
+	if (Game::instance().getKeyPressed('n'))
+		winLevel();
+
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
 	mTextScore.update(deltaTime);
@@ -110,14 +113,8 @@ void ScenePlay::updateMovingBubbles(int deltaTime) {
 	if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_DEAD) {
 		swapMovingBubbles();
 
-		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE) {
-			if (mLevelNumber < kMaxLevelNumber) {
-				Game::instance().changeScene(Scene::SCENE_WON);
-				Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
-			} else {
-				Game::instance().changeScene(Scene::SCENE_MENU);
-			}
-		}
+		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
+			winLevel();
 
 		--mTurnsUnitlCollapse;
 		if (mTurnsUnitlCollapse == 0) {
@@ -160,4 +157,13 @@ void ScenePlay::receiveInteger(int integer) {
 
 void ScenePlay::updateScore() {
 	mTextScore.setString("Score " + std::to_string(mScore));
+}
+
+void ScenePlay::winLevel() {
+	if (mLevelNumber < kMaxLevelNumber) {
+		Game::instance().changeScene(Scene::SCENE_WON);
+		Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
+	} else {
+		Game::instance().changeScene(Scene::SCENE_MENU);
+	}
 }
