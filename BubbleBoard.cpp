@@ -1,7 +1,7 @@
 #include "BubbleBoard.h"
 #include "Game.h"
 
-static unsigned int aux = 0;
+const float BubbleBoard::kShakeSequence[4] = { -1.0f, 0.0f, 1.0f , 0.0f };
 
 BubbleBoard::BubbleBoard(ShaderProgram &program)
 	: mTexProgram(program) {}
@@ -10,7 +10,7 @@ BubbleBoard::~BubbleBoard() {
 	mBubbles.clear();
 }
 
-void BubbleBoard::init(const BubbleLevel& level) {
+void BubbleBoard::init(const BubbleLevel& level, unsigned int turnsBetweenCollapse) {
 	// Init board
 	mOffset = level.getOffset();
 	mBoardWidth  = level.getBubblesWidth();
@@ -22,6 +22,8 @@ void BubbleBoard::init(const BubbleLevel& level) {
 	mTexWall.loadFromFile("images/collapsing.png", TEXTURE_PIXEL_FORMAT_RGBA);
 
 	// Init collapsing wall sprite
+	mTurnsBetweenCollapse = turnsBetweenCollapse;
+	mTurnsUntilCollapse = turnsBetweenCollapse;
 	mNumberOfCollapse = 0;
 
 	initBubbles();
@@ -37,10 +39,13 @@ void BubbleBoard::init(const BubbleLevel& level) {
 		mWall->setAnimationSpeed(0, 0);
 		mWall->addKeyframe(0, glm::vec2(0, 0));
 	mWall->changeAnimation(0);
+
+	mShaking = false;
+	mShakeFrame = 0;
 }
 
 void BubbleBoard::update(int deltaTime) {
-	++aux;
+	++mShakeFrame;
 
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
@@ -152,8 +157,7 @@ glm::vec2 BubbleBoard::getBubbleOrigin(unsigned int x, unsigned int y) const {
 	else
 		position.x = x * 16.0f + 8.0f;
 
-	static const float offset[4] = { -1.0f, 0.0f, 1.0f , 0.0f };
-	position.x += offset[(aux/2)%4];
+	position.x += getShakeOffset();
 
 	position.y = y * 16.0f + (mNumberOfCollapse) * 16.0f;
 	
@@ -272,7 +276,17 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 	}
 }
 
+void BubbleBoard::decTurnsUntilCollapse() {
+	--mTurnsUntilCollapse;
+
+	if (mTurnsUntilCollapse == 0)
+		collapseWall();
+
+	mShaking = (mTurnsUntilCollapse == 1);
+}
+
 void BubbleBoard::collapseWall() {
+	mTurnsUntilCollapse = mTurnsBetweenCollapse;
 	mNumberOfCollapse++;
 
 	mWall->setPosition(glm::vec2(mOffset.x, mOffset.y + (mNumberOfCollapse-1) * 16.0f));
@@ -322,4 +336,10 @@ void BubbleBoard::makeBubbleExplode(unsigned int x, unsigned int y) {
 
 	makeBubbleFall(x, y);
 	//mBubbles[y][x] = BUBBLE_NONE;
+}
+
+float BubbleBoard::getShakeOffset() const {
+	if (mShaking)
+		return kShakeSequence[(mShakeFrame/2)%4];
+	return 0.f;
 }

@@ -43,9 +43,6 @@ private:
 	int mLevelNumber;
 	BubbleLevel mBubbleLevel;
 
-	// Clossapsing wall
-	unsigned int mTurnsUnitlCollapse;
-
 	// Score
 	Texture mTexFont;
 	Text mTextScore;

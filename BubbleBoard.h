@@ -25,7 +25,7 @@ public:
 	BubbleBoard(ShaderProgram &shaderProgram);
 	~BubbleBoard();
 
-	void init(const BubbleLevel& level);
+	void init(const BubbleLevel& level, unsigned int turnsBetweenCollapse);
 	void update(int deltaTime);
 	void render();
 
@@ -47,6 +47,7 @@ public:
 
 	void getPossibleBubbleTypes(std::vector<BubbleType>& types) const;
 
+	void decTurnsUntilCollapse();
 	void collapseWall();
 	unsigned int getNumberOfCollapse() const;
 	float getWallBottom() const;
@@ -74,11 +75,19 @@ private:
 	Sprite* mSprite;
 
 	// Collapsing wall
+	unsigned int mTurnsBetweenCollapse;
+	unsigned int mTurnsUntilCollapse;
 	unsigned int mNumberOfCollapse;
 	Sprite* mWall;
 
 	void makeBubbleFall(unsigned int x, unsigned int y);
 	void makeBubbleExplode(unsigned int x, unsigned int y);
+
+	// Screen shake
+	bool mShaking;
+	unsigned int mShakeFrame;
+	static const float kShakeSequence[4];
+	float getShakeOffset() const;
 };
 
 #endif

@@ -24,10 +24,9 @@ void ScenePlay::init() {
 	Scene::init();
 
 	mBubbleLevel.loadFromFile("level" + std::to_string(mLevelNumber) + ".txt");
-	mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
 	setBackground(mBubbleLevel.getBackgroundName());
 
-	mBoard.init(mBubbleLevel);
+	mBoard.init(mBubbleLevel, mBubbleLevel.getTurnsBetweenCollapse());
 	mCannon.init();
 
 	initMovingBubbles();
@@ -116,11 +115,7 @@ void ScenePlay::updateMovingBubbles(int deltaTime) {
 		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
 			winLevel();
 
-		--mTurnsUnitlCollapse;
-		if (mTurnsUnitlCollapse == 0) {
-			mBoard.collapseWall();
-			mTurnsUnitlCollapse = mBubbleLevel.getTurnsBetweenCollapse();
-		}
+		mBoard.decTurnsUntilCollapse();
 	}
 }
 
