@@ -13,8 +13,19 @@ void FallingBubble::init() {
 
 	mTexture.loadFromFile("images/bubbles2.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mSprite = new SpriteBubble(&mTexture, &mTexProgram);
-	mSprite->changeAnimation(BUBBLE_BLACK);
-	mSprite->setAnimationSpeed(BUBBLE_BLACK, 0);
+}
+
+void FallingBubble::setBubbleType(BubbleType type) {
+	if (type == BUBBLE_BOMB) {
+		mSprite->changeAnimation(BUBBLE_NONE);
+		mSprite->setAnimationSpeed(BUBBLE_NONE, 0);
+	} else if (type == BUBBLE_BOX) {
+		mSprite->changeAnimation(BUBBLE_BOX);
+		mSprite->setAnimationSpeed(BUBBLE_BOX, 0);
+	} else {
+		mSprite->changeAnimation(BUBBLE_BLACK);
+		mSprite->setAnimationSpeed(BUBBLE_BLACK, 0);
+	}
 }
 
 void FallingBubble::update(int deltaTime) {

@@ -371,6 +371,7 @@ void BubbleBoard::makeBubbleFall(unsigned int x, unsigned int y) {
 	FallingBubble* falling = new FallingBubble(mTexProgram);
 	falling->init();
 	falling->setPosition(getBubbleOrigin(x, y));
+	falling->setBubbleType(getBubbleType(x, y));
 
 	Game::instance().getScene()->addParticle(falling);
 

@@ -15,6 +15,8 @@ public:
 	void init() final;
 	void update(int deltaTime) final;
 
+	void setBubbleType(BubbleType type);
+
 private:
 	static const float kAcceleration;
 
