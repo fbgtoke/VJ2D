@@ -1,7 +1,7 @@
 #include "ScenePlay.h"
 #include "Game.h"
 
-const int ScenePlay::kMaxLevelNumber = 1;
+const int ScenePlay::kMaxLevelNumber = 2;
 
 const int ScenePlay::kStartingScore = 100;
 const int ScenePlay::kTurnPenalty = 10;

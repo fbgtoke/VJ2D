@@ -1,6 +1,8 @@
 #include "BubbleBoard.h"
 #include "Game.h"
 
+static unsigned int aux = 0;
+
 BubbleBoard::BubbleBoard(ShaderProgram &program)
 	: mTexProgram(program) {}
 
@@ -38,6 +40,8 @@ void BubbleBoard::init(const BubbleLevel& level) {
 }
 
 void BubbleBoard::update(int deltaTime) {
+	++aux;
+
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
 			if (mBubbles[i][j] != BUBBLE_NONE) {
@@ -147,6 +151,9 @@ glm::vec2 BubbleBoard::getBubbleOrigin(unsigned int x, unsigned int y) const {
 		position.x = x * 16.0f;
 	else
 		position.x = x * 16.0f + 8.0f;
+
+	static const float offset[4] = { -1.0f, 0.0f, 1.0f , 0.0f };
+	position.x += offset[(aux/2)%4];
 
 	position.y = y * 16.0f + (mNumberOfCollapse) * 16.0f;
 	
@@ -273,6 +280,10 @@ void BubbleBoard::collapseWall() {
 
 unsigned int BubbleBoard::getNumberOfCollapse() const {
 	return mNumberOfCollapse;
+}
+
+float BubbleBoard::getWallBottom() const {
+	return getOffset().y + getNumberOfCollapse() * 16.0f;
 }
 
 void BubbleBoard::initBubbles() {

@@ -79,10 +79,11 @@ void MovingBubble::checkCollision() {
 	unsigned int i = 0;
 	unsigned int j = 0;
 
-	if (mPosition.y < mBoard.getOffset().y) {
+	if (mPosition.y < mBoard.getWallBottom()) {
 		hasCollided = true;
 		for (j = 0; j < mBoard.getWidth(); ++j)
-			neighbors.push_back(glm::ivec2(j, 0));
+			if (mBoard.getBubbleType(j, 0) == BUBBLE_NONE)
+				neighbors.push_back(glm::ivec2(j, 0));
 		collidedBubble = getClosestNeighbor(neighbors);
 	}
 

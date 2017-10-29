@@ -1,3 +1,0 @@
-/home/kilian/Downloads/VJ/VJ2D/CMakeFiles/rebuild_cache.dir
-/home/kilian/Downloads/VJ/VJ2D/CMakeFiles/Bubble.dir
-/home/kilian/Downloads/VJ/VJ2D/CMakeFiles/edit_cache.dir

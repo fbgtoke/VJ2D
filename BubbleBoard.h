@@ -49,6 +49,7 @@ public:
 
 	void collapseWall();
 	unsigned int getNumberOfCollapse() const;
+	float getWallBottom() const;
 
 private:
 	// Shader program
