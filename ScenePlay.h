@@ -18,6 +18,7 @@ public:
 
 	void init() final;
 	void update(int deltaTime) final;
+	void input();
 	void render() final;
 
 	void receiveInteger(int integer) final;
@@ -52,7 +53,15 @@ private:
 	int mScore;
 	void updateScore();
 
+	// Win condition
+	static const int kTimeToNextScene;
+	int mTimeToNextScene;
+	SceneType mNextScene;
+	
 	void winLevel();
+	void looseLevel();
+
+	void goToNextScene();
 };
 
 

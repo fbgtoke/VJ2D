@@ -40,6 +40,10 @@ public:
 
 	void initShaders();
 	void setBackground(const std::string& filename);
+
+	void lockInput(bool lock);
+	bool isInputLocked() const;
+
 	void addParticle(Particle* particle);
 
 	static bool outOfBounds(const glm::vec2& position);
@@ -52,6 +56,9 @@ protected:
 	// Background
 	Texture mTexBackground;
 	Sprite* mBackground;
+
+	// Input
+	bool mLockInput;	
 
 	std::list<Particle*> mParticles;
 };

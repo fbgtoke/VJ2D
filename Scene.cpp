@@ -45,6 +45,8 @@ void Scene::init() {
 	initShaders();
 	projection = glm::ortho(0.f, float(SCREEN_WIDTH - 1), float(SCREEN_HEIGHT - 1), 0.f);
 	currentTime = 0.0f;
+
+	mLockInput = false;
 }
 
 void Scene::update(int deltaTime) {
@@ -133,6 +135,14 @@ void Scene::setBackground(const std::string& filename) {
 		mBackground->setAnimationSpeed(0, 0);
 		mBackground->addKeyframe(0, glm::vec2(0, 0));
 	mBackground->changeAnimation(0);
+}
+
+void Scene::lockInput(bool lock) {
+	mLockInput = lock;
+}
+
+bool Scene::isInputLocked() const {
+	return mLockInput;
 }
 
 void Scene::addParticle(Particle* particle) {

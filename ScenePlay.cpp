@@ -6,6 +6,8 @@ const int ScenePlay::kMaxLevelNumber = 2;
 const int ScenePlay::kStartingScore = 100;
 const int ScenePlay::kTurnPenalty = 10;
 
+const int ScenePlay::kTimeToNextScene = 2000;
+
 ScenePlay::ScenePlay()
 	: mBoard(mTexProgram), mCannon(mTexProgram),
 	mCurrentMovingBubble(nullptr), mNextMovingBubble(nullptr),
@@ -34,17 +36,14 @@ void ScenePlay::init() {
 	mTexFont.loadFromFile("images/font.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTextScore.init();
 	mTextScore.setPosition(glm::vec2(0.0f, 0.0f));
+
+	mTimeToNextScene = -1;
 }
 
 void ScenePlay::update(int deltaTime) {
 	Scene::update(deltaTime);
 
-	MovingBubble::BubbleState state = mCurrentMovingBubble->getBubbleState();
-	if (Game::instance().getKeyPressed('z') && state == MovingBubble::BUBBLE_STOPPED)
-		fireCannon();
-
-	if (Game::instance().getKeyPressed('n'))
-		winLevel();
+	input();
 
 	mBoard.update(deltaTime);
 	mCannon.update(deltaTime);
@@ -53,10 +52,24 @@ void ScenePlay::update(int deltaTime) {
 	updateMovingBubbles(deltaTime);
 	updateScore();
 
-	if (mBoard.checkGameOver()) {
-		Game::instance().changeScene(Scene::SCENE_GAME_OVER);
-		Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
+	if (mTimeToNextScene != -1) {
+		mTimeToNextScene -= deltaTime;
+		if (mTimeToNextScene <= 0)
+			goToNextScene();
+	} else if (mBoard.checkGameOver()) {
+		looseLevel();
 	}
+}
+
+void ScenePlay::input() {
+	if (isInputLocked()) return;
+
+	MovingBubble::BubbleState state = mCurrentMovingBubble->getBubbleState();
+	if (Game::instance().getKeyPressed('z') && state == MovingBubble::BUBBLE_STOPPED)
+		fireCannon();
+
+	if (Game::instance().getKeyPressed('n'))
+		winLevel();
 }
 
 void ScenePlay::render() {
@@ -160,10 +173,22 @@ void ScenePlay::updateScore() {
 }
 
 void ScenePlay::winLevel() {
-	if (mLevelNumber < kMaxLevelNumber) {
-		Game::instance().changeScene(Scene::SCENE_WON);
-		Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
-	} else {
-		Game::instance().changeScene(Scene::SCENE_MENU);
-	}
+	lockInput(true);
+	mTimeToNextScene = kTimeToNextScene;
+
+	if (mLevelNumber < kMaxLevelNumber)
+		mNextScene = Scene::SCENE_WON;
+	else
+		mNextScene = Scene::SCENE_MENU;
+}
+
+void ScenePlay::looseLevel() {
+	lockInput(true);
+	mTimeToNextScene = kTimeToNextScene;
+	mNextScene = Scene::SCENE_GAME_OVER;
+}
+
+void ScenePlay::goToNextScene() {
+	Game::instance().changeScene(mNextScene);
+	Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
 }

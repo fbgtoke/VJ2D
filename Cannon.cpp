@@ -31,9 +31,11 @@ void Cannon::init() {
 void Cannon::update(int deltaTime) {
 	mArrow->update(deltaTime);
 
-	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT))
+	bool inputLocked = Game::instance().getScene()->isInputLocked();
+
+	if (Game::instance().getSpecialKey(GLUT_KEY_LEFT) && !inputLocked)
 		mArrow->setAnimationSpeed(0, 40);
-	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT))
+	else if (Game::instance().getSpecialKey(GLUT_KEY_RIGHT) && !inputLocked)
 		mArrow->setAnimationSpeed(0, -40);
 	else
 		mArrow->setAnimationSpeed(0, 0);
