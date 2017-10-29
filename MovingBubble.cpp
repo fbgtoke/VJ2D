@@ -2,8 +2,8 @@
 #include "Game.h"
 #include "Scene.h"
 
-MovingBubble::MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board, int levelNumber)
-	: mTexProgram(shaderProgram), mBubbleType(type), mBoard(board), mLevelNumber(levelNumber) {}
+MovingBubble::MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board)
+	: mTexProgram(shaderProgram), mBubbleType(type), mBoard(board) {}
 
 MovingBubble::~MovingBubble() {
 	if (mSprite != nullptr)
@@ -108,11 +108,6 @@ void MovingBubble::checkCollision() {
 		mBoard.setBubbleType(collidedBubble.x, collidedBubble.y, mBubbleType);
 		mBoard.checkIntegrity(collidedBubble.x, collidedBubble.y);
 		mBoard.checkFloatingBubbles();
-
-		if (collidedBubble.y >= 14 - mBoard.getNumberOfCollapse()) {
-			Game::instance().changeScene(Scene::SCENE_GAME_OVER);
-			Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
-		}
 
 		mBubbleState = BUBBLE_DEAD;
 	}

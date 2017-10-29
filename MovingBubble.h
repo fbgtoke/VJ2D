@@ -12,7 +12,7 @@
 
 class MovingBubble {
 public:
-	MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board, int levelNumber);
+	MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board);
 	~MovingBubble();
 
 	void init();
@@ -51,8 +51,6 @@ private:
 
 	// Current state
 	BubbleState mBubbleState;
-
-	int mLevelNumber;
 
 	// Other bubbles
 	BubbleBoard& mBoard;

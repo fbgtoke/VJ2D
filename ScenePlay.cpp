@@ -52,6 +52,11 @@ void ScenePlay::update(int deltaTime) {
 
 	updateMovingBubbles(deltaTime);
 	updateScore();
+
+	if (mBoard.checkGameOver()) {
+		Game::instance().changeScene(Scene::SCENE_GAME_OVER);
+		Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
+	}
 }
 
 void ScenePlay::render() {
@@ -93,11 +98,11 @@ void ScenePlay::initMovingBubbles() {
 	BubbleType type;
 
 	type = getRandomBubbleType();
-	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
+	mCurrentMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
 	mCurrentMovingBubble->init();
 	
 	type = getRandomBubbleType();
-	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard, mLevelNumber);
+	mNextMovingBubble = new MovingBubble(mTexProgram, type, mBoard);
 	mNextMovingBubble->init();
 
 	swapMovingBubbles();

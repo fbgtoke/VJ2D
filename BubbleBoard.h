@@ -44,6 +44,7 @@ public:
 
 	void checkIntegrity(unsigned int x, unsigned int y);
 	void checkFloatingBubbles();
+	bool checkGameOver() const;
 
 	void getPossibleBubbleTypes(std::vector<BubbleType>& types) const;
 
@@ -53,6 +54,8 @@ public:
 	float getWallBottom() const;
 
 private:
+	static const float kDeathZone;
+
 	// Shader program
 	ShaderProgram& mTexProgram;
 

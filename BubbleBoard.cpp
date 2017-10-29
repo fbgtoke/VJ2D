@@ -1,6 +1,7 @@
 #include "BubbleBoard.h"
 #include "Game.h"
 
+const float BubbleBoard::kDeathZone = 256.0f;
 const float BubbleBoard::kShakeSequence[4] = { -1.0f, 0.0f, 1.0f , 0.0f };
 
 BubbleBoard::BubbleBoard(ShaderProgram &program)
@@ -250,6 +251,24 @@ void BubbleBoard::checkFloatingBubbles() {
 			}
 		}
 	}
+}
+
+bool BubbleBoard::checkGameOver() const {
+	BubbleType type;
+	glm::vec2 position;
+
+	for (int i = 0; i < mBoardHeight; ++i) {
+		for (int j = 0; j < mBoardWidth; ++j) {
+			type = getBubbleType(j, i);
+			position = getBubbleCentroid(j, i);
+
+			if (type != BUBBLE_NONE && position.y > kDeathZone) {
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
