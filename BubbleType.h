@@ -11,6 +11,8 @@ enum BubbleType : unsigned int {
 	BUBBLE_BLACK,
 	BUBBLE_GREY,
 	BUBBLE_NONE,
+	BUBBLE_BOMB,
+	BUBBLE_BOX,
 	NUM_BUBBLES
 };
 

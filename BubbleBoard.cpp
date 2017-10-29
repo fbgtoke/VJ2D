@@ -90,8 +90,15 @@ unsigned int BubbleBoard::getHeight() const {
 void BubbleBoard::setBubbleType(unsigned int x, unsigned int y, BubbleType type) {
 	if (x >= mBoardWidth || y >= mBoardHeight) return;
 
-	mBubbles[y][x] = type;
-	mSprites[y][x]->changeAnimation(mBubbles[y][x]);
+	std::list<glm::ivec2> neighbors;
+	if (type == BUBBLE_BOMB) {
+		getNeighbors(glm::ivec2(x, y), neighbors);
+		for (glm::ivec2& neighbor : neighbors)
+			makeBubbleFall(neighbor.x, neighbor.y);
+	} else {
+		mBubbles[y][x] = type;
+		mSprites[y][x]->changeAnimation(mBubbles[y][x]);
+	}
 }
 
 BubbleType BubbleBoard::getBubbleType(unsigned int x, unsigned int y) const {
@@ -271,6 +278,24 @@ bool BubbleBoard::checkGameOver() const {
 	return false;
 }
 
+bool BubbleBoard::checkWin() const {
+	BubbleType type;
+	glm::vec2 position;
+
+	for (int i = 0; i < mBoardHeight; ++i) {
+		for (int j = 0; j < mBoardWidth; ++j) {
+			type = getBubbleType(j, i);
+			position = getBubbleCentroid(j, i);
+
+			if (type != BUBBLE_NONE) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
 void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 	types.clear();
 
@@ -279,7 +304,7 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 
 	for (i = 0; i < mBoardHeight; ++i) {
 		for (j = 0; j < mBoardWidth; ++j) {
-			if (mBubbles[i][j] != BUBBLE_NONE) {
+			if (mBubbles[i][j] != BUBBLE_NONE && mBubbles[i][j] != BUBBLE_BOX) {
 				alreadyExists = false;
 				k = 0;
 
@@ -293,6 +318,8 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 			}
 		}
 	}
+
+	types.push_back(BUBBLE_BOMB);
 }
 
 void BubbleBoard::decTurnsUntilCollapse() {

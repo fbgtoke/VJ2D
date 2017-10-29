@@ -45,6 +45,7 @@ public:
 	void checkIntegrity(unsigned int x, unsigned int y);
 	void checkFloatingBubbles();
 	bool checkGameOver() const;
+	bool checkWin() const;
 
 	void getPossibleBubbleTypes(std::vector<BubbleType>& types) const;
 

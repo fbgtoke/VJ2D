@@ -56,6 +56,8 @@ void ScenePlay::update(int deltaTime) {
 		mTimeToNextScene -= deltaTime;
 		if (mTimeToNextScene <= 0)
 			goToNextScene();
+	} else if (mBoard.checkWin()) {
+		winLevel();
 	} else if (mBoard.checkGameOver()) {
 		looseLevel();
 	}
@@ -129,10 +131,6 @@ void ScenePlay::updateMovingBubbles(int deltaTime) {
 
 	if (mCurrentMovingBubble->getBubbleState() == MovingBubble::BUBBLE_DEAD) {
 		swapMovingBubbles();
-
-		if (mNextMovingBubble->getBubbleType() == BUBBLE_NONE)
-			winLevel();
-
 		mBoard.decTurnsUntilCollapse();
 	}
 }

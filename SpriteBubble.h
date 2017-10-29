@@ -14,6 +14,9 @@ private:
 	static const unsigned int kStallingFrames;
 	static const unsigned int kNumFrames;
 	static const unsigned int kAnimationSpeed;
+
+	void addRegularFrames(unsigned int animation);
+	void addBombFrames(unsigned int animation);
 };
 
 #endif // _SPRITE_BUBBLE_INCLUDE
