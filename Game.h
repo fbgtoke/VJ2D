@@ -2,6 +2,7 @@
 #define _GAME_INCLUDE
 
 #include "Scene.h"
+#include <SFML/Audio.hpp>
 
 #define SCREEN_WIDTH 240*3
 #define SCREEN_HEIGHT 320*3
@@ -52,6 +53,10 @@ public:
 	
 	void stop();
 
+	void changeBackgroundMusic(const std::string& filename);
+	sf::Music& getBackgroundMusic();
+	void playSoundEffect(const std::string& filename);
+
 private:
 	bool bPlay;                       // Continue to play game?
 	Scene* scene;                     // Scene to render
@@ -64,6 +69,12 @@ private:
 
 	bool mSpecialKeysCurrent[256];
 	bool mSpecialKeysPrevious[256];
+
+	std::string mCurrentMusic;
+	sf::Music mBackgroundMusic;
+
+	void checkSounds();
+	std::list<std::pair<sf::Sound*, sf::SoundBuffer*>> mSounds;
 };
 
 

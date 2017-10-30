@@ -20,6 +20,10 @@ void SceneMenu::init() {
 	mBobble->setPosition(kBobbleOffset);
 
 	mMenuOption = MENU_PLAY;
+
+	Game::instance().changeBackgroundMusic("music/menu.ogg");
+	Game::instance().getBackgroundMusic().setLoop(true);
+	Game::instance().getBackgroundMusic().setVolume(75);
 }
 
 void SceneMenu::update(int deltaTime) {
@@ -55,9 +59,10 @@ void SceneMenu::update(int deltaTime) {
 
 	if (Game::instance().getSpecialKeyPressed(GLUT_KEY_UP)) {
 		mMenuOption = static_cast<MenuOption>((curOption + numOptions - 1)%numOptions);
-
+		Game::instance().playSoundEffect("sfx/tick.ogg");
 	} else if (Game::instance().getSpecialKeyPressed(GLUT_KEY_DOWN)) {
 		mMenuOption = static_cast<MenuOption>((curOption + numOptions + 1)%numOptions);
+		Game::instance().playSoundEffect("sfx/tick.ogg");
 	}
 }
 

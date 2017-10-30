@@ -110,6 +110,9 @@ void MovingBubble::checkCollision() {
 		mBoard.checkFloatingBubbles();
 
 		mBubbleState = BUBBLE_DEAD;
+
+		if (mBubbleType == BUBBLE_BOMB)
+			Game::instance().playSoundEffect("sfx/explosion.ogg");
 	}
 }
 

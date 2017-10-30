@@ -38,6 +38,9 @@ void ScenePlay::init() {
 	mTextScore.setPosition(glm::vec2(0.0f, 0.0f));
 
 	mTimeToNextScene = -1;
+
+	Game::instance().changeBackgroundMusic("music/play.ogg");
+	Game::instance().getBackgroundMusic().setLoop(true);
 }
 
 void ScenePlay::update(int deltaTime) {
@@ -107,6 +110,8 @@ void ScenePlay::fireCannon() {
 	mCurrentMovingBubble->setBubbleState(MovingBubble::BUBBLE_MOVING);
 
 	mScore = std::max(mScore - kTurnPenalty, 0);
+
+	Game::instance().playSoundEffect("sfx/piu.ogg");
 }
 
 void ScenePlay::initMovingBubbles() {
@@ -178,15 +183,22 @@ void ScenePlay::winLevel() {
 		mNextScene = Scene::SCENE_WON;
 	else
 		mNextScene = Scene::SCENE_MENU;
+
+	Game::instance().getBackgroundMusic().setVolume(0);
+	Game::instance().playSoundEffect("sfx/win.ogg");
 }
 
 void ScenePlay::looseLevel() {
 	lockInput(true);
 	mTimeToNextScene = kTimeToNextScene;
 	mNextScene = Scene::SCENE_GAME_OVER;
+
+	Game::instance().getBackgroundMusic().setVolume(0);
+	Game::instance().playSoundEffect("sfx/death.ogg");
 }
 
 void ScenePlay::goToNextScene() {
+	Game::instance().getBackgroundMusic().setVolume(50);
 	Game::instance().changeScene(mNextScene);
 	Game::instance().getBufferedScene()->receiveInteger(mLevelNumber);
 }

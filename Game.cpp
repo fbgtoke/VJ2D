@@ -27,6 +27,8 @@ bool Game::update(int deltaTime) {
 		bufferedScene = nullptr;
 	}
 
+	checkSounds();
+
 	return bPlay;
 }
 
@@ -110,4 +112,48 @@ Scene* Game::getBufferedScene() {
 
 void Game::stop() {
 	bPlay = false;
+}
+
+void Game::changeBackgroundMusic(const std::string& filename) {
+	if (mBackgroundMusic.getStatus() == sf::Music::Playing && filename != mCurrentMusic)
+		mBackgroundMusic.stop();
+
+	mBackgroundMusic.openFromFile(filename);
+	mBackgroundMusic.play();
+	mBackgroundMusic.setVolume(50);
+
+	mCurrentMusic = filename;
+}
+
+sf::Music& Game::getBackgroundMusic() {
+	return mBackgroundMusic;
+}
+
+void Game::playSoundEffect(const std::string& filename) {
+	sf::SoundBuffer* buffer;
+	sf::Sound* sound;
+
+	buffer = new sf::SoundBuffer();
+	buffer->loadFromFile(filename);
+	sound = new sf::Sound(*buffer);
+	sound->setVolume(300);
+	sound->play();
+
+	mSounds.push_back(std::make_pair(sound, buffer));
+}
+
+void Game::checkSounds() {
+	std::list<std::pair<sf::Sound*, sf::SoundBuffer*>>::iterator it = mSounds.begin();
+
+	sf::Sound* sound;
+	while (it != mSounds.end()) {
+		sound = (*it).first;
+		if (sound->getStatus() != sf::Sound::Playing) {
+			delete (*it).first;
+			delete (*it).second;
+			mSounds.erase(it++);
+		} else {
+			it++;
+		}
+	}
 }

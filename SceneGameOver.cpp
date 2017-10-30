@@ -21,6 +21,8 @@ void SceneGameOver::init() {
 	mBobble->setPosition(kBobbleOffset);
 
 	mMenuOption = MENU_YES;
+
+	Game::instance().changeBackgroundMusic("music/game-over.ogg");
 }
 
 void SceneGameOver::update(int deltaTime) {
@@ -51,9 +53,10 @@ void SceneGameOver::update(int deltaTime) {
 
 	if (Game::instance().getSpecialKeyPressed(GLUT_KEY_UP)) {
 		mMenuOption = static_cast<MenuOption>((curOption + numOptions - 1)%numOptions);
-
+		Game::instance().playSoundEffect("sfx/tick.ogg");
 	} else if (Game::instance().getSpecialKeyPressed(GLUT_KEY_DOWN)) {
 		mMenuOption = static_cast<MenuOption>((curOption + numOptions + 1)%numOptions);
+		Game::instance().playSoundEffect("sfx/tick.ogg");
 
 	}
 }

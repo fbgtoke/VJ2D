@@ -218,6 +218,9 @@ void BubbleBoard::checkIntegrity(unsigned int x, unsigned int y) {
 			makeBubbleExplode(pos.x, pos.y);
 		}
 	}
+
+	if (toErase.size() >= 10)
+		Game::instance().playSoundEffect("sfx/bim.ogg");
 }
 
 void BubbleBoard::checkFloatingBubbles() {
@@ -251,13 +254,19 @@ void BubbleBoard::checkFloatingBubbles() {
 	}
 
 	// Remove floating bubbles
+	int falling = 0;
+
 	for (int i = 0; i < mBoardHeight; ++i) {
 		for (int j = 0; j < mBoardWidth; ++j) {
-			if (!visited[i][j]) {
+			if (!visited[i][j] && getBubbleType(j, i) != BUBBLE_NONE) {
 				makeBubbleFall(j, i);
+				++falling;
 			}
 		}
 	}
+
+	if (falling > 5)
+		Game::instance().playSoundEffect("sfx/bim.ogg");
 }
 
 bool BubbleBoard::checkGameOver() const {
