@@ -366,6 +366,33 @@ SceneCredits.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneCredits.cpp.s
 .PHONY : SceneCredits.cpp.s
 
+SceneFinal.o: SceneFinal.cpp.o
+
+.PHONY : SceneFinal.o
+
+# target to build an object file
+SceneFinal.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneFinal.cpp.o
+.PHONY : SceneFinal.cpp.o
+
+SceneFinal.i: SceneFinal.cpp.i
+
+.PHONY : SceneFinal.i
+
+# target to preprocess a source file
+SceneFinal.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneFinal.cpp.i
+.PHONY : SceneFinal.cpp.i
+
+SceneFinal.s: SceneFinal.cpp.s
+
+.PHONY : SceneFinal.s
+
+# target to generate assembly for a file
+SceneFinal.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/SceneFinal.cpp.s
+.PHONY : SceneFinal.cpp.s
+
 SceneGameOver.o: SceneGameOver.cpp.o
 
 .PHONY : SceneGameOver.o
@@ -753,6 +780,9 @@ help:
 	@echo "... SceneCredits.o"
 	@echo "... SceneCredits.i"
 	@echo "... SceneCredits.s"
+	@echo "... SceneFinal.o"
+	@echo "... SceneFinal.i"
+	@echo "... SceneFinal.s"
 	@echo "... SceneGameOver.o"
 	@echo "... SceneGameOver.i"
 	@echo "... SceneGameOver.s"

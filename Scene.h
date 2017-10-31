@@ -34,7 +34,8 @@ public:
 		SCENE_HELP,
 		SCENE_CREDITS,
 		SCENE_WON,
-		SCENE_GAME_OVER
+		SCENE_GAME_OVER,
+		SCENE_FINAL
 	};
 	static Scene* create(SceneType type);
 

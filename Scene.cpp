@@ -5,6 +5,7 @@
 #include "SceneWin.h"
 #include "SceneCredits.h"
 #include "SceneHelp.h"
+#include "SceneFinal.h"
 
 #include "Game.h"
 
@@ -36,6 +37,8 @@ Scene* Scene::create(SceneType type) {
 		return new SceneCredits();
 	case SCENE_HELP:
 		return new SceneHelp();
+	case SCENE_FINAL:
+		return new SceneFinal();
 	default:
 		return nullptr;
 	}

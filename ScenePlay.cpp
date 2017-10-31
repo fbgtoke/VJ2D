@@ -1,7 +1,7 @@
 #include "ScenePlay.h"
 #include "Game.h"
 
-const int ScenePlay::kMaxLevelNumber = 2;
+const int ScenePlay::kMaxLevelNumber = 4;
 
 const int ScenePlay::kStartingScore = 100;
 const int ScenePlay::kTurnPenalty = 10;
@@ -177,15 +177,18 @@ void ScenePlay::updateScore() {
 
 void ScenePlay::winLevel() {
 	lockInput(true);
-	mTimeToNextScene = kTimeToNextScene;
-
-	if (mLevelNumber < kMaxLevelNumber)
-		mNextScene = Scene::SCENE_WON;
-	else
-		mNextScene = Scene::SCENE_MENU;
 
 	Game::instance().getBackgroundMusic().setVolume(0);
-	Game::instance().playSoundEffect("sfx/win.ogg");
+
+	if (mLevelNumber < kMaxLevelNumber) {
+		mTimeToNextScene = kTimeToNextScene;
+		mNextScene = Scene::SCENE_WON;
+		Game::instance().playSoundEffect("sfx/win.ogg");
+	} else {
+		mTimeToNextScene = kTimeToNextScene * 4;
+		mNextScene = Scene::SCENE_FINAL;
+		Game::instance().playSoundEffect("sfx/win-final.ogg");
+	}
 }
 
 void ScenePlay::looseLevel() {
