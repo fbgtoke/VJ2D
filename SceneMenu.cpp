@@ -24,6 +24,9 @@ void SceneMenu::init() {
 	Game::instance().changeBackgroundMusic("music/menu.ogg");
 	Game::instance().getBackgroundMusic().setLoop(true);
 	Game::instance().getBackgroundMusic().setVolume(75);
+
+	mKonami = new Konami(mTexProgram);
+	mKonami->init();
 }
 
 void SceneMenu::update(int deltaTime) {
@@ -54,6 +57,9 @@ void SceneMenu::update(int deltaTime) {
 		}
 	}
 
+	if (Game::instance().getKeyPressed('w'))
+		Game::instance().changeScene(SCENE_FINAL);
+
 	const int curOption = static_cast<unsigned int>(mMenuOption);
 	const int numOptions = static_cast<unsigned int>(NUM_OPTIONS);
 
@@ -64,9 +70,12 @@ void SceneMenu::update(int deltaTime) {
 		mMenuOption = static_cast<MenuOption>((curOption + numOptions + 1)%numOptions);
 		Game::instance().playSoundEffect("sfx/tick.ogg");
 	}
+
+	mKonami->update(deltaTime);
 }
 
 void SceneMenu::render() {
 	Scene::render();
 	mBobble->render();
+	mKonami->render();
 }

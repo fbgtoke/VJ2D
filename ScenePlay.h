@@ -51,6 +51,7 @@ private:
 	static const int kStartingScore;
 	static const int kTurnPenalty;
 	int mScore;
+	std::string mTitle;
 	void updateScore();
 
 	// Win condition

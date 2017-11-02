@@ -3,7 +3,7 @@
 
 const int ScenePlay::kMaxLevelNumber = 4;
 
-const int ScenePlay::kStartingScore = 100;
+const int ScenePlay::kStartingScore = 1000;
 const int ScenePlay::kTurnPenalty = 10;
 
 const int ScenePlay::kTimeToNextScene = 2000;
@@ -37,7 +37,8 @@ void ScenePlay::init() {
 
 	mTexFont.loadFromFile("images/font.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	mTextScore.init();
-	mTextScore.setPosition(glm::vec2(0.0f, 0.0f));
+	mTextScore.setPosition(glm::vec2(4.0f, 2.0f));
+	mTitle = mBubbleLevel.getTitle();
 
 	mTimeToNextScene = -1;
 
@@ -174,7 +175,10 @@ void ScenePlay::receiveInteger(int integer) {
 }
 
 void ScenePlay::updateScore() {
-	mTextScore.setString("Score " + std::to_string(mScore));
+	mTextScore.setString(
+		"Score " + std::to_string(mScore) +
+		"   " + mTitle
+	);
 }
 
 void ScenePlay::winLevel() {

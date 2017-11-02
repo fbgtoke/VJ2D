@@ -258,6 +258,33 @@ Game.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Game.cpp.s
 .PHONY : Game.cpp.s
 
+Konami.o: Konami.cpp.o
+
+.PHONY : Konami.o
+
+# target to build an object file
+Konami.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Konami.cpp.o
+.PHONY : Konami.cpp.o
+
+Konami.i: Konami.cpp.i
+
+.PHONY : Konami.i
+
+# target to preprocess a source file
+Konami.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Konami.cpp.i
+.PHONY : Konami.cpp.i
+
+Konami.s: Konami.cpp.s
+
+.PHONY : Konami.s
+
+# target to generate assembly for a file
+Konami.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Konami.cpp.s
+.PHONY : Konami.cpp.s
+
 MovingBubble.o: MovingBubble.cpp.o
 
 .PHONY : MovingBubble.o
@@ -768,6 +795,9 @@ help:
 	@echo "... Game.o"
 	@echo "... Game.i"
 	@echo "... Game.s"
+	@echo "... Konami.o"
+	@echo "... Konami.i"
+	@echo "... Konami.s"
 	@echo "... MovingBubble.o"
 	@echo "... MovingBubble.i"
 	@echo "... MovingBubble.s"

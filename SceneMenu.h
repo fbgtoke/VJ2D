@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "SpriteBobble.h"
+#include "Konami.h"
 
 class SceneMenu : public Scene {
 public:
@@ -27,6 +28,8 @@ private:
 		NUM_OPTIONS
 	};
 	MenuOption mMenuOption;
+
+	Konami* mKonami;
 };
 
 

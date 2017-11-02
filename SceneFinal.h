@@ -15,6 +15,9 @@ public:
 private:
 	bool mMusicInit;
 
+	Texture mTexFrame;
+	Sprite* mSpriteFrame;
+
 	Texture mTex;
 	Sprite* mSprite;
 

@@ -1,5 +1,5 @@
 The Beginning
-bg3.png
+bg0.png
 5
 0
 32 36
