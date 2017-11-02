@@ -1,6 +1,7 @@
 The Beginning
 bg3.png
 5
+0
 32 36
 
 11 20

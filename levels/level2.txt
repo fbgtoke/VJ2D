@@ -1,6 +1,7 @@
 Practice makes perfect
 bg2.png
 4
+1
 32 36
 
 11 20

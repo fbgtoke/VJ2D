@@ -28,7 +28,9 @@ void ScenePlay::init() {
 	mBubbleLevel.loadFromFile("level" + std::to_string(mLevelNumber) + ".txt");
 	setBackground(mBubbleLevel.getBackgroundName());
 
-	mBoard.init(mBubbleLevel, mBubbleLevel.getTurnsBetweenCollapse());
+	unsigned int turnsBetweenCollapse = mBubbleLevel.getTurnsBetweenCollapse();
+	bool allowBubbleBomb = mBubbleLevel.getAllowBubbleBomb(); 
+	mBoard.init(mBubbleLevel, turnsBetweenCollapse, allowBubbleBomb);
 	mCannon.init();
 
 	initMovingBubbles();

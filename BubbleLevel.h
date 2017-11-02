@@ -34,6 +34,9 @@ public:
 
 	void setBubbles(const std::vector<std::vector<BubbleType>>& bubbles);
 	void getBubbles(std::vector<std::vector<BubbleType>>& bubbles) const;
+
+	void setAllowBubbleBomb(bool allow);
+	bool getAllowBubbleBomb() const;
 private:
 	static const std::string kPathToLevels;
 	static const std::string kPathToBackgrounds;
@@ -47,6 +50,8 @@ private:
 	unsigned int mBubblesHeight;
 	std::vector<std::vector<BubbleType>> mBubbles;
 	void readBubbles(std::ifstream& stream);
+
+	bool mAllowBubbleBomb;
 };
 
 #endif // _BUBBLE_LEVEL_INCLUDE

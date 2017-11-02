@@ -1,6 +1,7 @@
 Fill the gaps
 bg1.png
 2
+1
 32 36
 
 11 20

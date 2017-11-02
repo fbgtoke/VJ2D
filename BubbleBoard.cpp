@@ -11,7 +11,7 @@ BubbleBoard::~BubbleBoard() {
 	mBubbles.clear();
 }
 
-void BubbleBoard::init(const BubbleLevel& level, unsigned int turnsBetweenCollapse) {
+void BubbleBoard::init(const BubbleLevel& level, unsigned int turnsBetweenCollapse, bool allowBubbleBomb) {
 	// Init board
 	mOffset = level.getOffset();
 	mBoardWidth  = level.getBubblesWidth();
@@ -40,6 +40,8 @@ void BubbleBoard::init(const BubbleLevel& level, unsigned int turnsBetweenCollap
 		mWall->setAnimationSpeed(0, 0);
 		mWall->addKeyframe(0, glm::vec2(0, 0));
 	mWall->changeAnimation(0);
+
+	mAllowBubbleBomb = allowBubbleBomb;
 
 	mShaking = (mTurnsUntilCollapse == 1);
 	mShakeFrame = 0;
@@ -328,7 +330,11 @@ void BubbleBoard::getPossibleBubbleTypes(std::vector<BubbleType>& types) const {
 		}
 	}
 
-	types.push_back(BUBBLE_BOMB);
+	if (mAllowBubbleBomb)
+		types.push_back(BUBBLE_BOMB);
+
+	if (types.size() == 0)
+		types.push_back(BUBBLE_NONE);
 }
 
 void BubbleBoard::decTurnsUntilCollapse() {

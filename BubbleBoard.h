@@ -25,7 +25,7 @@ public:
 	BubbleBoard(ShaderProgram &shaderProgram);
 	~BubbleBoard();
 
-	void init(const BubbleLevel& level, unsigned int turnsBetweenCollapse);
+	void init(const BubbleLevel& level, unsigned int turnsBetweenCollapse, bool allowBubbleBomb);
 	void update(int deltaTime);
 	void render();
 
@@ -86,6 +86,7 @@ private:
 
 	void makeBubbleFall(unsigned int x, unsigned int y);
 	void makeBubbleExplode(unsigned int x, unsigned int y);
+	bool mAllowBubbleBomb;
 
 	// Screen shake
 	bool mShaking;
