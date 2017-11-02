@@ -41,7 +41,7 @@ void BubbleBoard::init(const BubbleLevel& level, unsigned int turnsBetweenCollap
 		mWall->addKeyframe(0, glm::vec2(0, 0));
 	mWall->changeAnimation(0);
 
-	mShaking = false;
+	mShaking = (mTurnsUntilCollapse == 1);
 	mShakeFrame = 0;
 }
 

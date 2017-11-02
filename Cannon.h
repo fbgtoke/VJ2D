@@ -27,6 +27,8 @@ private:
 	// Textures
 	Texture mTexArrow;
 	Texture mTexBubbles;
+	Texture mTexBase;
+	Texture mTexWheel;
 
 	// Bubbles
 	BubbleType mCurrentBubbleType;
@@ -34,6 +36,8 @@ private:
 
 	// Sprites
 	Sprite* mArrow;
+	Sprite* mBase;
+	Sprite* mWheel;
 };
 
 #endif
