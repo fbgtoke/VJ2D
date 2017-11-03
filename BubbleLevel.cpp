@@ -24,18 +24,21 @@ void BubbleLevel::loadFromFile(const std::string& filename) {
 	std::string backgroundName;
 	unsigned int turnsBetweenCollapse;
 	bool allowBubbleBomb;
+	unsigned int seed;
 	glm::vec2 offset;
 
 	std::getline(stream, title);
 	std::getline(stream, backgroundName);
 	stream >> turnsBetweenCollapse;
 	stream >> allowBubbleBomb;
+	stream >> seed;
 	stream >> offset.x >> offset.y;
 
 	setTitle(title);
 	setBackgroundName(backgroundName);
 	setTurnsBetweenCollapse(turnsBetweenCollapse);
 	setAllowBubbleBomb(allowBubbleBomb);
+	setSeed(seed);
 	setOffset(offset);
 
 	readBubbles(stream);
@@ -104,6 +107,14 @@ void BubbleLevel::setAllowBubbleBomb(bool allow) {
 
 bool BubbleLevel::getAllowBubbleBomb() const {
 	return mAllowBubbleBomb;
+}
+
+void BubbleLevel::setSeed(unsigned int seed) {
+	mSeed = seed;
+}
+
+unsigned int BubbleLevel::getSeed() const {
+	return mSeed;
 }
 
 void BubbleLevel::readBubbles(std::ifstream& stream) {

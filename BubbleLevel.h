@@ -37,6 +37,9 @@ public:
 
 	void setAllowBubbleBomb(bool allow);
 	bool getAllowBubbleBomb() const;
+
+	void setSeed(unsigned int seed);
+	unsigned int getSeed() const;
 private:
 	static const std::string kPathToLevels;
 	static const std::string kPathToBackgrounds;
@@ -52,6 +55,7 @@ private:
 	void readBubbles(std::ifstream& stream);
 
 	bool mAllowBubbleBomb;
+	unsigned int mSeed;
 };
 
 #endif // _BUBBLE_LEVEL_INCLUDE

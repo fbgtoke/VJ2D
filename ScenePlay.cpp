@@ -44,6 +44,9 @@ void ScenePlay::init() {
 
 	Game::instance().changeBackgroundMusic("music/play.ogg");
 	Game::instance().getBackgroundMusic().setLoop(true);
+
+	mRandomSeed = mBubbleLevel.getSeed();
+	mRandomEngine = std::mt19937(mRandomSeed);
 }
 
 void ScenePlay::update(int deltaTime) {
@@ -143,12 +146,14 @@ void ScenePlay::updateMovingBubbles(int deltaTime) {
 	}
 }
 
-BubbleType ScenePlay::getRandomBubbleType() const {
+BubbleType ScenePlay::getRandomBubbleType() {
 	std::vector<BubbleType> types;
 	mBoard.getPossibleBubbleTypes(types);
 
+	std::uniform_int_distribution<int> dist(0, types.size() - 1);
+
 	if (types.size() > 0) {
-		unsigned int index = rand()%(types.size());
+		unsigned int index = dist(mRandomEngine);
 		return static_cast<BubbleType>(types[index]);
 	}
 

@@ -10,6 +10,7 @@
 #include "Text.h"
 
 #include <string>
+#include <random>
 
 class ScenePlay : public Scene {
 public:
@@ -34,7 +35,7 @@ private:
 	// Moving bubble
 	void initMovingBubbles();
 	void updateMovingBubbles(int deltaTime);
-	BubbleType getRandomBubbleType() const;
+	BubbleType getRandomBubbleType();
 	void swapMovingBubbles();
 	MovingBubble* mCurrentMovingBubble;
 	MovingBubble* mNextMovingBubble;
@@ -63,6 +64,11 @@ private:
 	void looseLevel();
 
 	void goToNextScene();
+
+	// Random
+	unsigned int mRandomSeed;
+	std::mt19937 mRandomEngine;
+
 };
 
 
