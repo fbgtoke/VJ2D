@@ -43,10 +43,10 @@ void Konami::update(int deltaTime) {
 			position.x += 0.1 * deltaTime;
 			sprite->setPosition(position);
 
-			/*if (outOfBounds(sprite)) {
+			if (outOfBounds(sprite)) {
 				delete sprite;
 				mSprites.erase(it++);
-			}*/
+			}
 			it++;
 
 		}
@@ -104,10 +104,10 @@ bool Konami::outOfBounds(Sprite* sprite) {
 	const float margin = 32.0f;
 
 	return
-		position.x < 0 - margin ||
-		position.x > 240 + margin ||
-		position.y < 0 - margin ||
-		position.y > 320 + margin;
+		position.x < 0 - 1000 ||
+		position.x > 240 + 1000 ||
+		position.y < 0 - 1000 ||
+		position.y > 320 + 1000;
 }
 
 void Konami::updateSequence() {

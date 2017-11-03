@@ -10,6 +10,8 @@
 #include "BubbleType.h"
 #include "BubbleBoard.h"
 
+#include "Explosion.h"
+
 class MovingBubble {
 public:
 	MovingBubble(ShaderProgram& shaderProgram, BubbleType type, BubbleBoard& board);

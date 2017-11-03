@@ -1,4 +1,5 @@
 #include "FallingBubble.h"
+#include "Game.h"
 
 const float FallingBubble::kAcceleration = 0.002f;
 

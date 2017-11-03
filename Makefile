@@ -204,6 +204,33 @@ Cannon.cpp.s:
 	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Cannon.cpp.s
 .PHONY : Cannon.cpp.s
 
+Explosion.o: Explosion.cpp.o
+
+.PHONY : Explosion.o
+
+# target to build an object file
+Explosion.cpp.o:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Explosion.cpp.o
+.PHONY : Explosion.cpp.o
+
+Explosion.i: Explosion.cpp.i
+
+.PHONY : Explosion.i
+
+# target to preprocess a source file
+Explosion.cpp.i:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Explosion.cpp.i
+.PHONY : Explosion.cpp.i
+
+Explosion.s: Explosion.cpp.s
+
+.PHONY : Explosion.s
+
+# target to generate assembly for a file
+Explosion.cpp.s:
+	$(MAKE) -f CMakeFiles/Bubble.dir/build.make CMakeFiles/Bubble.dir/Explosion.cpp.s
+.PHONY : Explosion.cpp.s
+
 FallingBubble.o: FallingBubble.cpp.o
 
 .PHONY : FallingBubble.o
@@ -789,6 +816,9 @@ help:
 	@echo "... Cannon.o"
 	@echo "... Cannon.i"
 	@echo "... Cannon.s"
+	@echo "... Explosion.o"
+	@echo "... Explosion.i"
+	@echo "... Explosion.s"
 	@echo "... FallingBubble.o"
 	@echo "... FallingBubble.i"
 	@echo "... FallingBubble.s"

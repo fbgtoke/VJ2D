@@ -111,8 +111,14 @@ void MovingBubble::checkCollision() {
 
 		mBubbleState = BUBBLE_DEAD;
 
-		if (mBubbleType == BUBBLE_BOMB)
+		if (mBubbleType == BUBBLE_BOMB) {
 			Game::instance().playSoundEffect("sfx/explosion.ogg");
+
+			Explosion* explosion = new Explosion(mTexProgram);
+			explosion->init();
+			explosion->setPosition(mPosition + glm::vec2(-8.0f, -32.0f));
+			Game::instance().getScene()->addParticle(explosion);
+		}
 	}
 }
 
