@@ -36,6 +36,8 @@ public:
 	void setPosition(const glm::vec2 &pos);
 	glm::vec2 getPosition() const;
 
+	void move(const glm::vec2& pos); 
+
 	void setRepeat(bool set);
 	void setKeyFrame(int animId, int keyFrameId);
 

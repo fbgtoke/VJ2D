@@ -47,10 +47,16 @@ void Konami::update(int deltaTime) {
 				delete sprite;
 				mSprites.erase(it++);
 			}
-			it++;
 
+			int random = rand()%800;
+			if (random == 0)
+				Game::instance().playSoundEffect("sfx/konami.ogg");
+
+			it++;
 		}
-	}	
+
+		mActive = (mSprites.size() != 0);
+	}
 }
 
 void Konami::render() {
@@ -105,7 +111,7 @@ bool Konami::outOfBounds(Sprite* sprite) {
 
 	return
 		position.x < 0 - 1000 ||
-		position.x > 240 + 1000 ||
+		position.x > 240 + 500 ||
 		position.y < 0 - 1000 ||
 		position.y > 320 + 1000;
 }
@@ -156,6 +162,7 @@ void Konami::updateSequence() {
 
 	if (mSequenceState == 10 && !mActive) {
 		mActive = true;
+		mSequenceState = 0;
 		initSprites();
 	}
 }

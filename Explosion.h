@@ -4,8 +4,6 @@
 #include <glm/glm.hpp>
 
 #include "Particle.h"
-#include "SpriteBubble.h"
-#include "BubbleType.h"
 
 class Explosion : public Particle {
 public:
