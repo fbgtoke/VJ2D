@@ -1,6 +1,6 @@
 The Beginning
 bg0.png
-5
+10
 0
 12347
 32 36
