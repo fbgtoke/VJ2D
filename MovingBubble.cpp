@@ -157,6 +157,12 @@ bool MovingBubble::collide(const glm::vec2& pos1, const glm::vec2& pos2, float s
 	glm::vec2 pos1_ = pos1 + glm::vec2(size/2.0f, size/2.0f);
 	glm::vec2 pos2_ = pos2 + glm::vec2(size/2.0f, size/2.0f);
 
+	/* Intersection between circles */
+	return
+		abs(size/2 - size/2) <= dist(pos1_, pos2_) &&
+		dist(pos1_, pos2_) <= abs(size/2 + size/2);
+
+	/* Intersection between AABBs */
 	return
 		pos1.x < pos2.x + size && pos1.x + size > pos2.x &&
     	pos1.y < pos2.y + size && pos1.y + size > pos2.y;

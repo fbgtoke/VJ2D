@@ -115,12 +115,11 @@ void Game::stop() {
 }
 
 void Game::changeBackgroundMusic(const std::string& filename) {
-	if (mBackgroundMusic.getStatus() == sf::Music::Playing && filename != mCurrentMusic)
-		mBackgroundMusic.stop();
-
-	mBackgroundMusic.openFromFile(filename);
-	mBackgroundMusic.play();
-	mBackgroundMusic.setVolume(50);
+	if (filename != mCurrentMusic) {
+		mBackgroundMusic.openFromFile(filename);
+		mBackgroundMusic.play();
+		mBackgroundMusic.setVolume(50);
+	}
 
 	mCurrentMusic = filename;
 }
